@@ -12,6 +12,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function nfts() {
+        return $this->belongsToMany(NFT::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
