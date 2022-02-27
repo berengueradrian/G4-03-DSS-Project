@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CollectionSeeder extends Seeder
 {
@@ -13,6 +14,27 @@ class CollectionSeeder extends Seeder
      */
     public function run()
     {
-        //
+
+        // Delete the table data   
+        DB::table('collections')->delete();
+
+        // Add a new entry to the table 
+        DB::table('collections')->insert(
+            [
+                //'id' => 1,
+                'description' => 'The first collection ever created!',
+                'artist_id' => 8888
+            ],
+            [
+                //'id' => 4,
+                'description' => 'Developed by Elon Musk and Michael Jordan',
+                'artist_id' => 9999
+            ],
+            [
+                //'id' => 3,
+                'description' => 'Most exotics NFTs are here!',
+                'artist_id' => 1111
+            ]
+        );
     }
 }
