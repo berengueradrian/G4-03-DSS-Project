@@ -23,24 +23,29 @@ class NFTSeeder extends Seeder
         DB::table('n_f_t_s')->insert(
             [
                 'id' => 07123,
+                'collection_id' => 4,
                 'name' => 'apeloco',
                 'base_price' => 100,
                 'exclusive' => false,
                 'limit_date' => NULL,
                 'available' => true,
                 'actual_price' => 120
-            ],
+            ]);
+        DB::table('n_f_t_s')->insert(
             [
                 'id' => 94133,
+                'collection_id' => 4,
                 'name' => 'apedidas',
                 'base_price' => 90,
                 'exclusive' => false,
                 'limit_date' => NULL,
                 'available' => false,
                 'actual_price' => 300
-            ],
+            ]);
+        DB::table('n_f_t_s')->insert(
             [
                 'id' => 13123,
+                'collection_id' => 3,
                 'name' => 'bored',
                 'base_price' => 676,
                 'exclusive' => true,

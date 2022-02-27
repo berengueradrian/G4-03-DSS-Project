@@ -13,13 +13,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //   $this->call(UserSeeder::class);
+        $this->call(UserSeeder::class);
         $this->command->info('User table seeded!');
         $this->call(ArtistSeeder::class);
         $this->command->info('Artist table seeded!');
-        //$this->call(CollectionSeeder::class);
+        $this->call(CollectionSeeder::class);
         $this->command->info('Collection table seeded!');
-        //$this->call(NFTSeeder::class);
+        $this->call(NFTSeeder::class);
         $this->command->info('NFT table seeded!');
     }
 }

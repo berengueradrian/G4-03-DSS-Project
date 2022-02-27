@@ -21,21 +21,24 @@ class ArtistSeeder extends Seeder
         // Add a new entry to the table 
         DB::table('artists')->insert(
             [
-                //'id' => 8888,
+                'id' => 8888,
                 'name' => 'picazo',
                 'balance' => 88,
                 'volme_sold' => 0,
                 'description' => 'Pedro picazo is the most popular NFT influencer in Hong Kong'
-            ],
+            ]
+            );
+        DB::table('artists')->insert(
             [
-                // 'id' => 9999,
+                'id' => 9999,
                 'name' => 'vetoven',
                 'balance' => 99,
                 'volme_sold' => 500,
                 'description' => 'Willy Vetoven is a new artist with high quality creations'
-            ],
+            ]);
+        DB::table('artists')->insert(
             [
-                //'id' => 1111,
+                'id' => 1111,
                 'name' => 'elbicho',
                 'balance' => 111,
                 'volme_sold' => 10,

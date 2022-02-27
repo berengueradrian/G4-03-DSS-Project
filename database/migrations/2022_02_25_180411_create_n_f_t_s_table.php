@@ -18,7 +18,7 @@ class CreateNFTSTable extends Migration
             $table->string('name');
             $table->float('base_price');
             $table->boolean('exclusive');
-            $table->date('limit_date');
+            $table->date('limit_date')->nullable();
             $table->boolean('available');
             $table->float('actual_price');
             $table->foreignId('collection_id')->constrained('collections');
