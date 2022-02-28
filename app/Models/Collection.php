@@ -9,6 +9,8 @@ class Collection extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['description'];
+
     public function artist() {
         return $this->belongsTo(Artist::class);
     }

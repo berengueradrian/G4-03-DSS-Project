@@ -24,7 +24,7 @@ class ArtistSeeder extends Seeder
                 'id' => 8888,
                 'name' => 'picazo',
                 'balance' => 88,
-                'volme_sold' => 0,
+                'volume_sold' => 0,
                 'description' => 'Pedro picazo is the most popular NFT influencer in Hong Kong'
             ]
             );
@@ -33,7 +33,7 @@ class ArtistSeeder extends Seeder
                 'id' => 9999,
                 'name' => 'vetoven',
                 'balance' => 99,
-                'volme_sold' => 500,
+                'volume_sold' => 500,
                 'description' => 'Willy Vetoven is a new artist with high quality creations'
             ]);
         DB::table('artists')->insert(
@@ -41,7 +41,7 @@ class ArtistSeeder extends Seeder
                 'id' => 1111,
                 'name' => 'elbicho',
                 'balance' => 111,
-                'volme_sold' => 10,
+                'volume_sold' => 10,
                 'description' => 'Jesus, also known as elbicho is a spanish influencer with a high amount of colaborations with some companies such as Zara, Adidas and Nike'
             ]
         );
