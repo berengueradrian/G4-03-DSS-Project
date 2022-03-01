@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class NFT extends Model
 {
     use HasFactory;
+    
+    public $timestamps = false;
 
-    public function collections() {
+    public function collection() {
         return $this->belongsTo(Collection::class);
     }
 
