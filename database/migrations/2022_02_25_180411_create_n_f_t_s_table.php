@@ -23,6 +23,7 @@ class CreateNFTSTable extends Migration
             $table->float('actual_price');
             $table->foreignId('collection_id')->constrained('collections');
             $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->timestamps();
         });
     }
 

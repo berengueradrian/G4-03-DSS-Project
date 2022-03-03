@@ -10,8 +10,6 @@ class Artist extends Model
 
     use HasFactory;
 
-    public $timestamps = false;
-
     public function collections() {
         return $this->hasMany(Collection::class);
     }
