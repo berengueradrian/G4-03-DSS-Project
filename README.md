@@ -8,3 +8,7 @@ An ultra-intuitive implementation of the NFT marketplace to reach people with li
 - Adrian Berenguer Agullo
 - Javier Rodriguez Juan
 - Madani El Mrabet Martinez
+
+### TRELLO LINK ###
+
+https://trello.com/b/BBHhAP4a/dss-g4-03-proyecto
