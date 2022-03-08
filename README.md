@@ -11,4 +11,6 @@ An ultra-intuitive implementation of the NFT marketplace to reach people with li
 
 ### TRELLO LINK ###
 
-https://trello.com/b/BBHhAP4a/dss-g4-03-proyecto
+DSS-G4 LINK: https://trello.com/b/BBHhAP4a/dss-g4-03-proyecto
+
+If it's your first time: https://trello.com/invite/b/BBHhAP4a/73532471bd6a74e678979bf3e1288b8e/dss-g4-03-proyecto
