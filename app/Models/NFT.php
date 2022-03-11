@@ -17,19 +17,23 @@ class NFT extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function putOnSaleNFT(string $id) : bool {
+    public function type() {
+        return $this->belongsTo(Type::class);
+    }
+
+    public function putOnSaleNFT(int $id) : bool {
         return false;
     }
 
-    public function bidNFT(string $id) : bool {
+    public function bidNFT(int $id) : bool {
         return false;
     }
 
-    public function purchaseNFT(string $id) : bool {
+    public function purchaseNFT(int $id) : bool {
         return false;
     }
 
-    public function auction(string $id) : bool {
+    public function auction(int $id) : bool {
         return false;
     }
 }
