@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Artist table seeded!');
         $this->call(CollectionSeeder::class);
         $this->command->info('Collection table seeded!');
+        $this->call(TypesSeeder::class);
+        $this->command->info('Type table seeded!');
         $this->call(NFTSeeder::class);
         $this->command->info('NFT table seeded!');
     }

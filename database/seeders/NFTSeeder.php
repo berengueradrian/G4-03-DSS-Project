@@ -14,8 +14,6 @@ class NFTSeeder extends Seeder
      */
     public function run()
     {
-
-
         // Delete the table data   
         DB::table('n_f_t_s')->delete();
 
@@ -26,32 +24,34 @@ class NFTSeeder extends Seeder
                 'collection_id' => 4,
                 'name' => 'apeloco',
                 'base_price' => 100,
-                'exclusive' => false,
                 'limit_date' => NULL,
                 'available' => true,
-                'actual_price' => 120
-            ]);
+                'actual_price' => 120,
+                'type_id' => 1
+            ]
+        );
         DB::table('n_f_t_s')->insert(
             [
                 'id' => 94133,
                 'collection_id' => 4,
                 'name' => 'apedidas',
                 'base_price' => 90,
-                'exclusive' => false,
                 'limit_date' => NULL,
                 'available' => false,
-                'actual_price' => 300
-            ]);
+                'actual_price' => 300,
+                'type_id' => 2
+            ]
+        );
         DB::table('n_f_t_s')->insert(
             [
                 'id' => 13123,
                 'collection_id' => 3,
                 'name' => 'bored',
                 'base_price' => 676,
-                'exclusive' => true,
                 'limit_date' => NULL,
                 'available' => true,
-                'actual_price' => 9832
+                'actual_price' => 9832,
+                'type_id' => 3
             ]
         );
     }
