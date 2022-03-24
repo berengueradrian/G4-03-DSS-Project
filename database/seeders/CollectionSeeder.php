@@ -18,12 +18,14 @@ class CollectionSeeder extends Seeder
         // Delete the table data   
         DB::table('collections')->delete();
 
-        DB::table('collections')->insert([
-            'id' => 4,
-            'description' => 'Developed by Elon Musk and Michael Jordan',
-            'artist_id' => 9999,
-            'name' => 'colec1'
-        ]);
+        DB::table('collections')->insert(
+            [
+                'id' => 4,
+                'description' => 'Developed by Elon Musk and Michael Jordan',
+                'artist_id' => 9999,
+                'name' => 'colec1'
+            ]
+        );
 
         DB::table('collections')->insert(
             [

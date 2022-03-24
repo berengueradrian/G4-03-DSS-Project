@@ -17,12 +17,12 @@ class CreateNFTSTable extends Migration
             $table->id();
             $table->string('name');
             $table->float('base_price');
-            $table->boolean('exclusive');
             $table->date('limit_date')->nullable();
             $table->boolean('available');
             $table->float('actual_price');
-            $table->foreignId('collection_id')->constrained('collections');
-            $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->foreignId('collection_id')->constrained('collections')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('type_id')->constrained('types')->onDelete('cascade');
             $table->timestamps();
         });
     }
