@@ -20,7 +20,6 @@ class UserSeeder extends Seeder
         // Add a new entry to the table 
         DB::table('users')->insert(
             [
-                'id' => 4872,
                 'name' => 'marioalc19',
                 'balance' => 19,
                 'email' => 'marioloco@gmail.com',
@@ -28,7 +27,6 @@ class UserSeeder extends Seeder
             ]);
             DB::table('users')->insert(
             [
-                'id' => 1610,
                 'name' => 'amancio1',
                 'balance' => 7,
                 'email' => 'amamancio@gmail.com',
@@ -36,7 +34,6 @@ class UserSeeder extends Seeder
             ]);
             DB::table('users')->insert(
             [
-                'id' => 1101,
                 'name' => 'mesipeq',
                 'balance' => 16,
                 'email' => 'adrinano@gmail.com',
