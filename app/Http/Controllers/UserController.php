@@ -8,35 +8,39 @@ use App\Models\User;
 class UserController extends Controller
 {
 
-    public function get(User $user){
-        return response()->json(['user' => $user]);
+    public function get(User $user)
+    {
+        return view('users.details')->with('user', $user);
     }
 
-    public function getAll(){
+    public function getAll()
+    {
         $users = User::all();
-        return response()->json(['user' => $users]);
+        return view('users.list')->with('users', $users);
     }
 
-    public function create(Request $data){
+    public function create(Request $data)
+    {
         $user = User::create([
             'name' => $data->name,
             'email' => $data->email,
-            'password' => password_hash($data->password, PASSWORD_BCRYPT) //TODO: añadir el BCRYPT este
+            'password' => password_hash($data->password, PASSWORD_BCRYPT)
         ]);
 
         return response()->json(['success' => true, 'user' => $user]);
     }
 
-    public function delete(User $user){
-        if(User::whereId($user->id)->count()){
+    public function delete(User $user)
+    {
+        if (User::whereId($user->id)->count()) {
             $user->delete();
             return response()->json(['success' => true, 'user' => $user]);
         }
         return response()->json(['success' => false]);
     }
 
-    public function update(){
+    public function update()
+    {
         //TODO:
     }
-
 }

@@ -11,6 +11,7 @@ class NFTController extends Controller
 
     public function get(NFT $nft)
     {
+        //return view('post.create');
         return response()->json(['nft' => $nft]);
     }
 
@@ -45,8 +46,8 @@ class NFTController extends Controller
         return response()->json(['success' => false]);
     }
 
-    public function update(){
+    public function update()
+    {
         //TODO:
     }
-
 }
