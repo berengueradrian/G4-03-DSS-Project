@@ -35,4 +35,11 @@ Route::group(['prefix' => 'api'], function () {
     Route::delete('/users/{user}', [UserController::class, 'delete']);
     Route::put('/users/{user}', [UserController::class, 'update']); //TODO: this one :)
 
+    //Artist
+    Route::get('/artists/{artist}', [ArtistController::class, 'get']);
+    Route::get('/artists', [ArtistController::class, 'getAll']);
+    Route::post('/artists', [ArtistController::class, 'create']);
+    Route::delete('/artists/{artist}', [ArtistController::class, 'delete']);
+    Route::put('/artists/{artist}', [ArtistController::class, 'update']); //TODO: this one :)
+
 });
