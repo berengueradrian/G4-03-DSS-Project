@@ -20,7 +20,6 @@ class TypesSeeder extends Seeder
         // Add a new entry to the table 
         DB::table('types')->insert(
             [
-                'id' => 1,
                 'name' => 'exclusive',
                 'description' => 'NFT able to bid'
             ]
@@ -28,7 +27,6 @@ class TypesSeeder extends Seeder
 
         DB::table('types')->insert(
             [
-                'id' => 2,
                 'name' => 'normal',
                 'description' => 'NFT to put on sale'
             ]
@@ -36,7 +34,6 @@ class TypesSeeder extends Seeder
 
         DB::table('types')->insert(
             [
-                'id' => 3,
                 'name' => 'undernormal',
                 'description' => 'NFT under normal'
             ]

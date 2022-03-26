@@ -14,44 +14,44 @@ class NFTSeeder extends Seeder
      */
     public function run()
     {
+        $collectionsId = DB::table('collections')->pluck('id');
+        $typesId = DB::table('types')->pluck('id');
+
         // Delete the table data   
         DB::table('n_f_t_s')->delete();
 
         // Add a new entry to the table 
         DB::table('n_f_t_s')->insert(
             [
-                'id' => 07123,
-                'collection_id' => 4,
+                'collection_id' => $collectionsId[0],
                 'name' => 'apeloco',
                 'base_price' => 100,
                 'limit_date' => NULL,
                 'available' => true,
                 'actual_price' => 120,
-                'type_id' => 1
+                'type_id' => $typesId[0]
             ]
         );
         DB::table('n_f_t_s')->insert(
             [
-                'id' => 94133,
-                'collection_id' => 4,
+                'collection_id' => $collectionsId[1],
                 'name' => 'apedidas',
                 'base_price' => 90,
                 'limit_date' => NULL,
                 'available' => false,
                 'actual_price' => 300,
-                'type_id' => 2
+                'type_id' => $typesId[0]
             ]
         );
         DB::table('n_f_t_s')->insert(
             [
-                'id' => 13123,
-                'collection_id' => 3,
+                'collection_id' => $collectionsId[2],
                 'name' => 'bored',
                 'base_price' => 676,
                 'limit_date' => NULL,
                 'available' => true,
                 'actual_price' => 9832,
-                'type_id' => 3
+                'type_id' => $typesId[0]
             ]
         );
     }
