@@ -21,7 +21,6 @@ class ArtistSeeder extends Seeder
         // Add a new entry to the table 
         DB::table('artists')->insert(
             [
-                'id' => 8888,
                 'name' => 'picazo',
                 'balance' => 88,
                 'volume_sold' => 0,
@@ -30,7 +29,6 @@ class ArtistSeeder extends Seeder
         );
         DB::table('artists')->insert(
             [
-                'id' => 9999,
                 'name' => 'vetoven',
                 'balance' => 99,
                 'volume_sold' => 500,
@@ -39,7 +37,6 @@ class ArtistSeeder extends Seeder
         );
         DB::table('artists')->insert(
             [
-                'id' => 1111,
                 'name' => 'elbicho',
                 'balance' => 111,
                 'volume_sold' => 10,

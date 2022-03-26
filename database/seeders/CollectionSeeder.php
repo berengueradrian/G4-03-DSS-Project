@@ -14,24 +14,23 @@ class CollectionSeeder extends Seeder
      */
     public function run()
     {
+        $artistsId = DB::table('artists')->pluck('id');
 
         // Delete the table data   
         DB::table('collections')->delete();
 
         DB::table('collections')->insert(
             [
-                'id' => 4,
                 'description' => 'Developed by Elon Musk and Michael Jordan',
-                'artist_id' => 9999,
+                'artist_id' => $artistsId[0],
                 'name' => 'colec1'
             ]
         );
 
         DB::table('collections')->insert(
             [
-                'id' => 3,
                 'description' => 'Most exotics NFTs are here!',
-                'artist_id' => 1111,
+                'artist_id' => $artistsId[1],
                 'name' => 'colec1'
             ]
         );
@@ -39,9 +38,8 @@ class CollectionSeeder extends Seeder
         // Add a new entry to the table 
         DB::table('collections')->insert(
             [
-                'id' => 1,
                 'description' => 'The first collection ever created!',
-                'artist_id' => 8888,
+                'artist_id' => $artistsId[2],
                 'name' => 'colec1'
             ]
         );
