@@ -15,19 +15,18 @@ class UserController extends Controller
 
     public function getAll()
     {
-        $users = User::all();
+        $users = User::paginate(2);
         return view('users.list')->with('users', $users);
     }
 
-    public function create(Request $data)
+    public function create()
     {
-        $user = User::create([
-            'name' => $data->name,
-            'email' => $data->email,
-            'password' => password_hash($data->password, PASSWORD_BCRYPT)
-        ]);
+        return view('users.create');
+    }
 
-        return response()->json(['success' => true, 'user' => $user]);
+    public function store(Request $request)
+    {
+        $request->validate([]);
     }
 
     public function delete(User $user)

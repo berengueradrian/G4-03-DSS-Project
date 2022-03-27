@@ -11,29 +11,18 @@ class NFTController extends Controller
 
     public function get(NFT $nft)
     {
-        //return view('post.create');
-        return response()->json(['nft' => $nft]);
+        return view('nfts.details')->with('nft', $nft);
     }
 
     public function getAll()
     {
-        $nfts = NFT::all();
-        return response()->json(['nfts' => $nfts]);
+        $nfts = NFT::paginate(2);
+        return view('nfts.list')->with('nfts', $nfts);
     }
 
-    public function create(Request $data)
+    public function create()
     {
-        $nft = NFT::create([
-            'name' => $data->name,
-            'base_price' => $data->base_price,
-            'limit_date' => $data->limit_date,
-            'available' => $data->available,
-            'actual_price' => $data->actual_price,
-            'collection_id' => $data->collection_id,
-            'user_id' => $data->user_id, //not sure
-            'type_id' => $data->type_id
-        ]);
-        return response()->json(['success' => true, 'nft' => $nft]);
+        return view('nfts.create');
     }
 
     public function delete(NFT $nft)
