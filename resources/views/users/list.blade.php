@@ -1,7 +1,5 @@
 @extends('layouts')
 
-@section('title', 'User list')
-
 @section('content')
 <h1>Users</h1>
 <table class="table table-striped">
@@ -20,4 +18,7 @@
         @endforeach
     </tbody>
 </table>
+
+{{ $users->links() }}
+
 @endsection

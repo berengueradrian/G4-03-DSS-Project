@@ -26,14 +26,20 @@ Route::group(['prefix' => 'api'], function () {
     //NFTS
     Route::get('/nfts/{nft}', [NFTController::class, 'get']);
     Route::get('/nfts', [NFTController::class, 'getAll']);
-    Route::post('/nfts', [NFTController::class, 'create']);
+
+    Route::get('/nfts/create', [UserController::class, 'create']);
+    //Route::post('/nfts', [NFTController::class, 'create']);
+
     Route::delete('/nfts/{nft}', [NFTController::class, 'delete']);
     Route::put('/nfts/{nft}', [NFTController::class, 'update']); //TODO: this one :)
 
     //User
     Route::get('/users/{user}',  [UserController::class, 'get']);
     Route::get('/users', [UserController::class, 'getAll']);
-    Route::post('/users', [UserController::class, 'create']);
+
+    Route::get('/users/create', [UserController::class, 'create']);
+    Route::post('/users', [UserController::class, 'store'])->name('user.store');
+
     Route::delete('/users/{user}', [UserController::class, 'delete']);
     Route::put('/users/{user}', [UserController::class, 'update']); //TODO: this one :)
 
