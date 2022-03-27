@@ -1,5 +1,7 @@
 @extends('layouts')
 
+@section('title', 'User list')
+
 @section('content')
 <h1>Users</h1>
 <table class="table table-striped">
@@ -12,13 +14,11 @@
     <tbody>
         @foreach ($users as $user)
         <tr>
-            <td><a href="/api/users/{{$user->id}}">{{ $user->name }}</a></td>
-            <td>{{ $user->email }}</td>
+            <th scope="row">{{ $user->name }}</th>
+            <td><a href="{{ action('UserController@getAll', $user->id) }}">{{ $user->name }}</a></td>
+            <td>{{ $user->price }}</td>
         </tr>
         @endforeach
     </tbody>
 </table>
-
-{{ $users->links() }}
-
 @endsection
