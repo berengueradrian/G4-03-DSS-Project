@@ -48,5 +48,11 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/types', [TypeController::class, 'getAll']);
     Route::post('/types', [TypeController::class, 'create']);
     Route::delete('/types/{type}', [TypeController::class, 'delete']);
+    //Artist
+    Route::get('/artists/{artist}', [ArtistController::class, 'get']);
+    Route::get('/artists', [ArtistController::class, 'getAll']);
+    Route::post('/artists', [ArtistController::class, 'create']);
+    Route::delete('/artists/{artist}', [ArtistController::class, 'delete']);
+    Route::put('/artists/{artist}', [ArtistController::class, 'update']); //TODO: this one :)
 
 });

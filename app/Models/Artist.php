@@ -10,6 +10,13 @@ class Artist extends Model
 
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'balance',
+        'volume_sold',
+        'description',
+    ];
+
     public function collections() {
         return $this->hasMany(Collection::class);
     }
