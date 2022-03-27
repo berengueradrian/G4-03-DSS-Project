@@ -14,9 +14,8 @@
     <tbody>
         @foreach ($users as $user)
         <tr>
-            <th scope="row">{{ $user->name }}</th>
-            <td><a href="{{ action('UserController@getAll', $user->id) }}">{{ $user->name }}</a></td>
-            <td>{{ $user->price }}</td>
+            <td><a href="/api/users/{{$user->id}}">{{ $user->name }}</a></td>
+            <td>{{ $user->email }}</td>
         </tr>
         @endforeach
     </tbody>
