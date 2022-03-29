@@ -35,9 +35,13 @@ class NFTController extends Controller
         return response()->json(['success' => false]);
     }
 
-    public function update()
+    public function update(Request $request, NFT $nft)
     {
-        //TODO:
+        $newNFT = NFT::find($nft->id);
+        $newNFT->name = $request->name;
+        $newNFT->base_price = $request->base_price;
+        $newNFT->limit_date = $request->limit_date;
+        $newNFT->update();
     }
 
     public function available(Request $request)
