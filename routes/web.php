@@ -24,6 +24,11 @@ Route::get('/', function () {
 Route::get('/users/create', [UserController::class, 'create']);
 Route::post('/users', [UserController::class, 'store'])->name('user.store');
 
+//Filter depending price
+Route::get('/nfts/priceFilter', [NFTController::class, 'filterPrice']);
+//Filter depending availability
+Route::get('/nfts/available', [NFTController::class, 'available']);
+
 Route::group(['prefix' => 'api'], function () {
 
     //## NFTS ##
@@ -33,9 +38,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/nfts/create', [UserController::class, 'create']);
     Route::delete('/nfts/{nft}', [NFTController::class, 'delete']);
     Route::put('/nfts/{nft}', [NFTController::class, 'update']); //TODO: this one :)
-
-    //Filter depending availability
-    Route::post('/nfts/available', [NFTController::class, 'available']);
 
     //## User ##
     //CRUDS

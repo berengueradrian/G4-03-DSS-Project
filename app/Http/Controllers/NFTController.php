@@ -52,4 +52,15 @@ class NFTController extends Controller
         }
         return view('nfts.list')->with('nfts', $nfts);
     }
+
+    public function filterPrice(Request $request)
+    {
+        if ($request->price != null) {
+            $nfts = NFT::where('actual_price', '>', $request->price)->paginate(2);
+        } else {
+            $nfts = NFT::paginate(2);
+        }
+
+        return view('nfts.list')->with('nfts', $nfts);
+    }
 }
