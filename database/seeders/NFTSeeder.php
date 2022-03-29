@@ -40,7 +40,7 @@ class NFTSeeder extends Seeder
                 'limit_date' => NULL,
                 'available' => false,
                 'actual_price' => 300,
-                'type_id' => $typesId[0]
+                'type_id' => $typesId[1]
             ]
         );
         DB::table('n_f_t_s')->insert(
@@ -51,7 +51,7 @@ class NFTSeeder extends Seeder
                 'limit_date' => NULL,
                 'available' => true,
                 'actual_price' => 9832,
-                'type_id' => $typesId[0]
+                'type_id' => $typesId[2]
             ]
         );
     }
