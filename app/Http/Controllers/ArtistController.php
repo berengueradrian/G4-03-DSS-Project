@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Artist;
 
-class ArtistControler extends Controller
+class ArtistController extends Controller
 {
     public function get(Artist $artist)
     {
-        //return view('post.create');
         return response()->json(['artist' => $artist]);
     }
 
@@ -40,8 +39,11 @@ class ArtistControler extends Controller
         return response()->json(['success' => false]);
     }
 
-    public function update()
+    public function update(Request $request, Artist $artist)
     {
-        //TODO:
+        $newArtist = Artist::find($artist->id);
+        $newArtist->name = $request->name;
+        $newArtist->description = $request->description;
+        $newArtist->update();
     }
 }
