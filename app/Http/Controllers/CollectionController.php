@@ -8,22 +8,30 @@ use App\Models\Collection;
 class CollectionController extends Controller {
     
     public function get(Collection $collection){
-        return response()->json(['collection' => $collection]);
+        return view('collections.details')->with('collection', $collection);
     }
 
     public function getAll(){
-        $collections = Collection::all();
-        return response()->json(['collection' => $collections]);
+        $collections = Collection::paginate(2);
+        return view('collections.list')->with('collections', $collections);
     }
 
-    public function create(Request $data){
-        $collection = Collection::create([
+    public function create(){
+        return view('collections.create');
+    }
+
+    public function store(Request $data){
+        $data->validate([
+            'name' => 'required',
+            'description' => 'required|max:255',
+            'artist_id' => 'required|exists:artists'
+        ]);
+
+        Collection::create([
             'name' => $data->name,
             'description' => $data->email,
             'artist_id' => $data->artist_id  // ->artist() funcionaria?
         ]);
-
-        return response()->json(['success' => true, 'collection' => $collection]);
     }
 
     public function delete(Collection $collection){
