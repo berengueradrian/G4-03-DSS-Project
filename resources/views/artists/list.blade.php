@@ -1,24 +1,24 @@
 @extends('layouts')
 
-@section('title', 'User list')
-
 @section('content')
-<h1>Users</h1>
+<h1>Artists</h1>
 <table class="table table-striped">
     <thead>
         <tr>
             <th scope="col">Name</th>
-            <th scope="col">Email</th>
+            <th scope="col">Description</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($users as $user)
+        @foreach ($artists as $artist)
         <tr>
-            <th scope="row">{{ $user->name }}</th>
-            <td><a href="{{ action('UserController@getAll', $user->id) }}">{{ $user->name }}</a></td>
-            <td>{{ $user->price }}</td>
+            <td><a href="/api/artists/{{$artist->id}}">{{ $artist->name }}</a></td>
+            <td>{{ $artist->description }}</td>
         </tr>
         @endforeach
     </tbody>
 </table>
+
+{{ $artists->links() }}
+
 @endsection

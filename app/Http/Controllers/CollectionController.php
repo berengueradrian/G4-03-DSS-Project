@@ -42,7 +42,10 @@ class CollectionController extends Controller {
         return response()->json(['success' => false]);
     }
 
-    public function update(){
-        //TODO:
+    public function update(Request $request, Collection $collection){
+        $newCollection = Collection::find($collection->id);
+        $newCollection->name = $request->name;
+        $newCollection->description = $request->description;
+        $newCollection->update();
     }
 }

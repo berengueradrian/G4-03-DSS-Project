@@ -38,8 +38,10 @@ class UserController extends Controller
         return response()->json(['success' => false]);
     }
 
-    public function update()
+    public function update(Request $request, User $user)
     {
-        //TODO:
+        $newUser = User::find($user->id);
+        $newUser->name = $request->name;
+        $newUser->update();
     }
 }

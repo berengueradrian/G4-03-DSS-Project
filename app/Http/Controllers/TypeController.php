@@ -20,7 +20,6 @@ class TypeController extends Controller{
         $type = Type::create([
             'name' => $data->name,
             'description' => $data->email,
-            'artist_id' => $data->artist_id  // ->artist() funcionaria?
         ]);
 
         return response()->json(['success' => true, 'type' => $type]);
@@ -34,8 +33,12 @@ class TypeController extends Controller{
         return response()->json(['success' => false]);
     }
 
-    public function update(){
-        //TODO:
+    public function update(Request $request, Type $type){
+        
+        $newType = Type::find($type->id);
+        $newType->name = $request->name;
+        $newType->description = $request->description;
+        $newType->update();
     }
 
 

@@ -35,8 +35,36 @@ class NFTController extends Controller
         return response()->json(['success' => false]);
     }
 
-    public function update()
+    public function update(Request $request, NFT $nft)
     {
-        //TODO:
+        $newNFT = NFT::find($nft->id);
+        $newNFT->name = $request->name;
+        $newNFT->base_price = $request->base_price;
+        $newNFT->limit_date = $request->limit_date;
+        $newNFT->update();
+    }
+
+    public function available(Request $request)
+    {
+        $availableFilter = $request->input('availableFilter');
+        if ($availableFilter == 1) { //Available NFTS
+            $nfts = NFT::whereAvailable(1)->paginate(2);
+        } elseif ($availableFilter == 2) { //Non Available NFTS
+            $nfts = NFT::whereAvailable(0)->paginate(2);
+        } else { // If == 0 -> All
+            $nfts = NFT::paginate(2);
+        }
+        return view('nfts.list')->with('nfts', $nfts);
+    }
+
+    public function filterPrice(Request $request)
+    {
+        if ($request->price != null) {
+            $nfts = NFT::where('actual_price', '>', $request->price)->paginate(2);
+        } else {
+            $nfts = NFT::paginate(2);
+        }
+
+        return view('nfts.list')->with('nfts', $nfts);
     }
 }

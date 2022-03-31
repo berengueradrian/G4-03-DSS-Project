@@ -2,6 +2,26 @@
 
 @section('content')
 <h1>NFTS</h1>
+
+
+<form method="GET" action="{{url('/nfts/available')}}" class="form-control">
+    @method('GET')
+    @csrf
+    <select name="availableFilter">
+        <option value="0">All</option>
+        <option value="1">Available</option>
+        <option value="2">Not available</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<form method="GET" action="{{url('/nfts/priceFilter')}}" class="form-control">
+    @method('GET')
+    @csrf
+    <input name="price" placeholder="Actual price upper than...">
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -11,7 +31,8 @@
             <th scope="col">Available?</th>
             <th scope="col">Actual Price</th>
             <th scope="col">Collection ID</th>
-            <th scope="col">Type ID</th>
+            <th scope="col">Type</th>
+
         </tr>
     </thead>
     <tbody>
@@ -23,7 +44,7 @@
             <td>{{ $nft->available }}</td>
             <td>{{ $nft->actual_price }}</td>
             <td>{{ $nft->collection_id }}</td>
-            <td>{{ $nft->type_id }}</td>
+            <td>{{ $nft->type->name }}</td>
         </tr>
         @endforeach
     </tbody>
