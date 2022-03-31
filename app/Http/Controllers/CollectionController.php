@@ -16,36 +16,46 @@ class CollectionController extends Controller {
         return view('collections.list')->with('collections', $collections);
     }
 
-    public function create(){
-        return view('collections.create');
-    }
-
     public function store(Request $data){
         $data->validate([
             'name' => 'required',
             'description' => 'required',
-            'artist_id' => 'required'
+            'artist_id' => 'required|exists:artists,id|numeric'
         ]);
 
         Collection::create([
             'name' => $data->name,
-            'description' => $data->email,
+            'description' => $data->description,
             'artist_id' => $data->artist_id  // ->artist() funcionaria?
         ]);
+        return back();
     }
 
-    public function delete(Collection $collection){
-        if(Collection::whereId($collection->id)->count()){
-            $collection->delete();
-            return response()->json(['success' => true, 'collection' => $collection]);
+    public function delete(Request $request){
+        $request->validate([
+            'id' => 'required|exists:collections,id'
+        ]);
+        $collection = Collection::find($request->id);
+        $collection->delete();
+        return back();
+    }
+
+    public function update(Request $request){
+        $request->validate([
+            'id' => 'required|numeric'
+        ]);
+
+        $newCollection = Collection::find($request->id);
+        if($request->name != null) {
+            $newCollection->name = $request->name;
         }
-        return response()->json(['success' => false]);
-    }
-
-    public function update(Request $request, Collection $collection){
-        $newCollection = Collection::find($collection->id);
-        $newCollection->name = $request->name;
-        $newCollection->description = $request->description;
+        if($request->description != null) {
+            $newCollection->description = $request->description;
+        }
+        if($request->artist_id != null) {
+            $newCollection->artist_id = $request->artist_id;
+        }
         $newCollection->update();
+        return back();
     }
 }
