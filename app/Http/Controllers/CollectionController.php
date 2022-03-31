@@ -23,8 +23,8 @@ class CollectionController extends Controller {
     public function store(Request $data){
         $data->validate([
             'name' => 'required',
-            'description' => 'required|max:255',
-            'artist_id' => 'required|exists:artists'
+            'description' => 'required',
+            'artist_id' => 'required'
         ]);
 
         Collection::create([
