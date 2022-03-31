@@ -8,12 +8,12 @@ use App\Models\Type;
 class TypeController extends Controller{
 
     public function get(Type $type){
-        return response()->json(['type' => $type]);
+        return view('types.details')->with('type', $type);
     }
 
     public function getAll(){
-        $types = Type::all();
-        return response()->json(['type' => $types]);
+        $types = Type::paginate(2);
+        return view('types.list')->with('types', $types);
     }
 
     public function create(Request $data){
