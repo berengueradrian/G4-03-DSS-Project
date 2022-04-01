@@ -37,8 +37,11 @@ class TypeController extends Controller{
         
         $newType = Type::find($type->id);
         $newType->name = $request->name;
-        $newType->description = $request->description;
-        $newType->update();
+        if($request->filled('description')) {
+            $newType->description = $request->description;
+        }
+        
+        $newType->save();
     }
 
 
