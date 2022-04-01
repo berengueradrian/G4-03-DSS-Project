@@ -42,10 +42,27 @@ class ArtistController extends Controller
     public function update(Request $request, Artist $artist)
     {
         $newArtist = Artist::find($artist->id);
-        $newArtist->name = $request->name;
+        if($request->filled('name')) {
+            $newArtist->name = $request->name;
+        }
         if($request->filled('description')) {
             $newArtist->description = $request->description;
         }
+        if($request->filled('img_url')) {
+            $newArtist->img_url = $request->img_url;
+        }
         $newArtist->save();
+    }
+
+    public function sortByName(Request $request) {
+        if ($request->sortByName == 0) {
+            $artists = Artist::orderBy('name', 'DESC')->paginate(2);
+        } elseif ($request->sortByName == 1) {
+            $artists = Artist::orderBy('name', 'ASC')->paginate(2);
+        } else {
+            $artists = Artist::paginate(2);
+        }
+
+        return view('artists.list')->with('artists', $artists);
     }
 }
