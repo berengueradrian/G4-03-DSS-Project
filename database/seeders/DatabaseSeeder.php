@@ -13,15 +13,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UserSeeder::class);
+        $this->call(UsersTableSeeder::class);
         $this->command->info('User table seeded!');
-        $this->call(ArtistSeeder::class);
+        $this->call(ArtistsTableSeeder::class);
         $this->command->info('Artist table seeded!');
-        $this->call(CollectionSeeder::class);
+        $this->call(CollectionsTableSeeder::class);
         $this->command->info('Collection table seeded!');
-        $this->call(TypesSeeder::class);
+        $this->call(TypesTableSeeder::class);
         $this->command->info('Type table seeded!');
-        $this->call(NFTSeeder::class);
-        $this->command->info('NFT table seeded!');
+        $this->call(NftsTableSeeder::class);
+        $this->command->info('Nft table seeded!');
+        $this->call(BidsTableSeeder::class);
+        $this->command->info('Bid table seeded!');
     }
 }

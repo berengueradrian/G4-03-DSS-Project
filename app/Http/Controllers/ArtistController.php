@@ -43,7 +43,9 @@ class ArtistController extends Controller
     {
         $newArtist = Artist::find($artist->id);
         $newArtist->name = $request->name;
-        $newArtist->description = $request->description;
-        $newArtist->update();
+        if($request->filled('description')) {
+            $newArtist->description = $request->description;
+        }
+        $newArtist->save();
     }
 }

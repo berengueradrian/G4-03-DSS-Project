@@ -37,7 +37,9 @@ class CollectionController extends Controller {
     public function update(Request $request, Collection $collection){
         $newCollection = Collection::find($collection->id);
         $newCollection->name = $request->name;
-        $newCollection->description = $request->description;
-        $newCollection->update();
+        if($request->filled('description')) {
+            $newCollection->description = $request->description;
+        }
+        $newCollection->save();
     }
 }

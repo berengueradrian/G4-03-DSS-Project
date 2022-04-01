@@ -13,7 +13,11 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     public function nfts() {
-        return $this->hasMany(NFT::class);
+        return $this->hasMany(Nft::class);
+    }
+
+    public function bids() {
+        return $this->belongsToMany(Nft::class);
     }
 
     /**

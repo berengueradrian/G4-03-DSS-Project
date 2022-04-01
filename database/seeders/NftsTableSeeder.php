@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class NFTSeeder extends Seeder
+class NftsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,39 +18,39 @@ class NFTSeeder extends Seeder
         $typesId = DB::table('types')->pluck('id');
 
         // Delete the table data   
-        DB::table('n_f_t_s')->delete();
+        DB::table('nfts')->delete();
 
         // Add a new entry to the table 
-        DB::table('n_f_t_s')->insert(
+        DB::table('nfts')->insert(
             [
                 'collection_id' => $collectionsId[0],
                 'name' => 'apeloco',
                 'base_price' => 100,
                 'limit_date' => NULL,
                 'available' => true,
-                'actual_price' => 120,
+                'actual_price' => 100,
                 'type_id' => $typesId[0]
             ]
         );
-        DB::table('n_f_t_s')->insert(
+        DB::table('nfts')->insert(
             [
                 'collection_id' => $collectionsId[1],
                 'name' => 'apedidas',
                 'base_price' => 90,
                 'limit_date' => NULL,
                 'available' => false,
-                'actual_price' => 300,
+                'actual_price' => 90,
                 'type_id' => $typesId[1]
             ]
         );
-        DB::table('n_f_t_s')->insert(
+        DB::table('nfts')->insert(
             [
                 'collection_id' => $collectionsId[2],
                 'name' => 'bored',
                 'base_price' => 676,
                 'limit_date' => NULL,
                 'available' => true,
-                'actual_price' => 9832,
+                'actual_price' => 676,
                 'type_id' => $typesId[2]
             ]
         );

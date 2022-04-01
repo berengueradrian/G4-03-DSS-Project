@@ -15,6 +15,6 @@ class Type extends Model
     ];
 
     public function nfts() {
-        return $this->hasMany(NFT::class);
+        return $this->hasMany(Nft::class);
     }
 }

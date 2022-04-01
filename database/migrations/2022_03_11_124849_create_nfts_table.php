@@ -13,13 +13,14 @@ class CreateNFTSTable extends Migration
      */
     public function up()
     {
-        Schema::create('n_f_t_s', function (Blueprint $table) {
+        Schema::create('nfts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->float('base_price');
             $table->date('limit_date')->nullable();
             $table->boolean('available');
             $table->float('actual_price');
+            $table->string('img_url')->default('default.jpg');
             $table->foreignId('collection_id')->constrained('collections')->onDelete('cascade');
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('type_id')->constrained('types')->onDelete('cascade');
@@ -34,6 +35,6 @@ class CreateNFTSTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('n_f_t_s');
+        Schema::dropIfExists('nfts');
     }
 }
