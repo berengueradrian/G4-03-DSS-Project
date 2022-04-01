@@ -28,9 +28,16 @@ Route::get('/type/create', function() {
     return view('type.create');
 });
 
-// Create methods
-Route::get('/users/create', [UserController::class, 'create']);  // TODO: Inside the group API it doesn't work, why?
+//## Create, edit, delete methods ##
+// Collections
 Route::get('/collection/create', [CollectionController::class, 'create']);
+Route::post('/collection/store', [CollectionController::class, 'store'])->name('collection.store');
+Route::put('/collection/update', [CollectionController::class, 'update'])->name('collection.update');
+Route::delete('/collection/delete', [CollectionController::class, 'delete'])->name('collection.delete');
+// Users
+Route::get('/users/create', [UserController::class, 'create']);  // TODO: Inside the group API it doesn't work, why?
+
+
 
 Route::get('/users/create', [UserController::class, 'create']);
 Route::post('/users', [UserController::class, 'store'])->name('user.store');
