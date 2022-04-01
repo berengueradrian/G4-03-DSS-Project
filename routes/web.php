@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\NFTController;
+use App\Http\Controllers\NftController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
@@ -46,15 +46,17 @@ Route::get('/nfts/sortByName', [UserController::class, 'sortByName']);
 
 //NFTS
 //Filter depending price
-Route::get('/nfts/priceFilter', [NFTController::class, 'filterPrice']);
+Route::get('/nfts/priceFilter', [NftController::class, 'filterPrice']);
 //Filter depending availability
-Route::get('/nfts/available', [NFTController::class, 'available']);
+Route::get('/nfts/available', [NftController::class, 'available']);
 //Order depending price
-Route::get('/nfts/sortByPrice', [NFTController::class, 'sortByPrice']);
+Route::get('/nfts/sortByPrice', [NftController::class, 'sortByPrice']);
 //Order depending exclusivity
-Route::get('/nfts/sortByExclusivity', [NFTController::class, 'sortByExclusivity']);
+Route::get('/nfts/sortByExclusivity', [NftController::class, 'sortByExclusivity']);
 
-
+//Collections 
+//Order by name
+Route::get('/collections/sortByName', [CollectionController::class, 'sortByName']);
 
 
 Route::group(['prefix' => 'api'], function () {
@@ -67,12 +69,9 @@ Route::group(['prefix' => 'api'], function () {
     Route::delete('/nfts/{nft}', [NftController::class, 'delete']);
     Route::put('/nfts/{nft}', [NftController::class, 'update']);
 
-<<<<<<< HEAD
     //Filter depending availability
     Route::post('/nfts/available', [NftController::class, 'available']);
 
-=======
->>>>>>> develop
     //## User ##
     //CRUDS
     Route::get('/users/{user}',  [UserController::class, 'get']);

@@ -40,15 +40,6 @@ class CollectionController extends Controller {
         return back();
     }
 
-<<<<<<< HEAD
-    public function update(Request $request, Collection $collection){
-        $newCollection = Collection::find($collection->id);
-        $newCollection->name = $request->name;
-        if($request->filled('description')) {
-            $newCollection->description = $request->description;
-        }
-        $newCollection->save();
-=======
     public function update(Request $request){
         $request->validate([
             'id' => 'required|numeric'
@@ -66,6 +57,9 @@ class CollectionController extends Controller {
         }
         $newCollection->update();
         return back();
->>>>>>> develop
+    }
+
+    public function sortByName(Request $request) {
+
     }
 }
