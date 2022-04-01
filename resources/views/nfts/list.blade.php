@@ -3,44 +3,66 @@
 @section('content')
 <h1>NFTS</h1>
 
-<form method="GET" action="{{url('/nfts/priceFilter')}}" class="form-control">
+<form method="GET" action="{{url('/nfts/priceFilter')}}">
     @method('GET')
     @csrf
-    <input name="price" placeholder="Filter by price upper than...">
-    <button type="submit" class="btn btn-primary">Search</button>
+    <div class="input-group mb-3">
+        <input type="text" name="price" class="form-control" placeholder="Filter by price upper than..." aria-label="filterPrice" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="submit">Filter</button>
+        </div>
+      </div>
 </form>
 
-<form method="GET" action="{{url('/nfts/available')}}" class="form-control">
+<form method="GET" action="{{url('/nfts/available')}}">
     @method('GET')
     @csrf
-    <select name="availableFilter">
-        <option value="0">-- Filter by availability --</option>
-        <option value="1">Available</option>
-        <option value="2">Not available</option>
-    </select>
-    <button type="submit" class="btn btn-primary">Search</button>
+    <div class="input-group mb-3">
+        <select name="availableFilter" class="custom-select" id="inputGroupSelect04">
+          <option value="0">Filter by availability...</option>
+          <option value="1">Available</option>
+          <option value="2">Not available</option>
+        </select>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="submit">Filter</button>
+        </div>
+    </div>
 </form>
 
-<form method="GET" action="{{url('/nfts/sortByPrice')}}" class="form-control">
+<form method="GET" action="{{url('/nfts/sortByPrice')}}">
     @method('GET')
     @csrf
-    <select name="sortByPrice">
-        <option value="-1"> -- Sort by actual price -- </option>
-        <option value="0">Cheapest first</option>
-        <option value="1">Highest first</option>
-    </select>
-    <button type="submit" class="btn btn-primary">Search</button>
+    <div class="input-group mb-3">
+        <select name="sortByPrice" class="custom-select" id="inputGroupSelect04">
+          <option value="-1">Sort by actual price...</option>
+          <option value="0">Cheapest first</option>
+          <option value="1">Highest first</option>
+        </select>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="submit">Sort</button>
+        </div>
+    </div>
 </form>
 
-<form method="GET" action="{{url('/nfts/sortByExclusivity')}}" class="form-control">
+<form method="GET" action="{{url('/nfts/sortByExclusivity')}}">
     @method('GET')
     @csrf
-    <select name="sortByExclusivity">
+    <!--<select name="sortByExclusivity">
         <option value="-1"> -- Sort by exclusivity -- </option>
         <option value="0">Less exclusive first</option>
         <option value="1">Most exclusive first</option>
     </select>
-    <button type="submit" class="btn btn-primary">Search</button>
+    <button type="submit" class="btn btn-primary">Search</button>-->
+    <div class="input-group mb-3">
+        <select name="sortByExclusivity" class="custom-select" id="inputGroupSelect04">
+          <option value="-1">Sort by exclusivity...</option>
+          <option value="0">Less exclusive first</option>
+          <option value="1">Most exclusive first</option>
+        </select>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="submit">Sort</button>
+        </div>
+    </div>
 </form>
 
 
