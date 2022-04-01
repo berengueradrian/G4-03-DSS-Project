@@ -3,7 +3,7 @@
 @section('content')
 <h1>Users</h1>
 
-<form method="GET" action="{{url('/nfts/sortByBalance')}}" class="form-control">
+<form method="GET" action="{{url('/users/sortByBalance')}}" class="form-control">
     @method('GET')
     @csrf
     <select name="sortByBalance">
@@ -14,7 +14,7 @@
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
 
-<form method="GET" action="{{url('/nfts/sortByName')}}" class="form-control">
+<form method="GET" action="{{url('/users/sortByName')}}" class="form-control">
     @method('GET')
     @csrf
     <select name="sortByName">

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -50,6 +51,7 @@ class Nft extends Model
         return $this->belongsTo(Type::class);
     }
 
+    //Bussines extra methods
     public function putOnSaleNFT(int $id): bool
     {
         return false;
@@ -65,8 +67,12 @@ class Nft extends Model
         return false;
     }
 
-    public function auction(int $id): bool
+    public function auction(int $id, DateTime $limit_date): bool
     {
+        return false;
+    }
+
+    public function closeBid(int $id) {
         return false;
     }
 }

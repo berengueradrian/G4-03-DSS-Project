@@ -34,14 +34,16 @@ Route::get('/collection/create', [CollectionController::class, 'create']);
 Route::post('/collection/store', [CollectionController::class, 'store'])->name('collection.store');
 Route::put('/collection/update', [CollectionController::class, 'update'])->name('collection.update');
 Route::delete('/collection/delete', [CollectionController::class, 'delete'])->name('collection.delete');
+//Order by name
+Route::get('/collections/sortByName', [CollectionController::class, 'sortByName']);
 
 
 // Users
 Route::get('/users/create', [UserController::class, 'create']);
 Route::get('/users/create', [UserController::class, 'create']);
 Route::post('/users', [UserController::class, 'store'])->name('user.store');
-Route::get('/nfts/sortByBalance', [UserController::class, 'sortByBalance']);
-Route::get('/nfts/sortByName', [UserController::class, 'sortByName']);
+Route::get('/users/sortByBalance', [UserController::class, 'sortByBalance']);
+Route::get('/users/sortByName', [UserController::class, 'sortByName']);
 
 
 //NFTS
@@ -54,10 +56,13 @@ Route::get('/nfts/sortByPrice', [NftController::class, 'sortByPrice']);
 //Order depending exclusivity
 Route::get('/nfts/sortByExclusivity', [NftController::class, 'sortByExclusivity']);
 
-//Collections 
+//Artists
 //Order by name
-Route::get('/collections/sortByName', [CollectionController::class, 'sortByName']);
+Route::get('/artists/sortByName', [ArtistController::class, 'sortByName']);
 
+//Types
+//Order by name
+Route::get('/types/sortByName', [ArtistController::class, 'sortByName']);
 
 Route::group(['prefix' => 'api'], function () {
 

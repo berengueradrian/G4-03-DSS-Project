@@ -2,6 +2,20 @@
 
 @section('content')
     <h3><strong>List of types</strong></h3>
+
+    <form method="GET" action="{{url('/types/sortByName')}}">
+    @method('GET')
+    @csrf
+    <div class="input-group mb-3">
+        <select name="sortByName" class="custom-select" id="inputGroupSelect04">
+          <option value="-1">Sort by name...</option>
+          <option value="0">Descendent</option>
+          <option value="1">Ascendent</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
     <table class="table table-striped">
         <thead>
             <tr>

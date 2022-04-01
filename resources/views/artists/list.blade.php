@@ -2,6 +2,22 @@
 
 @section('content')
 <h1>Artists</h1>
+
+<form method="GET" action="{{url('/artists/sortByName')}}">
+    @method('GET')
+    @csrf
+    <div class="input-group mb-3">
+        <select name="sortByName" class="custom-select" id="inputGroupSelect04">
+          <option value="-1">Sort by name...</option>
+          <option value="0">Descendent</option>
+          <option value="1">Ascendent</option>
+        </select>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="submit">Sort</button>
+        </div>
+    </div>
+</form>
+
 <table class="table table-striped">
     <thead>
         <tr>
