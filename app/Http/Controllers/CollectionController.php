@@ -8,32 +8,39 @@ use App\Models\Collection;
 class CollectionController extends Controller {
     
     public function get(Collection $collection){
-        return response()->json(['collection' => $collection]);
+        return view('collections.details')->with('collection', $collection);
     }
 
     public function getAll(){
-        $collections = Collection::all();
-        return response()->json(['collection' => $collections]);
+        $collections = Collection::paginate(2);
+        return view('collections.list')->with('collections', $collections);
     }
 
-    public function create(Request $data){
-        $collection = Collection::create([
-            'name' => $data->name,
-            'description' => $data->email,
-            'artist_id' => $data->artist_id  // ->artist() funcionaria?
+    public function store(Request $data){
+        $data->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'artist_id' => 'required|exists:artists,id|numeric'
         ]);
 
-        return response()->json(['success' => true, 'collection' => $collection]);
+        Collection::create([
+            'name' => $data->name,
+            'description' => $data->description,
+            'artist_id' => $data->artist_id  // ->artist() funcionaria?
+        ]);
+        return back();
     }
 
-    public function delete(Collection $collection){
-        if(Collection::whereId($collection->id)->count()){
-            $collection->delete();
-            return response()->json(['success' => true, 'collection' => $collection]);
-        }
-        return response()->json(['success' => false]);
+    public function delete(Request $request){
+        $request->validate([
+            'id' => 'required|exists:collections,id'
+        ]);
+        $collection = Collection::find($request->id);
+        $collection->delete();
+        return back();
     }
 
+<<<<<<< HEAD
     public function update(Request $request, Collection $collection){
         $newCollection = Collection::find($collection->id);
         $newCollection->name = $request->name;
@@ -41,5 +48,24 @@ class CollectionController extends Controller {
             $newCollection->description = $request->description;
         }
         $newCollection->save();
+=======
+    public function update(Request $request){
+        $request->validate([
+            'id' => 'required|numeric'
+        ]);
+
+        $newCollection = Collection::find($request->id);
+        if($request->name != null) {
+            $newCollection->name = $request->name;
+        }
+        if($request->description != null) {
+            $newCollection->description = $request->description;
+        }
+        if($request->artist_id != null) {
+            $newCollection->artist_id = $request->artist_id;
+        }
+        $newCollection->update();
+        return back();
+>>>>>>> develop
     }
 }

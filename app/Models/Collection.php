@@ -11,7 +11,8 @@ class Collection extends Model
 
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'artist_id'
     ];
 
     public function artist() {
