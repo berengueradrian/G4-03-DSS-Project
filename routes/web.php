@@ -24,7 +24,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/type/create', function() {
+Route::get('/type/create', function () {
     return view('type.create');
 });
 
@@ -34,18 +34,28 @@ Route::get('/collection/create', [CollectionController::class, 'create']);
 Route::post('/collection/store', [CollectionController::class, 'store'])->name('collection.store');
 Route::put('/collection/update', [CollectionController::class, 'update'])->name('collection.update');
 Route::delete('/collection/delete', [CollectionController::class, 'delete'])->name('collection.delete');
+
+
 // Users
-Route::get('/users/create', [UserController::class, 'create']);  // TODO: Inside the group API it doesn't work, why?
-
-
-
+Route::get('/users/create', [UserController::class, 'create']);
 Route::get('/users/create', [UserController::class, 'create']);
 Route::post('/users', [UserController::class, 'store'])->name('user.store');
+Route::get('/nfts/sortByBalance', [UserController::class, 'sortByBalance']);
+Route::get('/nfts/sortByName', [UserController::class, 'sortByName']);
 
+
+//NFTS
 //Filter depending price
 Route::get('/nfts/priceFilter', [NFTController::class, 'filterPrice']);
 //Filter depending availability
 Route::get('/nfts/available', [NFTController::class, 'available']);
+//Order depending price
+Route::get('/nfts/sortByPrice', [NFTController::class, 'sortByPrice']);
+//Order depending exclusivity
+Route::get('/nfts/sortByExclusivity', [NFTController::class, 'sortByExclusivity']);
+
+
+
 
 Route::group(['prefix' => 'api'], function () {
 
@@ -79,12 +89,11 @@ Route::group(['prefix' => 'api'], function () {
     Route::delete('/types/{type}', [TypeController::class, 'delete']);
 
     Route::put('/types/{type}', [TypeController::class, 'update']);
-    
+
     //Artist
     Route::get('/artists/{artist}', [ArtistController::class, 'get']);
     Route::get('/artists', [ArtistController::class, 'getAll']);
     Route::post('/artists', [ArtistController::class, 'create']);
     Route::delete('/artists/{artist}', [ArtistController::class, 'delete']);
     Route::put('/artists/{artist}', [ArtistController::class, 'update']);
-
 });

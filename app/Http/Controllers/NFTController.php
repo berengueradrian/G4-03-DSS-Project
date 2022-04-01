@@ -67,4 +67,30 @@ class NFTController extends Controller
 
         return view('nfts.list')->with('nfts', $nfts);
     }
+
+    public function sortByPrice(Request $request)
+    {
+        if ($request->sortByPrice == 0) {
+            $nfts = NFT::orderBy('actual_price', 'ASC')->paginate(2);
+        } elseif ($request->sortByPrice == 1) {
+            $nfts = NFT::orderBy('actual_price', 'DESC')->paginate(2);
+        } else {
+            $nfts = NFT::paginate(2);
+        }
+
+        return view('nfts.list')->with('nfts', $nfts);
+    }
+
+    public function sortByExclusivity(Request $request)
+    {
+        if ($request->sortByExclusivity == 0) {
+            $nfts = NFT::orderBy('type_id', 'DESC')->paginate(2);
+        } elseif ($request->sortByExclusivity == 1) {
+            $nfts = NFT::orderBy('type_id', 'ASC')->paginate(2);
+        } else {
+            $nfts = NFT::paginate(2);
+        }
+
+        return view('nfts.list')->with('nfts', $nfts);
+    }
 }

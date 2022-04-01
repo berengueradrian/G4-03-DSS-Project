@@ -44,4 +44,30 @@ class UserController extends Controller
         $newUser->name = $request->name;
         $newUser->update();
     }
+
+    public function sortByBalance(Request $request)
+    {
+        if ($request->sortByBalance == 0) {
+            $users = User::orderBy('balance', 'ASC')->paginate(2);
+        } elseif ($request->sortByBalance == 1) {
+            $users = User::orderBy('balance', 'DESC')->paginate(2);
+        } else {
+            $users = User::paginate(2);
+        }
+
+        return view('users.list')->with('users', $users);
+    }
+
+    public function sortByName(Request $request)
+    {
+        if ($request->sortByName == 0) {
+            $users = User::orderBy('name', 'ASC')->paginate(2);
+        } elseif ($request->sortByName == 1) {
+            $users = User::orderBy('name', 'DESC')->paginate(2);
+        } else {
+            $users = User::paginate(2);
+        }
+
+        return view('users.list')->with('users', $users);
+    }
 }
