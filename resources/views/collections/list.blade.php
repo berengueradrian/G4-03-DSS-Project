@@ -37,10 +37,14 @@
             </tbody>
         </table>
         {{ $collections->links() }}
-        @if ($errors->has('id'))
-            @foreach ($errors->get('id') as $error)
-                <div class="invalid-tooltip mb-3">{{ $error }}</div>
-            @endforeach
+        @if ($errors->has('iddelete'))
+            <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been deleted</div>
+        @endif
+        @if ($errors->has('id') || $errors->has('artist_id_update'))
+            <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been updated</div>
+        @endif
+        @if ($errors->has('name')||$errors->has('description')||$errors->has('artist_id'))
+            <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been created</div>
         @endif
     </div>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">

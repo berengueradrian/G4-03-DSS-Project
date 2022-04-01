@@ -52,7 +52,7 @@ Route::group(['prefix' => 'api'], function () {
     //## NFTS ##
     //CRUDS
     Route::get('/nfts/{nft}', [NFTController::class, 'get']);
-    Route::get('/nfts', [NFTController::class, 'getAll']);
+    Route::get('/nfts', [NFTController::class, 'getAll'])->name('nft.getAll');
     Route::get('/nfts/create', [UserController::class, 'create']);
     Route::delete('/nfts/{nft}', [NFTController::class, 'delete']);
     Route::put('/nfts/{nft}', [NFTController::class, 'update']);

@@ -38,10 +38,10 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Artist</span>
         </div>
-        <input type="text" class="form-control" name="artist_id" placeholder="New owner artist ID (optional)" value="{{ old('artist_id') }}" aria-label="Username" aria-describedby="basic-addon3" id="artist_id">
+        <input type="text" class="form-control" name="artist_id_update" placeholder="New owner artist ID (optional)" value="{{ old('artist_id_update') }}" aria-label="Username" aria-describedby="basic-addon3" id="artist_id_update">
     </div>
-    @if ($errors->has('artist_id'))
-        @foreach ($errors->get('artist_id') as $error)
+    @if ($errors->has('artist_id_update'))
+        @foreach ($errors->get('artist_id_update') as $error)
             <div class="invalid-tooltip mb-3">{{ $error }}</div>
         @endforeach
     @endif
