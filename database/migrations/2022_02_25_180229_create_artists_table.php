@@ -18,7 +18,8 @@ class CreateArtistsTable extends Migration
             $table->string('name');
             $table->float('balance');
             $table->float('volume_sold');
-            $table->string('description');
+            $table->string('img_url')->default('default.jpg');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

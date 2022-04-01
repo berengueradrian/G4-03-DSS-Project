@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
-class NFT extends Model
+class Nft extends Model
 {
+    use Sortable;
     use HasFactory;
 
     protected $fillable = [
@@ -16,10 +18,19 @@ class NFT extends Model
         'available',
         'actual_price',
         'collection_id',
-        'user_id', //not sure
+        'user_id',
         'type_id'
     ];
 
+    public $sortable = [
+        'name',
+        'base_price',
+        'limit_date',
+        'available',
+        'actual_price',
+        'collection_id',
+        'type_id'
+    ];
 
     public function collection()
     {
@@ -29,6 +40,11 @@ class NFT extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function bids()
+    {
+        return $this->belongsToMany(User::class);
     }
 
     public function type()

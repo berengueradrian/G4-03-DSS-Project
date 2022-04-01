@@ -16,7 +16,8 @@ class CreateCollectionsTable extends Migration
         Schema::create('collections', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
+            $table->string('img_url')->default('default.jpg');
             $table->foreignId('artist_id')->constrained('artists')->onDelete('cascade');
             $table->timestamps();
         });

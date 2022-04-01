@@ -16,6 +16,18 @@
         <a class="nav-link" id="delete-tab" data-toggle="tab" href="#delete" role="tab" aria-controls="delete" aria-selected="false">Delete collection</a>
     </li>
 </ul>
+
+<form method="GET" action="{{url('/collections/sortByName')}}" class="form-control">
+    @method('GET')
+    @csrf
+    <select name="sortByPrice">
+        <option value="-1"> -- Sort by name -- </option>
+        <option value="0">Descendent</option>
+        <option value="1">Ascendent</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <table class="table table-hover">

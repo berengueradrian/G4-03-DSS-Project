@@ -67,4 +67,8 @@ class CollectionController extends Controller {
         $newCollection->update();
         return back();
     }
+
+    public function sortByName(Request $request) {
+
+    }
 }
