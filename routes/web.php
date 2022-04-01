@@ -64,13 +64,10 @@ Route::group(['prefix' => 'api'], function () {
     //## NFTS ##
     //CRUDS
     Route::get('/nfts/{nft}', [NftController::class, 'get']);
-    Route::get('/nfts', [NftController::class, 'getAll']);
+    Route::get('/nfts', [NftController::class, 'getAll'])->name('nft.getAll');
     Route::get('/nfts/create', [NftController::class, 'create']);
     Route::delete('/nfts/{nft}', [NftController::class, 'delete']);
     Route::put('/nfts/{nft}', [NftController::class, 'update']);
-
-    //Filter depending availability
-    Route::post('/nfts/available', [NftController::class, 'available']);
 
     //## User ##
     //CRUDS

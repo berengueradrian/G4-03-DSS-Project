@@ -3,12 +3,12 @@
     @method('DELETE')
     <div class="input-group mb-3 bootstrap-input">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">ID</span>
+          <span class="input-group-text" id="basic-addon10">ID</span>
         </div>
-        <input type="text" class="form-control" name="id" value="{{ old('id') }}" placeholder="Identifier of the collection" aria-label="id" aria-describedby="basic-addon1" id="id">
+        <input type="text" class="form-control" name="iddelete" value="{{ old('iddelete') }}" placeholder="Identifier of the collection" aria-label="iddelete" aria-describedby="basic-addon10" id="iddelete">
     </div>
-    @if ($errors->has('id'))
-        @foreach ($errors->get('id') as $error)
+    @if ($errors->has('iddelete'))
+        @foreach ($errors->get('iddelete') as $error)
             <div class="invalid-tooltip mb-3">{{ $error }}</div>
         @endforeach
     @endif

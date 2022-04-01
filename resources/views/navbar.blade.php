@@ -20,7 +20,7 @@
               <a class="nav-link" href="#">Types</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">NFTs</a>
+              <a class="nav-link" href={{ route("nft.getAll") }}>NFTs</a>
             </li>
           </ul>
         </div>

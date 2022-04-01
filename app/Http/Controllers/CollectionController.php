@@ -33,17 +33,26 @@ class CollectionController extends Controller {
 
     public function delete(Request $request){
         $request->validate([
-            'id' => 'required|exists:collections,id'
+            'iddelete' => 'required|exists:collections,id'
         ]);
-        $collection = Collection::find($request->id);
+        $collection = Collection::find($request->iddelete);
         $collection->delete();
         return back();
     }
 
     public function update(Request $request){
-        $request->validate([
-            'id' => 'required|numeric'
-        ]);
+        if($request->artist_id_update != ''){
+            $request->validate([
+                'id' => 'required|numeric|exists:collections,id',
+                'artist_id_update' => 'exists:artists,id'
+            ]);
+        }
+        else{
+            $request->validate([
+                'id' => 'required|numeric|exists:collections,id'
+            ]);
+        }
+        
 
         $newCollection = Collection::find($request->id);
         if($request->name != null) {
@@ -52,8 +61,8 @@ class CollectionController extends Controller {
         if($request->description != null) {
             $newCollection->description = $request->description;
         }
-        if($request->artist_id != null) {
-            $newCollection->artist_id = $request->artist_id;
+        if($request->artist_id_update != null) {
+            $newCollection->artist_id = $request->artist_id_update;
         }
         $newCollection->update();
         return back();
