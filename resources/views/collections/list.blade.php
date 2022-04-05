@@ -48,7 +48,7 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $collections->links() }}
+        {{ $collections->appends($_GET)->links() }}
         @if ($errors->has('iddelete'))
             <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been deleted</div>
         @endif

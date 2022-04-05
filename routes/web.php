@@ -53,6 +53,7 @@ Route::get('/nfts/available', [NftController::class, 'available']);
 Route::get('/nfts/sortByPrice', [NftController::class, 'sortByPrice']);
 //Order depending exclusivity
 Route::get('/nfts/sortByExclusivity', [NftController::class, 'sortByExclusivity']);
+Route::put('/nfts/update', [CollectionController::class, 'update'])->name('nft.update');
 
 //Collections 
 //Order by name
@@ -67,7 +68,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/nfts', [NftController::class, 'getAll'])->name('nft.getAll');
     Route::get('/nfts/create', [NftController::class, 'create']);
     Route::delete('/nfts/{nft}', [NftController::class, 'delete']);
-    Route::put('/nfts/{nft}', [NftController::class, 'update']);
+    Route::put('/nfts/{nft}', [NftController::class, 'update'])->name('nft.update');
 
     //## User ##
     //CRUDS
