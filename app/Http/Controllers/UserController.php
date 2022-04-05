@@ -41,16 +41,16 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $newUser = User::find($user->id);
-        if($request->filled('name')) {
+        if ($request->filled('name')) {
             $newUser->name = $request->name;
         }
-        if($request->filled('password')) {
+        if ($request->filled('password')) {
             $newUser->password = $request->password;
         }
-        if($request->filled('email')) {
+        if ($request->filled('email')) {
             $newUser->email = $request->email;
         }
-        if($request->filled('img_url')) {
+        if ($request->filled('img_url')) {
             $newUser->img_url = $request->img_url;
         }
         $newUser->save();

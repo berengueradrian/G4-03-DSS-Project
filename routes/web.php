@@ -42,7 +42,10 @@ Route::get('/collections/sortByName', [CollectionController::class, 'sortByName'
 // Users
 Route::get('/users/create', [UserController::class, 'create']);
 Route::get('/users/create', [UserController::class, 'create']);
-Route::post('/users', [UserController::class, 'store'])->name('user.store');
+
+Route::put('/users/update', [UserController::class, 'update'])->name('users.update');
+
+//Sorting for users
 Route::get('/users/sortByBalance', [UserController::class, 'sortByBalance']);
 Route::get('/users/sortByName', [UserController::class, 'sortByName']);
 
