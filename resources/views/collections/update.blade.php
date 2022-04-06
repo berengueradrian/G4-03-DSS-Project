@@ -5,7 +5,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">ID</span>
         </div>
-        <input type="text" class="form-control" name="id" value="{{ old('id') }}" placeholder="Identifier of the collection" aria-label="id" aria-describedby="basic-addon1" id="id">
+        <input type="number" class="form-control" name="id" value="{{ old('id') }}" placeholder="Identifier of the collection" aria-label="id" aria-describedby="basic-addon1" id="id">
     </div>
     @if ($errors->has('id'))
         @foreach ($errors->get('id') as $error)
@@ -38,7 +38,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Artist</span>
         </div>
-        <input type="text" class="form-control" name="artist_id_update" placeholder="New owner artist ID (optional)" value="{{ old('artist_id_update') }}" aria-label="Username" aria-describedby="basic-addon3" id="artist_id_update">
+        <input type="number" class="form-control" name="artist_id_update" placeholder="New owner artist ID (optional)" value="{{ old('artist_id_update') }}" aria-label="Username" aria-describedby="basic-addon3" id="artist_id_update">
     </div>
     @if ($errors->has('artist_id_update'))
         @foreach ($errors->get('artist_id_update') as $error)
