@@ -16,10 +16,10 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Name</span>
         </div>
-        <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="New collection name (optional)" aria-label="Name" aria-describedby="basic-addon1" id="name">
+        <input type="text" class="form-control" name="name_update" value="{{ old('name_update') }}" placeholder="New collection name (optional)" aria-label="Name" aria-describedby="basic-addon1" id="name_update">
     </div>
-    @if ($errors->has('name'))
-        @foreach ($errors->get('name') as $error)
+    @if ($errors->has('name_update'))
+        @foreach ($errors->get('name_update') as $error)
             <div class="invalid-tooltip mb-3">{{ $error }}</div>
         @endforeach
     @endif

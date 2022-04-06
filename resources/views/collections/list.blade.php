@@ -17,19 +17,22 @@
     </li>
 </ul>
 
-<form method="GET" action="{{url('/collections/sortByName')}}" class="form-control">
-    @method('GET')
-    @csrf
-    <select name="sortByName">
-        <option value="-1"> -- Sort by name -- </option>
-        <option value="0">Descendent</option>
-        <option value="1">Ascendent</option>
-    </select>
-    <button type="submit" class="btn btn-primary">Search</button>
-</form>
-
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <form method="GET" action="{{url('/collections/sortByName')}}" class="form-control">
+            @method('GET')
+            @csrf
+            <div class="input-group mb-3">
+                <select name="sortByName" class="custom-select">
+                    <option value="-1"> -- Sort by name -- </option>
+                    <option value="0">Descendent</option>
+                    <option value="1">Ascendent</option>
+                </select>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Sort</button>
+                </div>
+            </div>    
+        </form>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -75,3 +78,14 @@
 </div>
 
 @endsection
+
+<style lang="scss">
+    form{
+        width: 300px !important;
+        background-color: transparent !important;
+        border: none !important;
+        padding: 0px !important;
+        margin-top: 20px !important;
+        margin-bottom: 10px !important;
+    }
+</style>

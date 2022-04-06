@@ -88,7 +88,7 @@
     </select>
     <button type="submit" class="btn btn-primary">Search</button>-->
     <div class="input-group mb-3">
-        <select name="sortByExclusivinft}ty" class="custom-select" id="inputGroupSelect04">
+        <select name="sortByExclusivity" class="custom-select" id="inputGroupSelect04">
           <option value="-1">Sort by exclusivity...</option>
           <option value="0">Less exclusive first</option>
           <option value="1">Most exclusive first</option>
