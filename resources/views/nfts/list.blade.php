@@ -17,28 +17,27 @@
     </li>
 </ul>
 <form method="GET" action="{{url('/nfts/priceFilter')}}">
-    @method('GET')
-    @csrf
-    <div class="input-group mb-3">
-        <input type="text" name="price" class="form-control" placeholder="Filter by price upper than..." aria-label="filterPrice" aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="submit">Filter</button>
-        </div>
-      </div>
+  @method('GET')
+  @csrf
+  <div class="input-group mb-3">
+    <input type="text" name="price" class="form-control" placeholder="Filter by price upper than..." aria-label="filterPrice" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="submit">Filter</button>
+    </div>
+  </div>
 </form>
 
 <form method="GET" action="{{url('/nfts/available')}}">
-    @method('GET')
-    @csrf
-    <div class="input-group mb-3">
-        <select name="availableFilter" class="custom-select" id="inputGroupSelect04">
-          <option value="0">Filter by availability...</option>
-          <option value="1">Available</option>
-          <option value="2">Not available</option>
-        </select>
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="submit">Filter</button>
-        </div>
+  @method('GET')
+  @csrf
+  <div class="input-group mb-3">
+    <select name="availableFilter" class="custom-select" id="inputGroupSelect04">
+      <option value="0">Filter by availability...</option>
+      <option value="1">Available</option>
+      <option value="2">Not available</option>
+    </select>
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="submit">Filter</button>
     </div>
     <div class="sorts">
         <form method="GET" action="{{url('/nfts/sortByPrice')}}">
@@ -76,12 +75,13 @@
             </div>
         </form>
     </div>
+  </div>
 </form>
 
 <form method="GET" action="{{url('/nfts/sortByExclusivity')}}">
-    @method('GET')
-    @csrf
-    <!--<select name="sortByExclusivity">
+  @method('GET')
+  @csrf
+  <!--<select name="sortByExclusivity">
         <option value="-1"> -- Sort by exclusivity -- </option>
         <option value="0">Less exclusive first</option>
         <option value="1">Most exclusive first</option>
@@ -97,6 +97,7 @@
           <button class="btn btn-outline-secondary" type="submit">Sort</button>
         </div>
     </div>
+  </div>
 </form>
 
 <div class="tab-content" id="myTabContent">
