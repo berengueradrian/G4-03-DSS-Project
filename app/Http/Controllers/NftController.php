@@ -26,8 +26,11 @@ class NftController extends Controller
             'base_price' => 'required|numeric',
             'collection_id' => 'required|exists:collections,id',
             'type_id' => 'required|exists:types,id',
-            'user_id' => 'exists:users,id'
         ]);
+
+        if($data->filled('user_id')){
+            $data->validate([ 'user_id' => 'exists:users,id' ]);
+        }
 
         NFT::create([
             'name' => $data->name,

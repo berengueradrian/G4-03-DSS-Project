@@ -20,22 +20,36 @@ class TypesTableSeeder extends Seeder
         // Add a new entry to the table 
         DB::table('types')->insert(
             [
-                'name' => 'exclusive',
-                'description' => 'NFT able to bid'
+                'name' => 'Common',
+                'description' => 'This is the most basic NFT'
             ]
         );
 
         DB::table('types')->insert(
             [
-                'name' => 'normal',
-                'description' => 'NFT to put on sale'
+                'name' => 'Rare',
+                'description' => 'Rare NFT. 1 level higher than common'
             ]
         );
 
         DB::table('types')->insert(
             [
-                'name' => 'undernormal',
-                'description' => 'NFT under normal'
+                'name' => 'Exclusive',
+                'description' => 'Exclusive NFT. The middle grade of rarity. 1 level higher than rare.'
+            ]
+        );
+
+        DB::table('types')->insert(
+            [
+                'name' => 'Very exclusive',
+                'description' => 'Very exclusive NFT. One of the highest levels of rarity. 1 level higher than rare.'
+            ]
+        );
+
+        DB::table('types')->insert(
+            [
+                'name' => 'Legendary',
+                'description' => 'Legendary NFT. The hightest level of rarity.'
             ]
         );
     }
