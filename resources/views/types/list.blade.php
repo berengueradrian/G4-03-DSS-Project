@@ -39,6 +39,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Type</th>
                     <th scope="col">Exclusivity</th>
                 </tr>
             </thead>
@@ -47,6 +48,7 @@
                 <tr>
                     <td>{{ $type->id }}</td>
                     <td><a href={{ route('type.getOne', ['type' => $type->id]) }}>{{ $type->name }}</a></td>
+                    <td>{{ $type->exclusivity }}</td>
                 </tr>
                 @endforeach
             </tbody>

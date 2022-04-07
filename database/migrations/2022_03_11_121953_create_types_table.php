@@ -18,6 +18,7 @@ class CreateTypesTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('description')->nullable();
+            $table->integer('exclusivity');
         });
     }
 

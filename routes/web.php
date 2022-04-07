@@ -4,9 +4,7 @@ use App\Http\Controllers\NftController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
-use App\Models\User;
 use App\Http\Controllers\ArtistController;
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,15 +17,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('home');
 });
 
-// SORT COLLECTIONS
-//Order by name
+//COLLECTIONS
+//Sort by name
 Route::get('/collections/sortByName', [CollectionController::class, 'sortByName']);
-
 
 // USERS
 // Views
@@ -37,7 +33,6 @@ Route::put('/users/update', [UserController::class, 'update'])->name('users.upda
 //Sorting for users
 Route::get('/users/sortByBalance', [UserController::class, 'sortByBalance']);
 Route::get('/users/sortByName', [UserController::class, 'sortByName']);
-
 
 // NFTS
 //Filter depending price
@@ -49,23 +44,20 @@ Route::get('/nfts/sortByPrice', [NftController::class, 'sortByPrice']);
 //Sort depending exclusivity
 Route::get('/nfts/sortByExclusivity', [NftController::class, 'sortByExclusivity']);
 
-//Artists
+//ARTISTS
 //Order by name
 Route::get('/artists/sortByName', [ArtistController::class, 'sortByName']);
 Route::get('/artists/sortByBalance', [ArtistController::class, 'sortByBalance']);
 Route::get('/artists/sortByVolume', [ArtistController::class, 'sortByVolume']);
 
-//Types
+//TYPES
 //Order by name
 Route::get('/types/sortByExclusivity', [TypeController::class, 'sortByExclusivity']);
-
-
 
 
 // ###########
 // ## CRUDS ##
 // ###########
-
 Route::group(['prefix' => 'api'], function () {
 
     //## NFTS ##

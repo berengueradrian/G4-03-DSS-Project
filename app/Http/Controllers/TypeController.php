@@ -63,9 +63,9 @@ class TypeController extends Controller
     public function sortByExclusivity(Request $request)
     {
         if ($request->sortByExclusivity == 0) {
-            $types = Type::orderBy('name', 'DESC')->paginate(2);
+            $types = Type::orderBy('exclusivity', 'ASC')->paginate(2);
         } elseif ($request->sortByExclusivity == 1) {
-            $types = Type::orderBy('name', 'ASC')->paginate(2);
+            $types = Type::orderBy('exclusivity', 'DESC')->paginate(2);
         } else {
             $types = Type::paginate(2);
         }
