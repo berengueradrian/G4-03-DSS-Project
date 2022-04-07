@@ -22,6 +22,17 @@
             <div class="invalid-tooltip mb-3">{{ $error }}</div>
         @endforeach
     @endif
+    <div class="input-group mb-3 bootstrap-textarea">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Exclusivity</span>
+        </div>
+        <input type="text" class="form-control" name="exclusivity" value="{{ old('exclusivity') }}" placeholder="Description of the type (optional)" aria-label="Description" aria-describedby="basic-addon2" id="exclusivity">
+    </div>
+    @if ($errors->has('exclusivity'))
+        @foreach ($errors->get('exclusivity') as $error)
+            <div class="invalid-tooltip mb-3">{{ $error }}</div>
+        @endforeach
+    @endif
     <button class="btn btn-primary">Create</button>
 </form>
 

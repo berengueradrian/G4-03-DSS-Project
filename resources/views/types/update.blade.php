@@ -21,6 +21,13 @@
         <input type="text" class="form-control" name="name_update" value="{{ old('name_update') }}" placeholder="New type name (optional)" aria-label="Name" aria-describedby="basic-addon1" id="name_update">
     </div>
 
+    <div class="input-group mb-3 bootstrap-input">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Exclusivity</span>
+      </div>
+      <input type="text" class="form-control" name="exclusivity_update" value="{{ old('exclusivity_update') }}" placeholder="New exclusivity (optional)" aria-label="Name" aria-describedby="basic-addon1" id="exclusivity_update">
+  </div>
+
     <div class="input-group mb-3 bootstrap-textarea">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Description</span>

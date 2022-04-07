@@ -23,11 +23,13 @@ class TypeController extends Controller
     {
         $data->validate([
             'name' => 'required',
+            'exclusivity' => 'required'
         ]);
 
         $type = Type::create([
             'name' => $data->name,
             'description' => $data->description,
+            'exclusivity' => $data->exclusiviy
         ]);
 
         return back();
@@ -54,6 +56,9 @@ class TypeController extends Controller
         }
         if ($request->filled('description_update')) {
             $newType->description = $request->description_update;
+        }
+        if ($request->filled('exclusivity_update')) {
+            $newType->exclusivity = $request->exclusivity_update;
         }
 
         $newType->update();

@@ -92,7 +92,7 @@ class NftController extends Controller
             $newNft->img_url = $request->img_url_update;
         }
         if($request->availability_update != null) {
-            $newNft->img_url = $request->availability_update;
+            $newNft->availability = $request->availability_update;
         }
         $newNft->update();
         return back();

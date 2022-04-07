@@ -77,7 +77,7 @@
         @if ($errors->has('id_update'))
         <div class="invalid-tooltip mb-3 mt-3">ERROR: The type has not been updated</div>
         @endif
-        @if ($errors->has('name')||$errors->has('description'))
+        @if ($errors->has('name')||$errors->has('description')||$errors->has('exclusivity'))
         <div class="invalid-tooltip mb-3 mt-3">ERROR: The type has not been created</div>
         @endif
     </div>
