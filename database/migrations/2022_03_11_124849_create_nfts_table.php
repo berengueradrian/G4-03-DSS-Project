@@ -22,7 +22,7 @@ class CreateNFTSTable extends Migration
             $table->float('actual_price');
             $table->string('img_url')->default('default.jpg');
             $table->foreignId('collection_id')->constrained('collections')->onDelete('cascade');
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('type_id')->constrained('types')->onDelete('cascade');
             $table->timestamps();
         });

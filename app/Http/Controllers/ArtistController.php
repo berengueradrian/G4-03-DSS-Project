@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Artist;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ArtistController extends Controller
 {
@@ -15,7 +16,7 @@ class ArtistController extends Controller
     public function getAll()
     {
         $artists = Artist::paginate(2);
-        return view('artists.list')->with('artists', $artists);
+        return view('artists.list')->with('artists', $artists)->with('withCollection', false);
     }
 
     public function store(Request $data)
@@ -40,8 +41,14 @@ class ArtistController extends Controller
             'iddelete' => 'required|numeric|exists:artists,id'
         ]);
         $artist = Artist::find($request->iddelete);
-        $artist->delete();
-        return back();
+        if($artist->collections->count() > 0){ 
+            $artists = Artist::paginate(2); //TODO: It works but is not efficient. We have to find another way.
+            return view('artists.list')->with('artists', $artists)->with('withCollection', true);
+        }
+        else{
+            $artist->delete();
+        }
+        return back()->with('withCollection', false);
     }
 
     public function update(Request $request)

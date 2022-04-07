@@ -8,6 +8,11 @@
 <p><strong>Available?:</strong> {{ $nft->available }}</p>
 <p><strong>Actual Price:</strong> {{ $nft->actual_price }}</p>
 <p><strong>Collection ID:</strong> {{ $nft->collection->name }}</p>
+@if($nft->user_id != null)
+<p><strong>User ID:</strong> {{ $nft->user->name }}</p>
+@else
+<p><strong>User ID:</strong></p>
+@endif
 <p><strong>Type ID:</strong> {{ $nft->type->name }}</p>
 <div class="img-container" style="display: flex; align-items:flex-start; margin-bottom:20px">
     <p><strong style="margin-right: 20px">Image:</strong></p>

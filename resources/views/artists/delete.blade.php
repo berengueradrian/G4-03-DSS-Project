@@ -12,5 +12,8 @@
             <div class="invalid-tooltip mb-3">{{ $error }}</div>
         @endforeach
     @endif
+    @if ($withCollection)
+    <div class="invalid-tooltip mb-3">An artist with collections cannot be deleted</div>
+    @endif
     <button type="submit" class="btn btn-primary">Delete</button>
 </form>

@@ -1,4 +1,4 @@
-<form action="{{ route('type.delete') }}" method="POST" class="needs-validation create-collection-container">
+<form action="{{ route('collection.delete') }}" method="POST" class="needs-validation create-collection-container">
     @csrf
     @method('DELETE')
     <div class="input-group mb-3 bootstrap-input">

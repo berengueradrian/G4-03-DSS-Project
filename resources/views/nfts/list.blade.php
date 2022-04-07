@@ -23,7 +23,7 @@
         <form method="GET" action="{{url('/nfts/priceFilter')}}">
           @method('GET')
           @csrf
-          <div class="input-group mb-3">
+          <div class="input-group">
             <input type="text" name="price" class="form-control" placeholder="Filter by price upper than..." aria-label="filterPrice" aria-describedby="basic-addon2">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="submit">Filter</button>
@@ -34,7 +34,7 @@
         <form method="GET" action="{{url('/nfts/available')}}">
           @method('GET')
           @csrf
-          <div class="input-group mb-3">
+          <div class="input-group">
             <select name="availableFilter" class="custom-select" id="inputGroupSelect04">
               <option value="0">Filter by availability...</option>
               <option value="1">Available</option>
@@ -52,7 +52,7 @@
         <form method="GET" action="{{url('/nfts/sortByPrice')}}">
             @method('GET')
             @csrf
-            <div class="input-group mb-3">
+            <div class="input-group">
                 <select name="sortByPrice" class="custom-select" id="inputGroupSelect04">
                   <option value="-1">Sort by actual price...</option>
                   <option value="0">Cheapest first</option>
@@ -72,7 +72,7 @@
                 <option value="1">Most exclusive first</option>
             </select>
             <button type="submit" class="btn btn-primary">Search</button>-->
-            <div class="input-group mb-3">
+            <div class="input-group">
                 <select name="sortByExclusivity" class="custom-select" id="inputGroupSelect04">
                   <option value="-1">Sort by exclusivity...</option>
                   <option value="0">Most exclusive first</option>
@@ -92,6 +92,7 @@
               <th scope="col">Name</th>
               <th scope="col">Actual Price</th>
               <th scope="col">Exclusivity</th>
+              <th scope="col">Limit Date</th>
 
           </tr>
       </thead>
@@ -102,6 +103,7 @@
               <td><a href="/api/nfts/{{$nft->id}}">{{ $nft->name }}</a></td>
               <td>{{ $nft->actual_price }}</td>
               <td>{{ $nft->type->name }}</td>
+              <td>{{ $nft->limit_date }}</td>
           </tr>
           @endforeach
       </tbody>

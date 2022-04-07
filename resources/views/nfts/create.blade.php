@@ -28,7 +28,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Image</span>
         </div>
-        <input type="url" class="form-control" name="img_url" value="{{ old('img_url') }}" placeholder="URL of image" aria-label="img_url" aria-describedby="basic-addon2" id="img_url">
+        <input type="text" class="form-control" name="img_url" value="{{ old('img_url') }}" placeholder="URL of image" aria-label="img_url" aria-describedby="basic-addon2" id="img_url">
     </div>
     @if ($errors->has('img_url'))
         @foreach ($errors->get('img_url') as $error)
