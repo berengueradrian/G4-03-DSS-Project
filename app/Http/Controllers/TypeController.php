@@ -5,22 +5,30 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Type;
 
-class TypeController extends Controller{
+class TypeController extends Controller
+{
 
-    public function get(Type $type){
+    public function get(Type $type)
+    {
         return view('types.details')->with('type', $type);
     }
 
-    public function getAll(){
+    public function getAll()
+    {
         $types = Type::paginate(2);
         return view('types.list')->with('types', $types);
     }
 
+<<<<<<< HEAD
     public function store(Request $data){
         $data->validate([
             'name' => 'required',
         ]);
 
+=======
+    public function create(Request $data)
+    {
+>>>>>>> develop
         $type = Type::create([
             'name' => $data->name,
             'description' => $data->description,
@@ -29,6 +37,7 @@ class TypeController extends Controller{
         return back();
     }
 
+<<<<<<< HEAD
     public function delete(Request $request){
         $request->validate([
             'iddelete' => 'required|exists:types,id'
@@ -52,9 +61,31 @@ class TypeController extends Controller{
         
         $newType->update();
         return back();
+=======
+    public function delete(Type $type)
+    {
+        if (Type::whereId($type->id)->count()) {
+            $type->delete();
+            return response()->json(['success' => true, 'type' => $type]);
+        }
+        return response()->json(['success' => false]);
     }
 
-    public function sortByName(Request $request) {
+    public function update(Request $request, Type $type)
+    {
+
+        $newType = Type::find($type->id);
+        $newType->name = $request->name;
+        if ($request->filled('description')) {
+            $newType->description = $request->description;
+        }
+
+        $newType->save();
+>>>>>>> develop
+    }
+
+    public function sortByExclusivity(Request $request)
+    {
         if ($request->sortByExclusivity == 0) {
             $types = Type::orderBy('name', 'DESC')->paginate(2);
         } elseif ($request->sortByExclusivity == 1) {

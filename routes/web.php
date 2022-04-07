@@ -57,7 +57,11 @@ Route::get('/artists/sortByVolume', [ArtistController::class, 'sortByVolume']);
 
 //Types
 //Order by name
+<<<<<<< HEAD
 Route::get('/types/sortByName', [TypeController::class, 'sortByName']);
+=======
+Route::get('/types/sortByExclusivity', [TypeController::class, 'sortByExclusivity']);
+>>>>>>> develop
 
 
 
