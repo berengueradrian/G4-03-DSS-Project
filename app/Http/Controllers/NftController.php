@@ -57,7 +57,7 @@ class NftController extends Controller
 
     public function update(Request $request){
         $request->validate([
-            'id_update' => 'required|numeric'
+            'id_update' => 'required|numeric|exists:nfts,id'
         ]);
         
 
@@ -67,7 +67,7 @@ class NftController extends Controller
         }
         if($request->base_price_update != null) {
             $request->validate([
-                'base_price_update' => 'numeric'
+                'base_price_update' => 'numeric|gte:0'
             ]);
             $newNft->base_price = $request->base_price_update;
             $newNft->actual_price = $request->base_price_update;

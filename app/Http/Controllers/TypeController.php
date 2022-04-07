@@ -58,6 +58,7 @@ class TypeController extends Controller
             $newType->description = $request->description_update;
         }
         if ($request->filled('exclusivity_update')) {
+            //TODO: FIX not working if string?
             $newType->exclusivity = $request->exclusivity_update;
         }
 

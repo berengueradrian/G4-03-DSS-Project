@@ -70,7 +70,7 @@ class UserController extends Controller
         }
         if ($request->filled('balance_update')) {
             $request->validate([
-                'balance_update' => 'numeric'
+                'balance_update' => 'numeric|gte:0'
             ]);
             $newUser->balance = $request->balance_update;
         }

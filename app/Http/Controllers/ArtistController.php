@@ -23,10 +23,11 @@ class ArtistController extends Controller
     {
         $data->validate([
             'name' => 'required',
-            'balance' => 'required|numeric'
+            'balance' => 'required|numeric|gte:0'
         ]);
 
         Artist::create([
+            //TODO: va fatal arreglar
             'name' => $data->name,
             'balance' => $data->balance,
             'img_url' => $data->img_url,
@@ -68,13 +69,14 @@ class ArtistController extends Controller
         }
         if ($request->filled('volume_sold_update')) {
             $request->validate([
-                'volume_sold_update' => 'numeric'
+                'volume_sold_update' => 'numeric|gte:0'
             ]);
             $newArtist->volume_sold = $request->volume_sold_update;
         }
         if ($request->filled('balance_update')) {
             $request->validate([
-                'balance_update' => 'numeric'
+                //TODO: no va revisar luego
+                'balance_update' => 'numeric|gte:0'
             ]);
             $newArtist->balance = $request->balance_update;
         }
