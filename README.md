@@ -12,10 +12,10 @@ An ultra-intuitive implementation of the NFT marketplace to reach people with li
 ### SECOND SUBMISSION
 
 Work done by each member:
-Mario Alcaraz: 34%
-Javier Rodriguez: 34%
-Adrian Berenguer: 22%
-Madani El Mrabet: 10%
+- Mario Alcaraz: 34%
+- Javier Rodriguez: 34%
+- Adrian Berenguer: 22%
+- Madani El Mrabet: 10%
 
 ### TRELLO LINK
 
