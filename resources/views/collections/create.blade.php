@@ -6,7 +6,7 @@
         </div>
         <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Collection name" aria-label="Name" aria-describedby="basic-addon1" id="name">
     </div>
-    @if ($errors->has('name'))
+    @if ($errors->has("name"))
         @foreach ($errors->get('name') as $error)
             <div class="invalid-tooltip mb-3">{{ $error }}</div>
         @endforeach

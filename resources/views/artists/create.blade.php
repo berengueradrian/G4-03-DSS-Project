@@ -50,4 +50,11 @@
 .bootstrap-input{
     width: 400px;
 }
+
+.invalid-tooltip{
+    position: relative;
+    display: block;
+    width: 400px;
+    margin-top: -15px;
+}
 </style>

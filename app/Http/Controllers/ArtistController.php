@@ -31,32 +31,48 @@ class ArtistController extends Controller
             'img_url' => $data->img_url,
             'description' => $data->description
         ]);
+        //return back();
+    }
+
+    public function delete(Request $request)
+    {
+        $request->validate([
+            'iddelete' => 'required|numeric|exists:artists,id'
+        ]);
+        $artist = Artist::find($request->iddelete);
+        $artist->delete();
         return back();
     }
 
-    public function delete(Artist $artist)
+    public function update(Request $request)
     {
-        if (Artist::whereID($artist->id)->count()) {
-            $artist->delete();
-            return response()->json(['success' => true, 'artist' => $artist]);
+        $request->validate([
+            'id_update' => 'required'
+        ]);
+        $newArtist = Artist::find($request->id_update);
+        if ($request->filled('name_update')) {
+            $newArtist->name = $request->name_update;
         }
-
-        return response()->json(['success' => false]);
-    }
-
-    public function update(Request $request, Artist $artist)
-    {
-        $newArtist = Artist::find($artist->id);
-        if ($request->filled('name')) {
-            $newArtist->name = $request->name;
+        if ($request->filled('description_update')) {
+            $newArtist->description = $request->description_update;
         }
-        if ($request->filled('description')) {
-            $newArtist->description = $request->description;
+        if ($request->filled('img_url_update')) {
+            $newArtist->img_url = $request->img_url_update;
         }
-        if ($request->filled('img_url')) {
-            $newArtist->img_url = $request->img_url;
+        if ($request->filled('volume_sold_update')) {
+            $request->validate([
+                'volume_sold_update' => 'numeric'
+            ]);
+            $newArtist->volume_sold = $request->volume_sold_update;
         }
-        $newArtist->save();
+        if ($request->filled('balance_update')) {
+            $request->validate([
+                'balance_update' => 'numeric'
+            ]);
+            $newArtist->balance = $request->balance_update;
+        }
+        $newArtist->update();
+        return back();
     }
 
     public function sortByName(Request $request)

@@ -69,6 +69,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Balance</th>
                     <th scope="col">Volume Sold</th>
@@ -78,6 +79,7 @@
             <tbody>
                 @foreach ($artists as $artist)
                 <tr>
+                    <td>{{ $artist->id }}</td>
                     <td><a href="/api/artists/{{$artist->id}}">{{ $artist->name }}</a></td>
                     <td>{{ $artist->balance }}</td>
                     <td>{{ $artist->volume_sold }}</td>
@@ -89,13 +91,13 @@
         
         {{ $artists->appends($_GET)->links() }}
         @if ($errors->has('iddelete'))
-            <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been deleted</div>
+            <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been deleted</div>
         @endif
-        @if ($errors->has('id') || $errors->has('artist_id_update'))
-            <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been updated</div>
+        @if ($errors->has('id_update') || $errors->has('balance_update') || $errors->has('volume_sold_update'))
+            <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been updated</div>
         @endif
         @if ($errors->has('name')||$errors->has('description')||$errors->has('balance')||$errors->has('img_url'))
-            <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been created</div>
+            <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been created</div>
         @endif
     </div>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
