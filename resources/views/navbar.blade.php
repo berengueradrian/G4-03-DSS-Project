@@ -8,10 +8,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href=#>Users<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href={{ route('user.getAll') }}>Users<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Artists</a>
+                <a class="nav-link" href={{ route('artist.getAll') }}>Artists</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href={{ route("collection.getAll") }}>Collections</a>

@@ -19,41 +19,63 @@ class UserController extends Controller
         return view('users.list')->with('users', $users);
     }
 
-    public function create()
-    {
-        return view('users.create');
-    }
-
     public function store(Request $request)
     {
-        $request->validate([]);
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'balance' => 'numeric',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'balance' => $request->balance,
+            'img_url' => $request->img_url,
+            'password' => $request->password
+        ]);
+        return back();
     }
 
-    public function delete(User $user)
+    public function delete(Request $request)
     {
-        if (User::whereId($user->id)->count()) {
-            $user->delete();
-            return response()->json(['success' => true, 'user' => $user]);
-        }
-        return response()->json(['success' => false]);
+        $request->validate([
+            'iddelete' => 'required|exists:users,id'
+        ]);
+        $collection = User::find($request->iddelete);
+        $collection->delete();
+        return back();
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        $newUser = User::find($user->id);
-        if ($request->filled('name')) {
-            $newUser->name = $request->name;
+        $request->validate([
+            'id_update' => 'required|exists:users,id',
+        ]);
+
+        $newUser = User::find($request->id_update);
+        if ($request->filled('name_update')) {
+            $newUser->name = $request->name_update;
         }
-        if ($request->filled('password')) {
-            $newUser->password = $request->password;
+        if ($request->filled('password_update')) {
+            $newUser->password = $request->password_update;
         }
-        if ($request->filled('email')) {
-            $newUser->email = $request->email;
+        if ($request->filled('email_update')) {
+            $request->validate([ 'email_update' => 'email|unique:users,email' ]);
+            $newUser->email = $request->email_update;
         }
-        if ($request->filled('img_url')) {
-            $newUser->img_url = $request->img_url;
+        if ($request->filled('img_url_update')) {
+            $newUser->img_url = $request->img_url_update;
+        }
+        if ($request->filled('balance_update')) {
+            $request->validate([
+                'balance_update' => 'numeric'
+            ]);
+            $newUser->balance = $request->balance_update;
         }
         $newUser->save();
+        return back();
     }
 
     public function sortByBalance(Request $request)

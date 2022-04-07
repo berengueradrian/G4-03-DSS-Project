@@ -17,27 +17,28 @@
     </li>
 </ul>
 
-<form method="GET" action="{{url('/collections/sortByName')}}" class="form-control">
-    @method('GET')
-    @csrf
-    <select name="sortByName">
-        <option value="-1"> -- Sort by name -- </option>
-        <option value="0">Descendent</option>
-        <option value="1">Ascendent</option>
-    </select>
-    <button type="submit" class="btn btn-primary">Search</button>
-</form>
-
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <form method="GET" action="{{url('/collections/sortByName')}}" class="form-control">
+            @method('GET')
+            @csrf
+            <div class="input-group mb-3">
+                <select name="sortByName" class="custom-select">
+                    <option value="-1">Sort by name...</option>
+                    <option value="0">Descendent</option>
+                    <option value="1">Ascendent</option>
+                </select>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Sort</button>
+                </div>
+            </div>    
+        </form>
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
-                    <th scope="col">NFTs</th>
-                    <th scope="col">Artist</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,13 +47,11 @@
                     <td>{{ $collection->id }}</td>
                     <td><a href={{ route('collection.getOne', ['collection' => $collection->id]) }}>{{ $collection->name }}</a></td>
                     <td>{{ $collection->description }}</td>
-                    <td>{{ $collection->nfts->count() }}</td>
-                    <td>{{ $collection->artist->name }}</td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        {{ $collections->links() }}
+        {{ $collections->appends($_GET)->links() }}
         @if ($errors->has('iddelete'))
             <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been deleted</div>
         @endif
@@ -75,3 +74,14 @@
 </div>
 
 @endsection
+
+<style lang="scss">
+    form{
+        width: 300px !important;
+        background-color: transparent !important;
+        border: none !important;
+        padding: 0px !important;
+        margin-top: 20px !important;
+        margin-bottom: 10px !important;
+    }
+</style>

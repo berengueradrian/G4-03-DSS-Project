@@ -1,10 +1,10 @@
-<form action="{{ route('user.store') }}" method="POST">
+<form action="{{ route('artist.store') }}" method="POST" class="needs-validation create-collection-container">
     @csrf
     <div class="input-group mb-3 bootstrap-input">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Name</span>
         </div>
-        <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="User name" aria-label="Name" aria-describedby="basic-addon1" id="name">
+        <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Artist user name" aria-label="Name" aria-describedby="basic-addon1" id="name">
     </div>
     @if ($errors->has('name'))
         @foreach ($errors->get('name') as $error)
@@ -13,20 +13,9 @@
     @endif
     <div class="input-group mb-3 bootstrap-input">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Email</span>
-        </div>
-        <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="User email" aria-label="Name" aria-describedby="basic-addon1" id="email">
-    </div>
-    @if ($errors->has('email'))
-        @foreach ($errors->get('email') as $error)
-            <div class="invalid-tooltip mb-3">{{ $error }}</div>
-        @endforeach
-    @endif
-    <div class="input-group mb-3 bootstrap-input">
-        <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Balance</span>
         </div>
-        <input type="text" class="form-control" name="balance" value="{{ old('balance') }}" placeholder="User balance" aria-label="Name" aria-describedby="basic-addon1" id="balance">
+        <input type="text" class="form-control" name="balance" value="{{ old('balance') }}" placeholder="Artists balance" aria-label="Name" aria-describedby="basic-addon1" id="balance">
     </div>
     @if ($errors->has('balance'))
         @foreach ($errors->get('balance') as $error)
@@ -46,14 +35,19 @@
     @endif
     <div class="input-group mb-3 bootstrap-input">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Password</span>
+          <span class="input-group-text" id="basic-addon1">Description</span>
         </div>
-        <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="User password" aria-label="Name" aria-describedby="basic-addon1" id="password">
+        <input type="text" class="form-control" name="description" value="{{ old('description') }}" placeholder="Description of the artist" aria-label="Name" aria-describedby="basic-addon1" id="description">
     </div>
-    @if ($errors->has('password'))
-        @foreach ($errors->get('password') as $error)
-            <div class="invalid-tooltip mb-3">{{ $error }}</div>
-        @endforeach
-    @endif
     <button class="btn btn-primary">Create</button>
 </form>
+
+
+<style lang="scss">
+.btn{
+    margin-bottom: 1rem !important;
+}
+.bootstrap-input{
+    width: 400px;
+}
+</style>

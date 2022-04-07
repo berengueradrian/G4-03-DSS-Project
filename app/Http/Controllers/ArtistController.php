@@ -18,15 +18,20 @@ class ArtistController extends Controller
         return view('artists.list')->with('artists', $artists);
     }
 
-    public function create(Request $data)
+    public function store(Request $data)
     {
-        $artist = Artist::create([
+        $data->validate([
+            'name' => 'required',
+            'balance' => 'required|numeric'
+        ]);
+
+        Artist::create([
             'name' => $data->name,
             'balance' => $data->balance,
-            'volume_sold' => $data->volume_sold,
+            'img_url' => $data->img_url,
             'description' => $data->description
         ]);
-        return response()->json(['success' => true, 'artist' => $artist]);
+        return back();
     }
 
     public function delete(Artist $artist)

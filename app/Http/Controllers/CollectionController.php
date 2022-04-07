@@ -41,6 +41,12 @@ class CollectionController extends Controller {
     }
 
     public function update(Request $request){
+        if($request->name_update == ''){
+            $request->name_final = $request->name;
+        }
+        else{
+            $request->name_final = $request->name_update;
+        }
         if($request->artist_id_update != ''){
             $request->validate([
                 'id' => 'required|numeric|exists:collections,id',
@@ -55,8 +61,8 @@ class CollectionController extends Controller {
         
 
         $newCollection = Collection::find($request->id);
-        if($request->name != null) {
-            $newCollection->name = $request->name;
+        if($request->name_final != null) {
+            $newCollection->name = $request->name_final;
         }
         if($request->description != null) {
             $newCollection->description = $request->description;
