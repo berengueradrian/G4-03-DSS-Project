@@ -16,32 +16,42 @@ class TypeController extends Controller{
         return view('types.list')->with('types', $types);
     }
 
-    public function create(Request $data){
-        $type = Type::create([
-            'name' => $data->name,
-            'description' => $data->email,
+    public function store(Request $data){
+        $data->validate([
+            'name' => 'required',
         ]);
 
-        return response()->json(['success' => true, 'type' => $type]);
+        $type = Type::create([
+            'name' => $data->name,
+            'description' => $data->description,
+        ]);
+
+        return back();
     }
 
-    public function delete(Type $type){
-        if(Type::whereId($type->id)->count()){
-            $type->delete();
-            return response()->json(['success' => true, 'type' => $type]);
-        }
-        return response()->json(['success' => false]);
+    public function delete(Request $request){
+        $request->validate([
+            'iddelete' => 'required|exists:types,id'
+        ]);
+        $type = Type::find($request->iddelete);
+        $type->delete();
+        return back();
     }
 
-    public function update(Request $request, Type $type){
-        
-        $newType = Type::find($type->id);
-        $newType->name = $request->name;
-        if($request->filled('description')) {
-            $newType->description = $request->description;
+    public function update(Request $request){
+        $request->validate([
+            'id_update' => 'required|exists:types,id',
+        ]);
+        $newType = Type::find($request->id_update);
+        if($request->filled('name_update')) {
+            $newType->name = $request->name_update;
+        }
+        if($request->filled('description_update')) {
+            $newType->description = $request->description_update;
         }
         
-        $newType->save();
+        $newType->update();
+        return back();
     }
 
     public function sortByName(Request $request) {

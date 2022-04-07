@@ -14,24 +14,3 @@
     @endif
     <button type="submit" class="btn btn-primary">Delete</button>
 </form>
-
-<style lang="scss">
-.create-collection-container{
-    margin-top: 1rem;
-}
-
-.bootstrap-input{
-    width: 400px;
-}
-
-button{
-    margin-bottom: 1rem;
-}
-
-.invalid-tooltip{
-    position: relative;
-    display: block;
-    width: 400px;
-    margin-top: -15px;
-}
-</style>

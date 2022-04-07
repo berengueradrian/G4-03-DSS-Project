@@ -17,7 +17,7 @@
                 <a class="nav-link" href={{ route("collection.getAll") }}>Collections</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Types</a>
+              <a class="nav-link" href={{route("type.getAll")}}>Types</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href={{ route("nft.getAll") }}>NFTs</a>

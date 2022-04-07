@@ -57,7 +57,7 @@ Route::get('/artists/sortByVolume', [ArtistController::class, 'sortByVolume']);
 
 //Types
 //Order by name
-Route::get('/types/sortByName', [ArtistController::class, 'sortByName']);
+Route::get('/types/sortByName', [TypeController::class, 'sortByName']);
 
 
 
@@ -92,9 +92,9 @@ Route::group(['prefix' => 'api'], function () {
     //## Type ##
     Route::get('/types/{type}',  [TypeController::class, 'get'])->name('type.getOne');
     Route::get('/types', [TypeController::class, 'getAll'])->name('type.getAll');
-    Route::post('/types', [TypeController::class, 'create']);
-    Route::delete('/types/{type}', [TypeController::class, 'delete']);
-    Route::put('/types/{type}', [TypeController::class, 'update']);
+    Route::post('/types', [TypeController::class, 'store'])->name('type.store');
+    Route::delete('/types', [TypeController::class, 'delete'])->name('type.delete');
+    Route::put('/types', [TypeController::class, 'update'])->name('type.update');
 
     //## Artist ##
     Route::post('/artists', [ArtistController::class, 'store'])->name('artist.store');
