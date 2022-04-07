@@ -83,7 +83,12 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Availability</span>
         </div>
-        <input type="number" class="form-control" name="availability_update" placeholder="New status (optional)" value="{{ old('availability_update') }}" aria-label="Username" aria-describedby="basic-addon3" id="availability_update">
+        <!--<input type="number" class="form-control" name="availability_update" placeholder="New status (optional)" value="{{ old('availability_update') }}" aria-label="Username" aria-describedby="basic-addon3" id="availability_update">-->
+        <select name="availability_update" class="custom-select" id="availability_update">
+            <option value="-1">Choose availability...</option>
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
     </div>
     <button type="submit" class="btn btn-primary">Update</button>
 </form>
