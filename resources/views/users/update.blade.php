@@ -19,7 +19,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Name</span>
         </div>
-        <input type="text" class="form-control" name="name_update" value="{{ old('name_update') }}" placeholder="New user name" aria-label="Name" aria-describedby="basic-addon1" id="name_update">
+        <input type="text" class="form-control" name="name_update" value="{{ old('name_update') }}" placeholder="New user name (optional)" aria-label="Name" aria-describedby="basic-addon1" id="name_update">
     </div>
 
     <div class="input-group mb-3 bootstrap-input">
