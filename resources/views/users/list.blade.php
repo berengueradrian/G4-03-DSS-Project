@@ -54,7 +54,6 @@
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
-                    <th scope="col">balance</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,7 +62,6 @@
                     <td>{{ $user->id }}</td>
                     <td><a href="/api/users/{{$user->id}}">{{ $user->name }}</a></td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->balance }}</td>
                 </tr>
                 @endforeach
             </tbody>
