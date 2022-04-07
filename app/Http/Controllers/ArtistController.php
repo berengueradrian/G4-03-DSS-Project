@@ -31,7 +31,7 @@ class ArtistController extends Controller
             'img_url' => $data->img_url,
             'description' => $data->description
         ]);
-        //return back();
+        return back();
     }
 
     public function delete(Request $request)
@@ -82,7 +82,7 @@ class ArtistController extends Controller
         } elseif ($request->sortByName == 1) {
             $artists = Artist::orderBy('name', 'ASC')->paginate(2);
         } else {
-            $artists = Artist::paginate(5);
+            $artists = Artist::paginate(2);
         }
 
         return view('artists.list')->with('artists', $artists);
@@ -95,7 +95,7 @@ class ArtistController extends Controller
         } elseif ($request->sortByBalance == 1) {
             $artists = Artist::orderBy('balance', 'ASC')->paginate(2);
         } else {
-            $artists = Artist::paginate(5);
+            $artists = Artist::paginate(2);
         }
 
         return view('artists.list')->with('artists', $artists);
@@ -108,7 +108,7 @@ class ArtistController extends Controller
         } elseif ($request->sortByVolume == 1) {
             $artists = Artist::orderBy('volume_sold', 'ASC')->paginate(2);
         } else {
-            $artists = Artist::paginate(5);
+            $artists = Artist::paginate(2);
         }
 
         return view('artists.list')->with('artists', $artists);
