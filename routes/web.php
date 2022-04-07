@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', function () {
     return view('home');
 });
@@ -53,6 +54,7 @@ Route::get('/artists/sortByVolume', [ArtistController::class, 'sortByVolume']);
 //TYPES
 //Order by name
 Route::get('/types/sortByExclusivity', [TypeController::class, 'sortByExclusivity']);
+//Route::get('/types/sortByCount', [TypeController::class, 'sortByCount']);
 
 
 // ###########

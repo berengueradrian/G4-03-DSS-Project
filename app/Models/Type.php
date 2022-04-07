@@ -8,13 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class Type extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'name',
         'description'
     ];
 
-    public function nfts() {
+    protected $appends = [
+        'count'
+    ];
+
+    public function nfts()
+    {
         return $this->hasMany(Nft::class);
+    }
+
+    public function getCountAttribute()
+    { //get+NombreAtributoAppends+Attribute 
+        return $this->nfts()->count();
     }
 }

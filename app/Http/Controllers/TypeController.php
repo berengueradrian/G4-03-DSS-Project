@@ -72,4 +72,31 @@ class TypeController extends Controller
 
         return view('types.list')->with('types', $types);
     }
+
+    /*public function sortByCount(Request $request)
+    {
+        IT WORKS BUT CANT PAGINATE BTW
+        $types = Type::all()->toArray();
+        //How to paginate array laravel
+        if ($request->sortByCount == 0) {
+            usort($types, function ($first, $second) {
+                if ($first['count'] < $second['count']) {
+
+                    return 1;
+                }
+                return -1;
+            });
+        } elseif ($request->sortByCount == 1) {
+            usort($types, function ($first, $second) {
+                if ($first['count'] < $second['count']) {
+                    return -1;
+                }
+                return 1;
+            });
+        } else {
+            $types = Type::paginate(2);
+        }
+
+        return view('types.list')->with('types', $types);
+    }*/
 }

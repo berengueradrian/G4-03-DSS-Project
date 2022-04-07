@@ -34,6 +34,20 @@
                     </div>
                 </div>
             </form>
+            <!-- <form method="GET" action="{{url('/types/sortByCount')}}">
+                @method('GET')
+                @csrf
+                <div class="input-group mb-3">
+                    <select name="sortByCount" class="custom-select">
+                        <option value="-1">Sort by number of NFTs...</option>
+                        <option value="0">Highest first</option>
+                        <option value="1">Lowest first</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Sort</button>
+                    </div>
+                </div>
+            </form> -->
         </div>
         <table class="table table-hover">
             <thead>
@@ -41,6 +55,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Type</th>
                     <th scope="col">Exclusivity</th>
+                    <th scope="col">Number of NFTs</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,11 +64,13 @@
                     <td>{{ $type->id }}</td>
                     <td><a href={{ route('type.getOne', ['type' => $type->id]) }}>{{ $type->name }}</a></td>
                     <td>{{ $type->exclusivity }}</td>
+                    <td>{{ $type->count }}</td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
         {{ $types->appends($_GET)->links() }}
+
         @if ($errors->has('iddelete'))
         <div class="invalid-tooltip mb-3 mt-3">ERROR: The type has not been deleted</div>
         @endif
