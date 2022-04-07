@@ -16,6 +16,9 @@ class CollectionController extends Controller {
         return view('collections.list')->with('collections', $collections);
     }
 
+
+    //TODO: Si de input metes una string muy larga peta todo
+
     public function store(Request $data){
         $data->validate([
             'name' => 'required',

@@ -27,7 +27,12 @@ class ArtistController extends Controller
         ]);
 
         Artist::create([
+            //De artist solo falla el create apriori
             //TODO: va fatal arreglar
+            //TODO: si creo un user con balance y nada mas peta
+            //TODO: Si de input metes una string muy larga peta todo
+            //TODO: REVISAR EN TODOS LOS METODOS EL TEMA DE BALANCES ENORMES Y STRINGS ENORMES
+            // EL MALETIN, EL MALETIN DEL TESTER, PAGARME LAS HORAS EXTRAS PRIMER AVISO!!
             'name' => $data->name,
             'balance' => $data->balance,
             'img_url' => $data->img_url,

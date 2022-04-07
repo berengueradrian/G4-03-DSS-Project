@@ -21,11 +21,17 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+
+        //TODO: Si pongo en el update 99999999999999999 peta
+        //TODO: Si pongo en el create 99999999999999999 peta
+        //TODO: Si de input metes una string muy larga peta todo
+        //TODO: Si repites email da : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'masd@gmail.com' for key 'users.users_email_unique' (SQL: insert into `users` (`name`, `email`, `password`, `updated_at`, `created_at`) values (alcarmar, masd@gmail.com, 1, 2022-04-07 21:10:37, 2022-04-07 21:10:37))
+
         $request->validate([
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
-            'balance' => 'numeric',
+            'balance' => 'required|numeric|gte:0',
         ]);
 
         User::create([

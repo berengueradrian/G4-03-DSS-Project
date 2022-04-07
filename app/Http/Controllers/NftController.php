@@ -20,6 +20,8 @@ class NftController extends Controller
         return view('nfts.list')->with('nfts', $nfts);
     }
 
+    //TODO: el create balance negativo mal
+
     public function store(Request $data){
         $data->validate([
             'name' => 'required',

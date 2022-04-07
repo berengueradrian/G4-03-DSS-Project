@@ -19,6 +19,12 @@ class TypeController extends Controller
         return view('types.list')->with('types', $types);
     }
 
+    //TODO: El field exclusivity esta como optional en el texto pero es obligatorio!!!
+    //TODO: Si de input metes una string muy larga peta todo
+    //TODO: el create no va: SQLSTATE[HY000]: General error: 1364 Field 'exclusivity' doesn't have a default value (SQL: insert into `types` (`name`, `description`, `updated_at`, `created_at`) values (pruebas, the best, 2022-04-07 21:17:57, 2022-04-07 21:17:57))
+    //TODO: el update va raro en la forma de pedir datos
+    //TODO: el actual price no puede ser negativo
+
     public function store(Request $data)
     {
         $data->validate([
