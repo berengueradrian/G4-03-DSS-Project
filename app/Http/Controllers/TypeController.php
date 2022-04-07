@@ -19,7 +19,8 @@ class TypeController extends Controller
         return view('types.list')->with('types', $types);
     }
 
-    public function store(Request $data){
+    public function store(Request $data)
+    {
         $data->validate([
             'name' => 'required',
         ]);
@@ -32,7 +33,8 @@ class TypeController extends Controller
         return back();
     }
 
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
         $request->validate([
             'iddelete' => 'required|exists:types,id'
         ]);
@@ -41,18 +43,19 @@ class TypeController extends Controller
         return back();
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $request->validate([
             'id_update' => 'required|exists:types,id',
         ]);
         $newType = Type::find($request->id_update);
-        if($request->filled('name_update')) {
+        if ($request->filled('name_update')) {
             $newType->name = $request->name_update;
         }
-        if($request->filled('description_update')) {
+        if ($request->filled('description_update')) {
             $newType->description = $request->description_update;
         }
-        
+
         $newType->update();
         return back();
     }
