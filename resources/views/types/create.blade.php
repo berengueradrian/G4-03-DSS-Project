@@ -15,7 +15,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Description</span>
         </div>
-        <input type="text" class="form-control" name="description" value="{{ old('description') }}" placeholder="Description of the type" aria-label="Description" aria-describedby="basic-addon2" id="description">
+        <input type="text" class="form-control" name="description" value="{{ old('description') }}" placeholder="Description of the type (optional)" aria-label="Description" aria-describedby="basic-addon2" id="description">
     </div>
     @if ($errors->has('description'))
         @foreach ($errors->get('description') as $error)
