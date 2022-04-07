@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Nft;
+use DateTime;
 
 class NftController extends Controller
 {
@@ -19,55 +20,74 @@ class NftController extends Controller
         return view('nfts.list')->with('nfts', $nfts);
     }
 
-    public function create()
-    {
-        return view('nfts.create');
+    public function store(Request $data){
+        $data->validate([
+            'name' => 'required',
+            'base_price' => 'required',
+            'collection_id' => 'required|exists:collections,id',
+            'type_id' => 'required|exists:types,id',
+            'user_id' => 'exists:users,id'
+        ]);
+
+        NFT::create([
+            'name' => $data->name,
+            'base_price' => $data->base_price,
+            'actual_price' => $data->base_price,
+            'available' => false,
+            'collection_id' => $data->collection_id,
+            'type_id' => $data->type_id,
+            'user_id' => $data->user_id,
+            'img_url'=> $data->img_url
+        ]);
+        return back();
     }
 
-    public function delete(Nft $nft)
+    public function delete(Request $data)
     {
-        if (Nft::whereID($nft->id)->count()) {
-            $nft->delete();
-            return response()->json(['success' => true, 'nft' => $nft]);
-        }
-
-        return response()->json(['success' => false]);
+        $data->validate([
+            'iddelete' => 'required|numeric|exists:nfts,id'
+        ]);
+        $nft = NFT::find($data->iddelete);
+        $nft->delete();
+        return back();
     }
 
     public function update(Request $request){
         $request->validate([
-            'id' => 'required|numeric',
-            'collection_id' => 'exists:collections,id',
-            'user_id' => 'exists:users,id',
-            'type_id' => 'exists:types,id',
-            'limit_date' => 'date|after:today'
+            'id_update' => 'required|numeric'
         ]);
         
 
-        $newNft = NFT::find($request->id);
-        if($request->name != null) {
-            $newNft->name = $request->name;
+        $newNft = NFT::find($request->id_update);
+        if($request->name_update != null) {
+            $newNft->name = $request->name_update;
         }
-        if($request->base_price != null) {
-            $newNft->base_price = $request->base_price;
+        if($request->base_price_update != null) {
+            $newNft->base_price = $request->base_price_update;
+            $newNft->actual_price = $request->base_price_update;
         }
         if($request->limit_date != null) {
+            $request->validate([ 'limit_date' => 'date|after:today' ]);
             $newNft->limit_date = $request->limit_date;
         }
-        if($request->collection_id != null) {
-            $newNft->collection_id = $request->collection_id;
+        if($request->collection_id_update != null) {
+            $request->validate([ 'collection_id_update' => 'exists:collections,id' ]);
+            $newNft->collection_id = $request->collection_id_update;
         }
-        if($request->user_id != null) {
-            $newNft->user_id = $request->user_id;
+        if($request->user_id_update != null) {
+            $request->validate([ 'collection_id_update' => 'exists:users,id' ]);
+            $newNft->user_id = $request->user_id_update;
         }
-        if($request->type_id != null) {
-            $newNft->type_id = $request->type_id;
+        if($request->type_id_update != null) {
+            $request->validate([ 'collection_id_update' => 'exists:types,id' ]);
+            $newNft->type_id = $request->type_id_update;
         }
-        if($request->img_url != null) {
-            $newNft->img_url = $request->img_url;
+        if($request->img_url_update != null) {
+            $newNft->img_url = $request->img_url_update;
         }
-        $newNft->actual_price = $request->base_price;
-        $newNft->available = false;
+        if($request->availability_update != null) {
+            $newNft->img_url = $request->availability_update;
+        }
         $newNft->update();
         return back();
     }

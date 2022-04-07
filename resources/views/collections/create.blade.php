@@ -26,7 +26,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Artist</span>
         </div>
-        <input type="text" class="form-control" name="artist_id" placeholder="ID of the artist which is the owner" value="{{ old('artist_id') }}" aria-label="Username" aria-describedby="basic-addon3" id="artist_id">
+        <input type="number" class="form-control" name="artist_id" placeholder="ID of the artist which is the owner" value="{{ old('artist_id') }}" aria-label="Username" aria-describedby="basic-addon3" id="artist_id">
     </div>
     @if ($errors->has('artist_id'))
         @foreach ($errors->get('artist_id') as $error)

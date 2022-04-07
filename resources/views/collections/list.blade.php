@@ -24,7 +24,7 @@
             @csrf
             <div class="input-group mb-3">
                 <select name="sortByName" class="custom-select">
-                    <option value="-1"> -- Sort by name -- </option>
+                    <option value="-1">Sort by name...</option>
                     <option value="0">Descendent</option>
                     <option value="1">Ascendent</option>
                 </select>
@@ -39,8 +39,6 @@
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
-                    <th scope="col">NFTs</th>
-                    <th scope="col">Artist</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,8 +47,6 @@
                     <td>{{ $collection->id }}</td>
                     <td><a href={{ route('collection.getOne', ['collection' => $collection->id]) }}>{{ $collection->name }}</a></td>
                     <td>{{ $collection->description }}</td>
-                    <td>{{ $collection->nfts->count() }}</td>
-                    <td>{{ $collection->artist->name }}</td>
                 </tr>
                 @endforeach
             </tbody>

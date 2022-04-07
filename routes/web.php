@@ -24,41 +24,30 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/type/create', function () {
-    return view('type.create');
-});
-
-
-//## Create, edit, delete methods ##
-// Collections
-Route::get('/collection/create', [CollectionController::class, 'create']);
-Route::post('/collection/store', [CollectionController::class, 'store'])->name('collection.store');
-Route::put('/collection/update', [CollectionController::class, 'update'])->name('collection.update');
-Route::delete('/collection/delete', [CollectionController::class, 'delete'])->name('collection.delete');
+// SORT COLLECTIONS
 //Order by name
 Route::get('/collections/sortByName', [CollectionController::class, 'sortByName']);
 
 
-// Users
+// USERS
+// Views
 Route::get('/users/create', [UserController::class, 'create']);
 Route::get('/users/create', [UserController::class, 'create']);
-
 Route::put('/users/update', [UserController::class, 'update'])->name('users.update');
-
 //Sorting for users
 Route::get('/users/sortByBalance', [UserController::class, 'sortByBalance']);
 Route::get('/users/sortByName', [UserController::class, 'sortByName']);
 
-//NFTS
+
+// NFTS
 //Filter depending price
 Route::get('/nfts/priceFilter', [NftController::class, 'filterPrice']);
 //Filter depending availability
 Route::get('/nfts/available', [NftController::class, 'available']);
-//Order depending price
+//Sort depending price
 Route::get('/nfts/sortByPrice', [NftController::class, 'sortByPrice']);
-//Order depending exclusivity
+//Sort depending exclusivity
 Route::get('/nfts/sortByExclusivity', [NftController::class, 'sortByExclusivity']);
-Route::put('/nfts/update', [CollectionController::class, 'update'])->name('nft.update');
 
 //Artists
 //Order by name
@@ -80,25 +69,25 @@ Route::get('/types/sortByName', [ArtistController::class, 'sortByName']);
 Route::group(['prefix' => 'api'], function () {
 
     //## NFTS ##
-    Route::get('/nfts/{nft}', [NftController::class, 'get']);
+    Route::get('/nfts/{nft}', [NftController::class, 'get'])->name('nft.getOne');
     Route::get('/nfts', [NftController::class, 'getAll'])->name('nft.getAll');
-    Route::get('/nfts/create', [NftController::class, 'create']);
-    Route::delete('/nfts/{nft}', [NftController::class, 'delete']);
-    Route::put('/nfts/{nft}', [NftController::class, 'update'])->name('nft.update');
+    Route::post('/nfts', [NftController::class, 'store'])->name('nft.store');
+    Route::delete('/nfts', [NftController::class, 'delete'])->name('nft.delete');
+    Route::put('/nfts', [NftController::class, 'update'])->name('nft.update');
 
     //## User ##
-    Route::get('/users/{user}',  [UserController::class, 'get']);
-    Route::get('/users', [UserController::class, 'getAll']);
-    Route::post('/users', [UserController::class, 'create']);
-    Route::delete('/users/{user}', [UserController::class, 'delete']);
-    Route::put('/users/{user}', [UserController::class, 'update']);
+    Route::get('/users/{user}',  [UserController::class, 'get'])->name('user.getOne');
+    Route::get('/users', [UserController::class, 'getAll'])->name('user.getAll');
+    Route::post('/users', [UserController::class, 'store'])->name('user.store');
+    Route::delete('/users', [UserController::class, 'delete'])->name('user.delete');
+    Route::put('/users', [UserController::class, 'update'])->name('user.update');
 
     //## Collection ##
     Route::get('/collections/{collection}',  [CollectionController::class, 'get'])->name('collection.getOne');
     Route::get('/collections', [CollectionController::class, 'getAll'])->name('collection.getAll');
-    Route::post('/collections', [CollectionController::class, 'create']);
-    Route::delete('/collections/{collection}', [CollectionController::class, 'delete']);
-    Route::put('/collections/{collection}', [CollectionController::class, 'update']);
+    Route::post('/collections', [CollectionController::class, 'store'])->name('collection.store');
+    Route::delete('/collections', [CollectionController::class, 'delete'])->name('collection.delete');
+    Route::put('/collections', [CollectionController::class, 'update'])->name('collection.update');
 
     //## Type ##
     Route::get('/types/{type}',  [TypeController::class, 'get'])->name('type.getOne');
