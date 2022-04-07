@@ -74,10 +74,10 @@
         @if ($errors->has('iddelete'))
             <div class="invalid-tooltip mb-3 mt-3">ERROR: The user has not been deleted</div>
         @endif
-        @if ($errors->has('id_update') || $errors->has('email_update'))
+        @if ($errors->has('id_update') || $errors->has('email_update') || $errors->has('balance_update'))
             <div class="invalid-tooltip mb-3 mt-3">ERROR: The user has not been updated</div>
         @endif
-        @if ($errors->has('name')||$errors->has('email')||$errors->has('balance')||$errors->has('password')||$errors->has('img_url'))
+        @if ($errors->has('name')||$errors->has('email')||$errors->has('balance')||$errors->has('password')||$errors->has('img_url')||$errors->has('balance'))
             <div class="invalid-tooltip mb-3 mt-3">ERROR: The user has not been created</div>
         @endif
     </div>

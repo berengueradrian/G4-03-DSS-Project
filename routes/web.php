@@ -97,9 +97,9 @@ Route::group(['prefix' => 'api'], function () {
     Route::put('/types/{type}', [TypeController::class, 'update']);
 
     //## Artist ##
-    Route::get('/artists/{artist}', [ArtistController::class, 'get']);
-    Route::get('/artists', [ArtistController::class, 'getAll']);
-    Route::post('/artists', [ArtistController::class, 'create']);
-    Route::delete('/artists/{artist}', [ArtistController::class, 'delete']);
-    Route::put('/artists/{artist}', [ArtistController::class, 'update']);
+    Route::post('/artists', [ArtistController::class, 'store'])->name('artist.store');
+    Route::get('/artists/{artist}', [ArtistController::class, 'get'])->name('artist.getOne');
+    Route::get('/artists', [ArtistController::class, 'getAll'])->name('artist.getAll');
+    Route::delete('/artists', [ArtistController::class, 'delete'])->name('artist.delete');
+    Route::put('/artists', [ArtistController::class, 'update'])->name('artist.update');
 });

@@ -111,7 +111,7 @@
   @if ($errors->has('name') || $errors->has('base_price') || $errors->has('collection_id') || $errors->has('type_id') || $errors->has('user_id'))
       <div class="invalid-tooltip mb-3 mt-3">ERROR: The NFT has not been created</div>
   @endif
-  @if ($errors->has('id_update') || $errors->has('limit_date') || $errors->has('collection_id_update') || $errors->has('user_id_update') || $errors->has('type_id_update'))
+  @if ($errors->has('id_update') || $errors->has('limit_date') || $errors->has('collection_id_update') || $errors->has('user_id_update') || $errors->has('type_id_update') || $errors->has('base_price_update'))
       <div class="invalid-tooltip mb-3 mt-3">ERROR: The NFT has not been updated</div>
   @endif
   @if ($errors->has('iddelete'))

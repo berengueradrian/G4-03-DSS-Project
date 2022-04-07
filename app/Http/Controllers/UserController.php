@@ -25,12 +25,13 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
+            'balance' => 'numeric',
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'balance' => $request->name,
+            'balance' => $request->balance,
             'img_url' => $request->img_url,
             'password' => $request->password
         ]);
@@ -50,7 +51,7 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'id_update' => 'required',
+            'id_update' => 'required|exists:users,id',
         ]);
 
         $newUser = User::find($request->id_update);
@@ -66,6 +67,12 @@ class UserController extends Controller
         }
         if ($request->filled('img_url_update')) {
             $newUser->img_url = $request->img_url_update;
+        }
+        if ($request->filled('balance_update')) {
+            $request->validate([
+                'balance_update' => 'numeric'
+            ]);
+            $newUser->balance = $request->balance_update;
         }
         $newUser->save();
         return back();

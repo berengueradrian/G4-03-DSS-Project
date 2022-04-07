@@ -22,8 +22,13 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Base price</span>
         </div>
-        <input type="number" class="form-control" name="base_price_update" value="{{ old('base_price_update') }}" placeholder="New base price of the collection (optional)" aria-label="base_price_update" aria-describedby="basic-addon2" id="base_price_update">
+        <input type="text" class="form-control" name="base_price_update" value="{{ old('base_price_update') }}" placeholder="New base price of the collection (optional)" aria-label="base_price_update" aria-describedby="basic-addon2" id="base_price_update">
     </div>
+    @if ($errors->has('base_price_update'))
+        @foreach ($errors->get('base_price_update') as $error)
+            <div class="invalid-tooltip mb-3">{{ $error }}</div>
+        @endforeach
+    @endif
     <div class="input-group mb-3 bootstrap-input">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Limit date</span>

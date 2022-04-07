@@ -23,7 +23,7 @@ class NftController extends Controller
     public function store(Request $data){
         $data->validate([
             'name' => 'required',
-            'base_price' => 'required',
+            'base_price' => 'required|numeric',
             'collection_id' => 'required|exists:collections,id',
             'type_id' => 'required|exists:types,id',
             'user_id' => 'exists:users,id'
@@ -63,6 +63,9 @@ class NftController extends Controller
             $newNft->name = $request->name_update;
         }
         if($request->base_price_update != null) {
+            $request->validate([
+                'base_price_update' => 'numeric'
+            ]);
             $newNft->base_price = $request->base_price_update;
             $newNft->actual_price = $request->base_price_update;
         }

@@ -17,7 +17,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Base price</span>
         </div>
-        <input type="number" class="form-control" name="base_price" value="{{ old('base_price') }}" placeholder="Initial price" aria-label="base_price" aria-describedby="basic-addon2" id="base_price">
+        <input type="text" class="form-control" name="base_price" value="{{ old('base_price') }}" placeholder="Initial price" aria-label="base_price" aria-describedby="basic-addon2" id="base_price">
     </div>
     @if ($errors->has('base_price'))
         @foreach ($errors->get('base_price') as $error)
@@ -71,3 +71,9 @@
     <button class="btn btn-primary">Create</button>
     
 </form>
+
+<style lang="scss">
+.btn{
+    margin-bottom: 1rem !important;
+}
+</style>

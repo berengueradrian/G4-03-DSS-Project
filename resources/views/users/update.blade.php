@@ -1,4 +1,4 @@
-<form action="{{ route('users.update') }}" method="POST" class="needs-validation create-user-container">
+<form action="{{ route('user.update') }}" method="POST" class="needs-validation create-user-container">
     @csrf
     @method('PUT')
 
@@ -40,6 +40,11 @@
         </div>
         <input type="text" class="form-control" name="balance_update" placeholder="New balance (optional)" value="{{ old('balance_update') }}" aria-label="Username" aria-describedby="basic-addon3" id="balance_update">
     </div>
+    @if ($errors->has('balance_update'))
+    @foreach ($errors->get('balance_update') as $error)
+    <div class="invalid-tooltip mb-3">{{ $error }}</div>
+    @endforeach
+    @endif
 
     <div class="input-group mb-3 bootstrap-input">
         <div class="input-group-prepend">
