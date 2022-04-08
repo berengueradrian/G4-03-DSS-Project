@@ -22,22 +22,41 @@ class ArtistController extends Controller
     public function store(Request $data)
     {
         $data->validate([
-            'name' => 'required',
-            'balance' => 'required|numeric|gte:0'
+            'name' => 'required|max:50',
         ]);
 
-        Artist::create([
-            //De artist solo falla el create apriori
-            //TODO: va fatal arreglar
-            //TODO: si creo un user con balance y nada mas peta
-            //TODO: Si de input metes una string muy larga peta todo
-            //TODO: REVISAR EN TODOS LOS METODOS EL TEMA DE BALANCES ENORMES Y STRINGS ENORMES
-            // EL MALETIN, EL MALETIN DEL TESTER, PAGARME LAS HORAS EXTRAS PRIMER AVISO!!
-            'name' => $data->name,
-            'balance' => $data->balance,
-            'img_url' => $data->img_url,
-            'description' => $data->description
-        ]);
+        if($data->balance != null){
+            $data->validate([ 'balance' => 'numeric|gte:0' ]);
+        }
+
+        $artist = new Artist();
+        $artist->name = $data->name;
+        if($data->balance != null){
+            $data->validate([ 'balance' => 'numeric|gte:0' ]);
+            $artist->balance = $data->balance;
+        }
+        else{
+            $artist->balance = 0.0;
+        }
+        if($data->img_url != null){
+            $data->validate([
+                'img_url' => 'max:50',   
+            ]);
+            $artist->img_url = $data->img_url;
+        }
+        else{
+            $artist->img_url = 'default.jpg';
+        }
+        if($data->description != null){
+            $data->validate([
+                'description' => 'max:50',   
+            ]);
+            $artist->description = $data->description;
+        }
+        else{
+            $artist->description = '';
+        }
+        $artist->save();
         return back();
     }
 
@@ -64,12 +83,18 @@ class ArtistController extends Controller
         ]);
         $newArtist = Artist::find($request->id_update);
         if ($request->filled('name_update')) {
+            $request->validate([
+                'name_update' => 'max:50',
+            ]);
             $newArtist->name = $request->name_update;
         }
         if ($request->filled('description_update')) {
             $newArtist->description = $request->description_update;
         }
         if ($request->filled('img_url_update')) {
+            $request->validate([
+                'img_url_update' => 'max:50',   
+            ]);
             $newArtist->img_url = $request->img_url_update;
         }
         if ($request->filled('volume_sold_update')) {

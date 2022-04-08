@@ -93,7 +93,7 @@
         @if ($errors->has('iddelete'))
             <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been deleted</div>
         @endif
-        @if ($errors->has('id_update') || $errors->has('balance_update') || $errors->has('volume_sold_update'))
+        @if ($errors->has('id_update') || $errors->has('balance_update') || $errors->has('volume_sold_update')|| $errors->has('name_update') || $errors->has('img_url_update'))
             <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been updated</div>
         @endif
         @if ($errors->has('name')||$errors->has('description')||$errors->has('balance')||$errors->has('img_url'))

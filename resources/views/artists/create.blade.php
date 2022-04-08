@@ -39,6 +39,11 @@
         </div>
         <input type="text" class="form-control" name="description" value="{{ old('description') }}" placeholder="Description of the artist" aria-label="Name" aria-describedby="basic-addon1" id="description">
     </div>
+    @if ($errors->has('description'))
+        @foreach ($errors->get('description') as $error)
+            <div class="invalid-tooltip mb-3">{{ $error }}</div>
+        @endforeach
+    @endif
     <button class="btn btn-primary">Create</button>
 </form>
 
