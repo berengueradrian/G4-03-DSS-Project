@@ -19,23 +19,21 @@ class TypeController extends Controller
         return view('types.list')->with('types', $types);
     }
 
-    //TODO: El field exclusivity esta como optional en el texto pero es obligatorio!!!
-    //TODO: Si de input metes una string muy larga peta todo
-    //TODO: el create no va: SQLSTATE[HY000]: General error: 1364 Field 'exclusivity' doesn't have a default value (SQL: insert into `types` (`name`, `description`, `updated_at`, `created_at`) values (pruebas, the best, 2022-04-07 21:17:57, 2022-04-07 21:17:57))
     //TODO: el update va raro en la forma de pedir datos
-    //TODO: el actual price no puede ser negativo
+    //TODO: si la exclusivity es muy top cagaste
 
     public function store(Request $data)
     {
         $data->validate([
-            'name' => 'required',
-            'exclusivity' => 'required'
+            'name' => 'required|max:50|unique:types,name',
+            'description' => 'max:50',
+            'exclusivity' => 'required|gte:0|numeric'
         ]);
 
-        $type = Type::create([
+        Type::create([
             'name' => $data->name,
             'description' => $data->description,
-            'exclusivity' => $data->exclusiviy
+            'exclusivity' => $data->exclusivity
         ]);
 
         return back();
@@ -61,10 +59,17 @@ class TypeController extends Controller
             $newType->name = $request->name_update;
         }
         if ($request->filled('description_update')) {
+            $request->validate([ //TODO: mirar
+                'description_update' => 'max:50'
+            ]);
             $newType->description = $request->description_update;
         }
         if ($request->filled('exclusivity_update')) {
-            //TODO: FIX not working if string?
+            //TODO: FIX not working if string? 
+            //TODO: hay que poner estos errores en el list y update errors!!
+            $request->validate([
+                'exclusivity_update' => 'numeric'
+            ]);
             $newType->exclusivity = $request->exclusivity_update;
         }
 

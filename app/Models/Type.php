@@ -11,7 +11,8 @@ class Type extends Model
 
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'exclusivity'
     ];
 
     protected $appends = [

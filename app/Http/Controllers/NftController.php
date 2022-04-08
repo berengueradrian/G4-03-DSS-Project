@@ -21,6 +21,8 @@ class NftController extends Controller
     }
 
     //TODO: el create balance negativo mal
+        //TODO: el actual price no puede ser negativo
+
 
     public function store(Request $data){
         $data->validate([
