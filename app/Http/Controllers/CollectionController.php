@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Collection;
 
-class CollectionController extends Controller {
-    
-    public function get(Collection $collection){
+class CollectionController extends Controller
+{
+
+    public function get(Collection $collection)
+    {
         return view('collections.details')->with('collection', $collection);
     }
 
-    public function getAll(){
+    public function getAll()
+    {
         $collections = Collection::paginate(2);
         return view('collections.list')->with('collections', $collections);
     }
@@ -19,10 +22,11 @@ class CollectionController extends Controller {
 
     //TODO: Si de input metes una string muy larga peta todo
 
-    public function store(Request $data){
+    public function store(Request $data)
+    {
         $data->validate([
-            'name' => 'required',
-            'description' => 'required',
+            'name' => 'required|max:50',
+            'description' => 'required|max:100',
             'artist_id' => 'required|exists:artists,id|numeric'
         ]);
 
@@ -34,7 +38,8 @@ class CollectionController extends Controller {
         return back();
     }
 
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
         $request->validate([
             'iddelete' => 'required|exists:collections,id'
         ]);
@@ -43,41 +48,48 @@ class CollectionController extends Controller {
         return back();
     }
 
-    public function update(Request $request){
-        if($request->name_update == ''){
+    public function update(Request $request)
+    {
+        if ($request->name_update == '') {
             $request->name_final = $request->name;
-        }
-        else{
+        } else {
+            $request->validate([
+                'name_update' => 'max:50'
+            ]);
             $request->name_final = $request->name_update;
         }
-        if($request->artist_id_update != ''){
+        if ($request->artist_id_update != '') {
             $request->validate([
                 'id' => 'required|numeric|exists:collections,id',
                 'artist_id_update' => 'exists:artists,id'
             ]);
-        }
-        else{
+        } else {
             $request->validate([
                 'id' => 'required|numeric|exists:collections,id'
             ]);
         }
-        
+
 
         $newCollection = Collection::find($request->id);
-        if($request->name_final != null) {
+
+        if ($request->name_final != null) {
             $newCollection->name = $request->name_final;
         }
-        if($request->description != null) {
+        if ($request->description != null) {
+            $request->validate([
+                'description' => 'max:50'
+            ]);
             $newCollection->description = $request->description;
         }
-        if($request->artist_id_update != null) {
+        if ($request->artist_id_update != null) {
             $newCollection->artist_id = $request->artist_id_update;
         }
         $newCollection->update();
         return back();
     }
 
-    public function sortByName(Request $request) {
+    public function sortByName(Request $request)
+    {
         if ($request->sortByName == 1) {
             $collections = Collection::orderBy('name', 'DESC')->paginate(2);
         } elseif ($request->sortByName == 0) {
