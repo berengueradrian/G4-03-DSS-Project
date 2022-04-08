@@ -27,11 +27,21 @@ class CollectionController extends Controller
             'artist_id' => 'required|exists:artists,id|numeric'
         ]);
 
-        Collection::create([
-            'name' => $data->name,
-            'description' => $data->description,
-            'artist_id' => $data->artist_id  
-        ]);
+        $collection = new Collection();
+        $collection->name = $data->name;
+        $collection->description = $data->description;
+        $collection->artist_id = $data->artist_id;
+
+        if($data->filled('img_url')){
+            $data->validate([ 'img_url' => 'max:50' ]);
+            $collection->img_url = $data->img_url;
+        }
+        else{
+            $collection->img_url = 'default.jpg';
+        }
+
+        $collection->save();
+
         return back();
     }
 
@@ -80,6 +90,9 @@ class CollectionController extends Controller
         }
         if ($request->artist_id_update != null) {
             $newCollection->artist_id = $request->artist_id_update;
+        }
+        if($request->img_url_update != null) {
+            $newCollection->img_url = $request->img_url_update;
         }
         $newCollection->update();
         return back();

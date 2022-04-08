@@ -101,7 +101,6 @@ class ArtistController extends Controller
         }
         if ($request->filled('balance_update')) {
             $request->validate([
-                //TODO: no va revisar luego
                 'balance_update' => 'numeric|gte:0'
             ]);
             $newArtist->balance = $request->balance_update;

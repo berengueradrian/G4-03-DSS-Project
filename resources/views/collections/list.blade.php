@@ -55,10 +55,10 @@
         @if ($errors->has('iddelete'))
             <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been deleted</div>
         @endif
-        @if ($errors->has('id') || $errors->has('artist_id_update') || $errors->has('name_update'))
+        @if ($errors->has('id') || $errors->has('artist_id_update') || $errors->has('name_update')|| $errors->has('img_url_update'))
             <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been updated</div>
         @endif
-        @if ($errors->has('name')||$errors->has('description')||$errors->has('artist_id'))
+        @if ($errors->has('name')||$errors->has('description')||$errors->has('artist_id')||$errors->has('img_url'))
             <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been created</div>
         @endif
     </div>
