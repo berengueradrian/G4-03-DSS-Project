@@ -25,10 +25,6 @@ class ArtistController extends Controller
             'name' => 'required|max:50',
         ]);
 
-        if($data->balance != null){
-            $data->validate([ 'balance' => 'numeric|gte:0' ]);
-        }
-
         $artist = new Artist();
         $artist->name = $data->name;
         if($data->balance != null){

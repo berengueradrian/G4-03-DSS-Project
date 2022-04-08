@@ -23,23 +23,31 @@ class UserController extends Controller
     {
 
         //TODO: Si pongo en el update 99999999999999999 peta
-        //TODO: Si pones un balance muy alto se pone a 0, no updatea con normales tmpoco
-        //TODO: Las img no se guardan
 
         $request->validate([
             'name' => 'required|max:50',
             'email' => 'required|max:50|unique:users,email',
             'password' => 'required|max:50',
-            'balance' => 'required|numeric|gte:0.00',
+            'balance' => 'required|numeric|gte:0',
         ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'balance' => $request->balance,
-            'img_url' => $request->img_url,
-            'password' => $request->password
-        ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        if($request->balance != null){
+            $user->balance = $request->balance;
+        }
+        else{
+            $user->balance = 0.0;
+        }
+        if($request->img_url != null){
+            $user->img_url = $request->img_url;
+        }
+        else{
+            $user->img_url = 'default.jpg';
+        }
+        $user->save();
         return back();
     }
 
