@@ -24,12 +24,12 @@
                 @csrf
                 <div class="input-group mb-3">
                     <select name="sortByBalance" class="custom-select" id="inputGroupSelect04">
-                      <option value="-1">Sort by balance...</option>
-                      <option value="0">Lowest first</option>
-                      <option value="1">Highest first</option>
+                        <option value="-1">Sort by balance...</option>
+                        <option value="0">Lowest first</option>
+                        <option value="1">Highest first</option>
                     </select>
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="submit">Sort</button>
+                        <button class="btn btn-outline-secondary" type="submit">Sort</button>
                     </div>
                 </div>
             </form>
@@ -38,15 +38,15 @@
                 @csrf
                 <div class="input-group mb-3">
                     <select name="sortByName" class="custom-select" id="inputGroupSelect04">
-                      <option value="-1">Sort by name...</option>
-                      <option value="0">A first</option>
-                      <option value="1">Z first</option>
+                        <option value="-1">Sort by name...</option>
+                        <option value="0">A first</option>
+                        <option value="1">Z first</option>
                     </select>
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="submit">Sort</button>
+                        <button class="btn btn-outline-secondary" type="submit">Sort</button>
                     </div>
-                  </div>
-            </form>    
+                </div>
+            </form>
         </div>
         <table class="table table-hover">
             <thead>
@@ -70,13 +70,13 @@
         {{ $users->appends($_GET)->links() }} <!-- This is done to prevent pagination swap page to 'forget' about the data filtered or ordered -->
 
         @if ($errors->has('iddelete'))
-            <div class="invalid-tooltip mb-3 mt-3">ERROR: The user has not been deleted</div>
+        <div class="invalid-tooltip mb-3 mt-3">ERROR: The user has not been deleted</div>
         @endif
-        @if ($errors->has('id_update') || $errors->has('email_update') || $errors->has('balance_update'))
-            <div class="invalid-tooltip mb-3 mt-3">ERROR: The user has not been updated</div>
+        @if ($errors->has('id_update') || $errors->has('name_update') || $errors->has('email_update') || $errors->has('img_url_update') || $errors->has('password_update') ||$errors->has('balance_update'))
+        <div class="invalid-tooltip mb-3 mt-3">ERROR: The user has not been updated</div>
         @endif
         @if ($errors->has('name')||$errors->has('email')||$errors->has('balance')||$errors->has('password')||$errors->has('img_url')||$errors->has('balance'))
-            <div class="invalid-tooltip mb-3 mt-3">ERROR: The user has not been created</div>
+        <div class="invalid-tooltip mb-3 mt-3">ERROR: The user has not been created</div>
         @endif
     </div>
 
@@ -94,11 +94,12 @@
 @endsection
 
 <style>
-    .sorts{
+    .sorts {
         display: flex;
         flex-flow: row nowrap;
     }
-    form{
+
+    form {
         width: 300px !important;
         background-color: transparent !important;
         border: none !important;
@@ -107,7 +108,8 @@
         margin-bottom: 10px !important;
         margin-right: 20px;
     }
-    form button{
-      margin-bottom: 0px !important;
+
+    form button {
+        margin-bottom: 0px !important;
     }
 </style>

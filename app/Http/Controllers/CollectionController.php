@@ -19,21 +19,18 @@ class CollectionController extends Controller
         return view('collections.list')->with('collections', $collections);
     }
 
-
-    //TODO: Si de input metes una string muy larga peta todo
-
     public function store(Request $data)
     {
         $data->validate([
             'name' => 'required|max:50',
-            'description' => 'required|max:100',
+            'description' => 'required|max:50',
             'artist_id' => 'required|exists:artists,id|numeric'
         ]);
 
         Collection::create([
             'name' => $data->name,
             'description' => $data->description,
-            'artist_id' => $data->artist_id  // ->artist() funcionaria?
+            'artist_id' => $data->artist_id  
         ]);
         return back();
     }
