@@ -20,6 +20,11 @@
         </div>
         <input type="text" class="form-control" name="name_update" value="{{ old('name_update') }}" placeholder="New artist name (optional)" aria-label="Name" aria-describedby="basic-addon1" id="name_update">
     </div>
+    @if ($errors->has('name_update'))
+        @foreach ($errors->get('name_update') as $error)
+            <div class="invalid-tooltip mb-3">{{ $error }}</div>
+        @endforeach
+    @endif
 
     <div class="input-group mb-3 bootstrap-input">
         <div class="input-group-prepend">
@@ -58,6 +63,11 @@
         </div>
         <input type="text" class="form-control" name="img_url_update" value="{{ old('img_url_update') }}" placeholder="New collection name (optional)" aria-label="Name" aria-describedby="basic-addon1" id="img_url_update">
     </div>
+    @if ($errors->has('img_url_update'))
+        @foreach ($errors->get('img_url_update') as $error)
+            <div class="invalid-tooltip mb-3">{{ $error }}</div>
+        @endforeach
+    @endif
     
     <button type="submit" class="btn btn-primary">Update</button>
 </form>
