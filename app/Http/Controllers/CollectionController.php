@@ -24,7 +24,8 @@ class CollectionController extends Controller
         $data->validate([
             'name' => 'required|max:50',
             'description' => 'required|max:50',
-            'artist_id' => 'required|exists:artists,id|numeric'
+            'artist_id' => 'required|exists:artists,id|numeric',
+            'img_url' => 'max:50'
         ]);
 
         $collection = new Collection();
@@ -82,16 +83,20 @@ class CollectionController extends Controller
         if ($request->name_final != null) {
             $newCollection->name = $request->name_final;
         }
-        if ($request->description != null) {
+
+        if ($request->description_update != null) {
             $request->validate([
-                'description' => 'max:50'
+                'description_update' => 'max:50'
             ]);
-            $newCollection->description = $request->description;
+            $newCollection->description = $request->description_update;
         }
         if ($request->artist_id_update != null) {
             $newCollection->artist_id = $request->artist_id_update;
         }
         if($request->img_url_update != null) {
+            $request->validate([
+                'img_url_update' => 'max:50'
+            ]);
             $newCollection->img_url = $request->img_url_update;
         }
         $newCollection->update();

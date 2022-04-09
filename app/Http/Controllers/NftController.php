@@ -23,8 +23,8 @@ class NftController extends Controller
 
     public function store(Request $data){
         $data->validate([
-            'name' => 'required',
-            'base_price' => 'required|numeric|gte:0',
+            'name' => 'required|max:50',
+            'base_price' => 'required|numeric|gte:0|digits_between:1,20',
             'collection_id' => 'required|exists:collections,id',
             'type_id' => 'required|exists:types,id',
             'base_price' => 'numeric|digits_between:1,20|gte:0'
@@ -69,7 +69,7 @@ class NftController extends Controller
         }
         if($request->base_price_update != null) {
             $request->validate([
-                'base_price_update' => 'numeric|gte:0'
+                'base_price_update' => 'numeric|gte:0|digits_between:1,20'
             ]);
             $newNft->base_price = $request->base_price_update;
             $newNft->actual_price = $request->base_price_update;
@@ -91,6 +91,7 @@ class NftController extends Controller
             $newNft->type_id = $request->type_id_update;
         }
         if($request->img_url_update != null) {
+            $request->validate([ 'img_url_update' => 'max:50' ]);
             $newNft->img_url = $request->img_url_update;
         }
         if($request->availability_update != -1) {

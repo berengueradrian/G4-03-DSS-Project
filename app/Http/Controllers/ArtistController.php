@@ -28,7 +28,9 @@ class ArtistController extends Controller
         $artist = new Artist();
         $artist->name = $data->name;
         if($data->balance != null){
-            $data->validate([ 'balance' => 'numeric|gte:0' ]);
+            $data->validate([ 'balance' => 'numeric|gte:0|digits_between:1,20' ]);
+             //TODO: el balance no pispa
+             //TODO: los sorts no van :)
             $artist->balance = $data->balance;
         }
         else{
@@ -63,7 +65,7 @@ class ArtistController extends Controller
         ]);
         $artist = Artist::find($request->iddelete);
         if($artist->collections->count() > 0){ 
-            $artists = Artist::paginate(2); //TODO: It works but is not efficient. We have to find another way.
+            $artists = Artist::paginate(2);
             return view('artists.list')->with('artists', $artists)->with('withCollection', true);
         }
         else{

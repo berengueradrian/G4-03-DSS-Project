@@ -24,12 +24,15 @@ class TypeController extends Controller
         $data->validate([
             'name' => 'required|max:50|unique:types,name',
             'description' => 'max:50',
+            //TODO: la exlusivity no va si pongo un num alto menor de 20 digits NI EN CREATE NI EN UPDATE
             'exclusivity' => 'required|gte:0|numeric|digits_between:1,20|unique:types,exclusivity'
+
+
         ]);
 
         Type::create([
             'name' => $data->name,
-            'description' => $data->description,
+            'description' => $data->description,            
             'exclusivity' => $data->exclusivity
         ]);
 
@@ -54,7 +57,7 @@ class TypeController extends Controller
         $newType = Type::find($request->id_update);
         if ($request->filled('name_update')) {
             $request->validate([
-                'name_update' => 'unique:types,name',
+                'name_update' => 'unique:types,name|max:50',
             ]);
             $newType->name = $request->name_update;
         }
@@ -66,7 +69,7 @@ class TypeController extends Controller
         }
         if ($request->filled('exclusivity_update')) {
             $request->validate([
-                'exclusivity_update' => 'numeric|unique:types,exclusivity'
+                'exclusivity_update' => 'numeric|unique:types,exclusivity|gte:0|digits_between:1,20'
             ]);
             $newType->exclusivity = $request->exclusivity_update;
         }

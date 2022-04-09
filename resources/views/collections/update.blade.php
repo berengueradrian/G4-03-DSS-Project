@@ -27,10 +27,10 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Description</span>
         </div>
-        <input type="text" class="form-control" name="description" value="{{ old('description') }}" placeholder="New description of the collection (optional)" aria-label="Description" aria-describedby="basic-addon2" id="description">
+        <input type="text" class="form-control" name="description_update" value="{{ old('description_update') }}" placeholder="New description of the collection (optional)" aria-label="Description" aria-describedby="basic-addon2" id="description_update">
     </div>
-    @if ($errors->has('description'))
-        @foreach ($errors->get('description') as $error)
+    @if ($errors->has('description_update'))
+        @foreach ($errors->get('description_update') as $error)
             <div class="invalid-tooltip mb-3">{{ $error }}</div>
         @endforeach
     @endif
