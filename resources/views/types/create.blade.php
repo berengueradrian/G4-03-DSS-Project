@@ -11,7 +11,7 @@
             <div class="invalid-tooltip mb-3">{{ $error }}</div>
         @endforeach
     @endif
-    <div class="input-group mb-3 bootstrap-textarea">
+    <div class="input-group mb-3 bootstrap-input">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Description</span>
         </div>
@@ -22,7 +22,7 @@
             <div class="invalid-tooltip mb-3">{{ $error }}</div>
         @endforeach
     @endif
-    <div class="input-group mb-3 bootstrap-textarea">
+    <div class="input-group mb-3 bootstrap-input">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Exclusivity</span>
         </div>

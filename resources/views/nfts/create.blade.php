@@ -1,4 +1,4 @@
-<!--TODO: Limit date must be controlled when the NFT is put on sale.-->
+<!--TODO: Limit date must be assigned when the NFT is put on sale.-->
 <!--TODO: Availability is put to TRUE when the NFT is put on sale. If not it remains false.-->
 <form action="{{ route('nft.store') }}" method="POST" class="needs-validation create-collection-container">
     @csrf

@@ -39375,7 +39375,6 @@ function genScopedSlots (
   // OR when it is inside another scoped slot or v-for (the reactivity may be
   // disconnected due to the intermediate scope variable)
   // #9438, #9506
-  // TODO: this can be further optimized by properly analyzing in-scope bindings
   // and skip force updating ones that do not actually use scope variables.
   if (!needsForceUpdate) {
     var parent = el.parent;

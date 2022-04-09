@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Nft;
 use DateTime;
+use Tests\Feature\NFTTest;
 
 class NftController extends Controller
 {
@@ -20,16 +21,13 @@ class NftController extends Controller
         return view('nfts.list')->with('nfts', $nfts);
     }
 
-    //TODO: el create balance negativo mal
-        //TODO: el actual price no puede ser negativo
-
-
     public function store(Request $data){
         $data->validate([
             'name' => 'required',
-            'base_price' => 'required|numeric',
+            'base_price' => 'required|numeric|gte:0',
             'collection_id' => 'required|exists:collections,id',
             'type_id' => 'required|exists:types,id',
+            'base_price' => 'numeric|digits_between:1,20|gte:0'
         ]);
 
         if($data->filled('user_id')){

@@ -16,10 +16,10 @@ class CreateNFTSTable extends Migration
         Schema::create('nfts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->float('base_price');
+            $table->double('base_price');
             $table->date('limit_date')->nullable();
             $table->boolean('available');
-            $table->float('actual_price');
+            $table->double('actual_price');
             $table->string('img_url')->default('default.jpg');
             $table->foreignId('collection_id')->constrained('collections')->onDelete('cascade');
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');

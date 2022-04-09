@@ -19,15 +19,12 @@ class TypeController extends Controller
         return view('types.list')->with('types', $types);
     }
 
-    //TODO: el update va raro en la forma de pedir datos
-    //TODO: si la exclusivity es muy top cagaste
-
     public function store(Request $data)
     {
         $data->validate([
             'name' => 'required|max:50|unique:types,name',
             'description' => 'max:50',
-            'exclusivity' => 'required|gte:0|numeric'
+            'exclusivity' => 'required|gte:0|numeric|digits_between:1,20|unique:types,exclusivity'
         ]);
 
         Type::create([
@@ -56,19 +53,20 @@ class TypeController extends Controller
         ]);
         $newType = Type::find($request->id_update);
         if ($request->filled('name_update')) {
+            $request->validate([
+                'name_update' => 'unique:types,name',
+            ]);
             $newType->name = $request->name_update;
         }
         if ($request->filled('description_update')) {
-            $request->validate([ //TODO: mirar
+            $request->validate([
                 'description_update' => 'max:50'
             ]);
             $newType->description = $request->description_update;
         }
         if ($request->filled('exclusivity_update')) {
-            //TODO: FIX not working if string? 
-            //TODO: hay que poner estos errores en el list y update errors!!
             $request->validate([
-                'exclusivity_update' => 'numeric'
+                'exclusivity_update' => 'numeric|unique:types,exclusivity'
             ]);
             $newType->exclusivity = $request->exclusivity_update;
         }

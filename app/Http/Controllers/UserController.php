@@ -21,14 +21,11 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-
-        //TODO: Si pongo en el update 99999999999999999 peta
-
         $request->validate([
             'name' => 'required|max:50',
             'email' => 'required|max:50|unique:users,email',
             'password' => 'required|max:50',
-            'balance' => 'required|numeric|gte:0',
+            'balance' => 'required|gte:0|numeric|digits_between:1,20',
         ]);
 
         $user = new User();
