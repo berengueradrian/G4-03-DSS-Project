@@ -29,8 +29,6 @@ class ArtistController extends Controller
         $artist->name = $data->name;
         if($data->balance != null){
             $data->validate([ 'balance' => 'numeric|gte:0|digits_between:1,20' ]);
-             //TODO: el balance no pispa
-             //TODO: los sorts no van :)
             $artist->balance = $data->balance;
         }
         else{
