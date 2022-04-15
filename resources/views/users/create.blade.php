@@ -1,4 +1,4 @@
-<form action="{{ route('user.store') }}" method="POST">
+<form action="{{ route('user.create') }}" method="POST">
     @csrf
     <div class="input-group mb-3 bootstrap-input">
         <div class="input-group-prepend">
