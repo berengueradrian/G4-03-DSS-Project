@@ -19,7 +19,7 @@ class UserController extends Controller
         return view('users.list')->with('users', $users);
     }
 
-    public function store(Request $request)
+    public function create(Request $request)
     {
         $request->validate([
             'name' => 'required|max:50',
@@ -31,7 +31,7 @@ class UserController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->input('password'));
         if($request->balance != null){
             $user->balance = $request->balance;
         }
