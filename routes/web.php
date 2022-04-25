@@ -5,6 +5,7 @@ use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\Logoutcontroller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,10 @@ Route::get('/', function () {
     return view('home');
 });
 
+//Logout
+Route::get('/logout', [Logoutcontroller::class, 'perform']);
+
+//Contact
 Route::get('/contact', function () {
     return view('contact');
 });
