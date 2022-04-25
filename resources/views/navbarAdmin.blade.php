@@ -1,39 +1,27 @@
 <!DOCTYPE html>
 <html>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">
-            <img src="{{ asset('images/logo.png') }}" width="30" height="30" alt="">
-        </a>
+        <a class="navbar-brand" href="/">ADMINISTRATOR</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="/">Marketplace<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href={{ route('user.getAll') }}>Users<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/contact">Contact</a>
+                <a class="nav-link" href={{ route('artist.getAll') }}>Artists</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/">About Us</a>
+                <a class="nav-link" href={{ route("collection.getAll") }}>Collections</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/">My Profile</a>
+              <a class="nav-link" href={{route("type.getAll")}}>Types</a>
             </li>
-            @auth
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
-                </li>
-            @endauth
-            @guest
-                <li class="nav-item2">
-                <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item2">
-                <a class="nav-link" href="/register">Register</a>
-                </li>
-            @endguest
+            <li class="nav-item">
+              <a class="nav-link" href={{ route("nft.getAll") }}>NFTs</a>
+            </li>
           </ul>
         </div>
       </nav>
