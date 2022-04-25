@@ -31,6 +31,10 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
+Route::get('/about', function () {
+    return view('about');
+});
+
 //COLLECTIONS
 //Sort by name
 Route::get('/collections/sortByName', [CollectionController::class, 'sortByName']);
