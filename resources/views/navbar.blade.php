@@ -19,7 +19,7 @@
                 <a class="nav-link" href="/about">About Us</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/">My Profile</a>
+                <a class="nav-link" href="/profile">My Profile</a>
             </li>
             @auth
             <li class="nav-item">
