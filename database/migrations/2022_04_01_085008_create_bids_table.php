@@ -15,8 +15,8 @@ class CreateBidsTable extends Migration
     {
         Schema::create('nft_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('nft_id')->constrained();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('nft_id')->constrained('nfts')->onDelete('cascade');
             $table->timestamps();
         });
     }

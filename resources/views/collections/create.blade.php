@@ -6,7 +6,7 @@
         </div>
         <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Collection name" aria-label="Name" aria-describedby="basic-addon1" id="name">
     </div>
-    @if ($errors->has('name'))
+    @if ($errors->has("name"))
         @foreach ($errors->get('name') as $error)
             <div class="invalid-tooltip mb-3">{{ $error }}</div>
         @endforeach
@@ -26,10 +26,21 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Artist</span>
         </div>
-        <input type="text" class="form-control" name="artist_id" placeholder="ID of the artist which is the owner" value="{{ old('artist_id') }}" aria-label="Username" aria-describedby="basic-addon3" id="artist_id">
+        <input type="number" class="form-control" name="artist_id" placeholder="ID of the artist which is the owner" value="{{ old('artist_id') }}" aria-label="Username" aria-describedby="basic-addon3" id="artist_id">
     </div>
     @if ($errors->has('artist_id'))
         @foreach ($errors->get('artist_id') as $error)
+            <div class="invalid-tooltip mb-3">{{ $error }}</div>
+        @endforeach
+    @endif
+    <div class="input-group mb-3 bootstrap-input">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Image</span>
+        </div>
+        <input type="text" class="form-control" name="img_url" placeholder="ID of the artist which is the owner" value="{{ old('img_url') }}" aria-label="Username" aria-describedby="basic-addon3" id="img_url">
+    </div>
+    @if ($errors->has('img_url'))
+        @foreach ($errors->get('img_url') as $error)
             <div class="invalid-tooltip mb-3">{{ $error }}</div>
         @endforeach
     @endif

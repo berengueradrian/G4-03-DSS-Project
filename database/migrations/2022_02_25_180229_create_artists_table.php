@@ -16,8 +16,8 @@ class CreateArtistsTable extends Migration
         Schema::create('artists', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->float('balance');
-            $table->float('volume_sold');
+            $table->double('balance')->default(0.0);
+            $table->double('volume_sold')->default(0.0);
             $table->string('img_url')->default('default.jpg');
             $table->string('description')->nullable();
             $table->timestamps();

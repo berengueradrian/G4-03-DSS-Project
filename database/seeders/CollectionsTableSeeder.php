@@ -23,7 +23,7 @@ class CollectionsTableSeeder extends Seeder
             [
                 'description' => 'Developed by Elon Musk and Michael Jordan',
                 'artist_id' => $artistsId[0],
-                'name' => 'colec1'
+                'name' => 'MuskCollection'
             ]
         );
 
@@ -31,7 +31,7 @@ class CollectionsTableSeeder extends Seeder
             [
                 'description' => 'Most exotics NFTs are here!',
                 'artist_id' => $artistsId[1],
-                'name' => 'colec1'
+                'name' => 'ExoticCollection'
             ]
         );
 
@@ -40,7 +40,7 @@ class CollectionsTableSeeder extends Seeder
             [
                 'description' => 'The first collection ever created!',
                 'artist_id' => $artistsId[2],
-                'name' => 'colec1'
+                'name' => 'FirstCollection'
             ]
         );
     }

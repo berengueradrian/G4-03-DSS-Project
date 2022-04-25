@@ -13,8 +13,9 @@ class Artist extends Model
     protected $fillable = [
         'name',
         'balance',
-        'volume_sold',
+        'img_url',
         'description',
+        'volume_sold'
     ];
 
     public function collections() {

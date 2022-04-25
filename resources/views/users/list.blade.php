@@ -1,8 +1,6 @@
 @extends('layouts')
 
 @section('content')
-<h1>Users</h1>
-
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">List of users</a>
@@ -18,37 +16,44 @@
     </li>
 </ul>
 
-<form method="GET" action="{{url('/users/sortByBalance')}}" class="form-control">
-    @method('GET')
-    @csrf
-    <select name="sortByBalance">
-        <option value="-1"> -- Sort by balance -- </option>
-        <option value="0">Lowest first</option>
-        <option value="1">Highest first</option>
-    </select>
-    <button type="submit" class="btn btn-primary">Search</button>
-</form>
-
-<form method="GET" action="{{url('/users/sortByName')}}" class="form-control">
-    @method('GET')
-    @csrf
-    <select name="sortByName">
-        <option value="-1"> -- Sort by name -- </option>
-        <option value="0">A first</option>
-        <option value="1">Z first</option>
-    </select>
-    <button type="submit" class="btn btn-primary">Search</button>
-</form>
-
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="sorts">
+            <form method="GET" action="{{url('/users/sortByBalance')}}" class="form-control">
+                @method('GET')
+                @csrf
+                <div class="input-group mb-3">
+                    <select name="sortByBalance" class="custom-select" id="inputGroupSelect04">
+                        <option value="-1">Sort by balance...</option>
+                        <option value="0">Lowest first</option>
+                        <option value="1">Highest first</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Sort</button>
+                    </div>
+                </div>
+            </form>
+            <form method="GET" action="{{url('/users/sortByName')}}" class="form-control">
+                @method('GET')
+                @csrf
+                <div class="input-group mb-3">
+                    <select name="sortByName" class="custom-select" id="inputGroupSelect04">
+                        <option value="-1">Sort by name...</option>
+                        <option value="0">A first</option>
+                        <option value="1">Z first</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Sort</button>
+                    </div>
+                </div>
+            </form>
+        </div>
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
-                    <th scope="col">balance</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,7 +62,6 @@
                     <td>{{ $user->id }}</td>
                     <td><a href="/api/users/{{$user->id}}">{{ $user->name }}</a></td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->balance }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -68,25 +72,44 @@
         @if ($errors->has('iddelete'))
         <div class="invalid-tooltip mb-3 mt-3">ERROR: The user has not been deleted</div>
         @endif
-        @if ($errors->has('id') || $errors->has('user_id_update'))
+        @if ($errors->has('id_update') || $errors->has('name_update') || $errors->has('email_update') || $errors->has('img_url_update') || $errors->has('password_update') ||$errors->has('balance_update'))
         <div class="invalid-tooltip mb-3 mt-3">ERROR: The user has not been updated</div>
         @endif
-        @if ($errors->has('name')||$errors->has('description')||$errors->has('user_id'))
+        @if ($errors->has('name')||$errors->has('email')||$errors->has('balance')||$errors->has('password')||$errors->has('img_url')||$errors->has('balance'))
         <div class="invalid-tooltip mb-3 mt-3">ERROR: The user has not been created</div>
         @endif
     </div>
 
-    //TODO: NO ES UPDATE EN TODO CAMBIAR CUANDO ESTE HECHO
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        @include('users.update')
+        @include('users.create')
     </div>
     <div class="tab-pane fade" id="update" role="tabpanel" aria-labelledby="update-tab">
         @include('users.update')
     </div>
     <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
-        @include('users.update')
+        @include('users.delete')
     </div>
 </div>
 
-
 @endsection
+
+<style>
+    .sorts {
+        display: flex;
+        flex-flow: row nowrap;
+    }
+
+    form {
+        width: 300px !important;
+        background-color: transparent !important;
+        border: none !important;
+        padding: 0px !important;
+        margin-top: 20px !important;
+        margin-bottom: 10px !important;
+        margin-right: 20px;
+    }
+
+    form button {
+        margin-bottom: 0px !important;
+    }
+</style>
