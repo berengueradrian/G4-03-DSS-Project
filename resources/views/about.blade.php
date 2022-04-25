@@ -87,7 +87,7 @@
             <div class="user details">
                 <i class="fas fa-wallet"></i>
                 <div class="topic">Financial Advisor</div>
-                <div class="text-one">Juan Lapuerta</div>
+                <div class="text-one">Warren Buffete</div>
             </div>
 
             <div class="attendance details">
