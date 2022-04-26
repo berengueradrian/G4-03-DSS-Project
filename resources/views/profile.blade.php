@@ -40,7 +40,7 @@
                 <div class="input-group mb-3 bootstrap-input">
                     <input type="hidden" class="form-control" name="iddelete" value="{{Auth::user()->id}}" aria-label="iddelete" aria-describedby="basic-addon10" id="iddelete">
                 </div>
-                <!-- TIENE QUE MANDARTE AL MAIN PQ SI NO INTENTA CARGAR LA PAGINA Y HASTA LUEGO -->
+                <!-- TODO: TIENE QUE MANDARTE AL MAIN PQ SI NO INTENTA CARGAR LA PAGINA Y HASTA LUEGO -->
                 <button type="submit" class="btn btn-danger">Delete account</button>
 
             </form>
@@ -50,10 +50,18 @@
     </div>
 
 
-    <div class="content">
-        <div class="text">--Listar NFTS--</div>
-    </div>
+    <div class="nombre"> NFTS OWNED </div>
 
+    <div class="listado">
+
+        @for ($i = 0; $i < Auth::user()->nfts->count(); $i++)
+            <!-- TODO: este link es temporal, cuando este la vista nft si deberia ir a ese link no al de los admins-->
+            <a href="/api/nfts/{{Auth::user()->nfts[$i]->id}}">
+                <img src="/images/{{Auth::user()->nfts[$i]->img_url}}" width="100" height="100" alt="">
+                @endfor
+            </a>
+
+    </div>
 
 
 
@@ -70,10 +78,36 @@
         font-family: "Poppins", sans-serif;
     }
 
+    .nombre {
+        margin: auto;
+        border-bottom: 1px solid black;
+        margin-bottom: 20px;
+        margin-top: 30px;
+        width: 50%;
+        padding: 10px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bolder;
+
+    }
+
     .textB {
         padding: 12px;
         font-size: 22px;
         font-weight: bolder;
+    }
+
+
+    .listado {
+
+        flex-wrap: wrap;
+        display: flex;
+        margin: 0 auto;
+        row-gap: 10px;
+        column-gap: 10px;
+        padding: 10px 0;
+
+        width: 80%;
     }
 
     .center {
@@ -112,7 +146,7 @@
         align-items: center;
         justify-content: center;
         margin-top: 15px;
-        margin-left: 10px;
+        margin-left: 50px;
         margin-right: 0px;
         position: relative;
     }
@@ -152,8 +186,8 @@
     }
 
     .container .content .right-side {
-        width: 50%;
-        margin-left: 75px;
+        width: 80%;
+        margin-left: 50px;
     }
 
     .content .right-side .topic-text {
