@@ -40,7 +40,7 @@
     .app-main{
         display: flex;
         justify-content: center; 
-        background-color: #f8f9fa!important;
+        /*background-color: #f8f9fa!important;*/
         margin-top: 40px
     }
     .app-centered{
