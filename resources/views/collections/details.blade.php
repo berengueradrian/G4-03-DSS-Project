@@ -8,7 +8,7 @@
 <p><strong>Artist:</strong> {{ $collection->artist->name }}</p>
 <div class="img-container" style="display: flex; align-items:flex-start; margin-bottom:20px">
     <p><strong style="margin-right: 20px">Image:</strong></p>
-    <img src="../../images/{{ $collection->img_url }}" alt="" width="200px" style="border: 1px black solid">
+    <img src="../../images/{{ $collection->img_url }}" alt="" width="200px">
 </div>
 <a href={{ route('collection.getAll') }}>Go back</a></p>
 

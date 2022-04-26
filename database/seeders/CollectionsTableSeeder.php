@@ -43,5 +43,37 @@ class CollectionsTableSeeder extends Seeder
                 'name' => 'FirstCollection'
             ]
         );
+
+        DB::table('collections')->insert(
+            [
+                'description' => 'The second collection ever created!',
+                'artist_id' => $artistsId[2],
+                'name' => 'SecondCollection'
+            ]
+        );
+
+        DB::table('collections')->insert(
+            [
+                'description' => 'The third collection ever created!',
+                'artist_id' => $artistsId[2],
+                'name' => 'ThirdCollection'
+            ]
+        );
+
+        DB::table('collections')->insert(
+            [
+                'description' => 'The Fourth collection ever created!',
+                'artist_id' => $artistsId[2],
+                'name' => 'FourthCollection'
+            ]
+        );
+
+        DB::table('collections')->insert(
+            [
+                'description' => 'The Fifth collection ever created!',
+                'artist_id' => $artistsId[2],
+                'name' => 'FifthCollection'
+            ]
+        );
     }
 }

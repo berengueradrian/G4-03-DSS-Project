@@ -15,7 +15,7 @@ class CollectionController extends Controller
 
     public function getAll()
     {
-        $collections = Collection::paginate(2);
+        $collections = Collection::paginate(5);
         return view('collections.list')->with('collections', $collections);
     }
 
@@ -101,11 +101,11 @@ class CollectionController extends Controller
     public function sortByName(Request $request)
     {
         if ($request->sortByName == 1) {
-            $collections = Collection::orderBy('name', 'DESC')->paginate(2);
+            $collections = Collection::orderBy('name', 'DESC')->paginate(5);
         } elseif ($request->sortByName == 0) {
-            $collections = Collection::orderBy('name', 'ASC')->paginate(2);
+            $collections = Collection::orderBy('name', 'ASC')->paginate(5);
         } else {
-            $collections = Collection::paginate(2);
+            $collections = Collection::paginate(5);
         }
 
         return view('collections.list')->with('collections', $collections);
