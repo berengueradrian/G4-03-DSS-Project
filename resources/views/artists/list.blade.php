@@ -99,7 +99,7 @@
         @if ($errors->has('name')||$errors->has('description')||$errors->has('balance')||$errors->has('img_url'))
             <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been created</div>
         @endif
-        @if ($withCollection)
+        @if ($withCollection ?? '')
             <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been deleted</div>
         @endif
     </div>

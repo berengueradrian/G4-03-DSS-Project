@@ -19,22 +19,19 @@ class UserController extends Controller
         return view('users.list')->with('users', $users);
     }
 
-    public function store(Request $request)
+    public function create(Request $request)
     {
-
-        //TODO: Si pongo en el update 99999999999999999 peta
-
         $request->validate([
             'name' => 'required|max:50',
             'email' => 'required|max:50|unique:users,email',
             'password' => 'required|max:50',
-            'balance' => 'required|numeric|gte:0',
+            'balance' => 'required|gte:0|numeric|digits_between:1,20',
         ]);
 
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->input('password'));
         if($request->balance != null){
             $user->balance = $request->balance;
         }

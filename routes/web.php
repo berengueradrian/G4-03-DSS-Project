@@ -5,6 +5,7 @@ use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\Logoutcontroller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,14 +23,40 @@ Route::get('/', function () {
     return view('home');
 });
 
+//Logout
+Route::get('/logout', [Logoutcontroller::class, 'perform']);
+
+//Contact
+Route::get('/contact', function () {
+    return view('contact');
+});
+
+Route::get('/about', function () {
+    return view('about');
+});
+
+Route::get('/profile', function () {
+    return view('profile');
+});
+
+Route::get('/profileSettings', function(){
+    return view('profileSettings');
+});
+
+//Route::group(['middleware' => 'auth'], function () {
+
+//Route::get('/profile', [UserController::class, 'get'])->name('profile.getOne');
+//Route::get('/profile/delete', [UserController::class, 'delete']);
+//});
+
 //COLLECTIONS
 //Sort by name
 Route::get('/collections/sortByName', [CollectionController::class, 'sortByName']);
 
 // USERS
 // Views
-Route::get('/users/create', [UserController::class, 'create']);
-Route::get('/users/create', [UserController::class, 'create']);
+Route::get('/users/create', [UserController::class, 'create'])->middleware('admin');
+Route::get('/users/create', [UserController::class, 'create'])->middleware('admin');
 Route::put('/users/update', [UserController::class, 'update'])->name('users.update');
 //Sorting for users
 Route::get('/users/sortByBalance', [UserController::class, 'sortByBalance']);
@@ -72,7 +99,7 @@ Route::group(['prefix' => 'api'], function () {
     //## User ##
     Route::get('/users/{user}',  [UserController::class, 'get'])->name('user.getOne');
     Route::get('/users', [UserController::class, 'getAll'])->name('user.getAll');
-    Route::post('/users', [UserController::class, 'store'])->name('user.store');
+    Route::post('/users', [UserController::class, 'create'])->name('user.create');
     Route::delete('/users', [UserController::class, 'delete'])->name('user.delete');
     Route::put('/users', [UserController::class, 'update'])->name('user.update');
 
@@ -97,3 +124,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::delete('/artists', [ArtistController::class, 'delete'])->name('artist.delete');
     Route::put('/artists', [ArtistController::class, 'update'])->name('artist.update');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

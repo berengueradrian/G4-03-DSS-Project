@@ -30,7 +30,8 @@ class UsersTableSeeder extends Seeder
                 'name' => 'amancio1',
                 'balance' => 7,
                 'email' => 'amamancio@gmail.com',
-                'password' => '1234'
+                'password' => '1234',
+                'is_admin' => true
             ]);
             DB::table('users')->insert(
             [
