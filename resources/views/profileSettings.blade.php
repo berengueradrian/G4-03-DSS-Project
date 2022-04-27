@@ -29,7 +29,7 @@
                 </div>
 
                 <input type="file" name="img_url_update" class="custom-file-upload" id="img_url_update">
-                <!-- TODO: Solo funciona con las inside de la carpeta, habria que ver que hago -->
+                <!-- TODO: Solo funciona con las inside de la carpeta, habria que ver que poner un boton de upload -->
                 <button type="submit" class="btn btn-secondary">Change picture</button>
             </form>
 
@@ -126,7 +126,6 @@
 
                     <button type="submit" class="btn btn-primary">Update password</button>
 
-                    //TODO: not working :(
                     @if ($errors->has('password_update_profile') || $errors->has('password') || $errors->has('current_password'))
                     <div class="invalid-tooltip mb-3 mt-3">ERROR: Eres bobo</div>
                     @endif

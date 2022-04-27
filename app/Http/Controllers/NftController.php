@@ -17,11 +17,12 @@ class NftController extends Controller
 
     public function getAll()
     {
-        $nfts = Nft::paginate(2);
+        $nfts = Nft::paginate(5);
         return view('nfts.list')->with('nfts', $nfts);
     }
 
-    public function store(Request $data){
+    public function store(Request $data)
+    {
         $data->validate([
             'name' => 'required|max:50',
             'base_price' => 'required|numeric|gte:0|digits_between:1,20',
@@ -30,8 +31,8 @@ class NftController extends Controller
             'base_price' => 'numeric|digits_between:1,20|gte:0'
         ]);
 
-        if($data->filled('user_id')){
-            $data->validate([ 'user_id' => 'exists:users,id' ]);
+        if ($data->filled('user_id')) {
+            $data->validate(['user_id' => 'exists:users,id']);
         }
 
         NFT::create([
@@ -42,7 +43,7 @@ class NftController extends Controller
             'collection_id' => $data->collection_id,
             'type_id' => $data->type_id,
             'user_id' => $data->user_id,
-            'img_url'=> $data->img_url
+            'img_url' => $data->img_url
         ]);
         return back();
     }
@@ -57,44 +58,45 @@ class NftController extends Controller
         return back();
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $request->validate([
             'id_update' => 'required|numeric|exists:nfts,id'
         ]);
-        
+
 
         $newNft = NFT::find($request->id_update);
-        if($request->name_update != null) {
+        if ($request->name_update != null) {
             $newNft->name = $request->name_update;
         }
-        if($request->base_price_update != null) {
+        if ($request->base_price_update != null) {
             $request->validate([
                 'base_price_update' => 'numeric|gte:0|digits_between:1,20'
             ]);
             $newNft->base_price = $request->base_price_update;
             $newNft->actual_price = $request->base_price_update;
         }
-        if($request->limit_date != null) {
-            $request->validate([ 'limit_date' => 'date|after:today' ]);
+        if ($request->limit_date != null) {
+            $request->validate(['limit_date' => 'date|after:today']);
             $newNft->limit_date = $request->limit_date;
         }
-        if($request->collection_id_update != null) {
-            $request->validate([ 'collection_id_update' => 'exists:collections,id' ]);
+        if ($request->collection_id_update != null) {
+            $request->validate(['collection_id_update' => 'exists:collections,id']);
             $newNft->collection_id = $request->collection_id_update;
         }
-        if($request->user_id_update != null) {
-            $request->validate([ 'collection_id_update' => 'exists:users,id' ]);
+        if ($request->user_id_update != null) {
+            $request->validate(['collection_id_update' => 'exists:users,id']);
             $newNft->user_id = $request->user_id_update;
         }
-        if($request->type_id_update != null) {
-            $request->validate([ 'collection_id_update' => 'exists:types,id' ]);
+        if ($request->type_id_update != null) {
+            $request->validate(['collection_id_update' => 'exists:types,id']);
             $newNft->type_id = $request->type_id_update;
         }
-        if($request->img_url_update != null) {
-            $request->validate([ 'img_url_update' => 'max:50' ]);
+        if ($request->img_url_update != null) {
+            $request->validate(['img_url_update' => 'max:50']);
             $newNft->img_url = $request->img_url_update;
         }
-        if($request->availability_update != -1) {
+        if ($request->availability_update != -1) {
             $newNft->available = $request->availability_update;
         }
         $newNft->update();
@@ -105,11 +107,11 @@ class NftController extends Controller
     {
         $availableFilter = $request->input('availableFilter');
         if ($availableFilter == 1) { //Available NFTS
-            $nfts = Nft::whereAvailable(1)->paginate(2);
+            $nfts = Nft::whereAvailable(1)->paginate(5);
         } elseif ($availableFilter == 2) { //Non Available NFTS
-            $nfts = Nft::whereAvailable(0)->paginate(2);
+            $nfts = Nft::whereAvailable(0)->paginate(5);
         } else { // If == 0 -> All
-            $nfts = Nft::paginate(2);
+            $nfts = Nft::paginate(5);
         }
         return view('nfts.list')->with('nfts', $nfts);
     }
@@ -117,9 +119,9 @@ class NftController extends Controller
     public function filterPrice(Request $request)
     {
         if ($request->price != null) {
-            $nfts = Nft::where('actual_price', '>', $request->price)->paginate(2);
+            $nfts = Nft::where('actual_price', '>', $request->price)->paginate(5);
         } else {
-            $nfts = Nft::paginate(2);
+            $nfts = Nft::paginate(5);
         }
 
         return view('nfts.list')->with('nfts', $nfts);
@@ -128,11 +130,11 @@ class NftController extends Controller
     public function sortByPrice(Request $request)
     {
         if ($request->sortByPrice == 0) {
-            $nfts = Nft::orderBy('actual_price', 'ASC')->paginate(2);
+            $nfts = Nft::orderBy('actual_price', 'ASC')->paginate(5);
         } elseif ($request->sortByPrice == 1) {
-            $nfts = Nft::orderBy('actual_price', 'DESC')->paginate(2);
+            $nfts = Nft::orderBy('actual_price', 'DESC')->paginate(5);
         } else {
-            $nfts = Nft::paginate(2);
+            $nfts = Nft::paginate(5);
         }
 
         return view('nfts.list')->with('nfts', $nfts);
@@ -141,14 +143,13 @@ class NftController extends Controller
     public function sortByExclusivity(Request $request)
     {
         if ($request->sortByExclusivity == 0) {
-            $nfts = Nft::orderBy('type_id', 'DESC')->paginate(2);
+            $nfts = Nft::orderBy('type_id', 'DESC')->paginate(5);
         } elseif ($request->sortByExclusivity == 1) {
-            $nfts = Nft::orderBy('type_id', 'ASC')->paginate(2);
+            $nfts = Nft::orderBy('type_id', 'ASC')->paginate(5);
         } else {
-            $nfts = Nft::paginate(2);
+            $nfts = Nft::paginate(5);
         }
 
         return view('nfts.list')->with('nfts', $nfts);
     }
-
 }

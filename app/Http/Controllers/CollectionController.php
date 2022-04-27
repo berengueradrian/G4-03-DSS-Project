@@ -15,7 +15,7 @@ class CollectionController extends Controller
 
     public function getAll()
     {
-        $collections = Collection::paginate(2);
+        $collections = Collection::paginate(5);
         return view('collections.list')->with('collections', $collections);
     }
 
@@ -33,11 +33,10 @@ class CollectionController extends Controller
         $collection->description = $data->description;
         $collection->artist_id = $data->artist_id;
 
-        if($data->filled('img_url')){
-            $data->validate([ 'img_url' => 'max:50' ]);
+        if ($data->filled('img_url')) {
+            $data->validate(['img_url' => 'max:50']);
             $collection->img_url = $data->img_url;
-        }
-        else{
+        } else {
             $collection->img_url = 'default.jpg';
         }
 
@@ -93,7 +92,7 @@ class CollectionController extends Controller
         if ($request->artist_id_update != null) {
             $newCollection->artist_id = $request->artist_id_update;
         }
-        if($request->img_url_update != null) {
+        if ($request->img_url_update != null) {
             $request->validate([
                 'img_url_update' => 'max:50'
             ]);
@@ -106,11 +105,11 @@ class CollectionController extends Controller
     public function sortByName(Request $request)
     {
         if ($request->sortByName == 1) {
-            $collections = Collection::orderBy('name', 'DESC')->paginate(2);
+            $collections = Collection::orderBy('name', 'DESC')->paginate(5);
         } elseif ($request->sortByName == 0) {
-            $collections = Collection::orderBy('name', 'ASC')->paginate(2);
+            $collections = Collection::orderBy('name', 'ASC')->paginate(5);
         } else {
-            $collections = Collection::paginate(2);
+            $collections = Collection::paginate(5);
         }
 
         return view('collections.list')->with('collections', $collections);

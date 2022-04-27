@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function getAll()
     {
-        $users = User::paginate(2);
+        $users = User::paginate(5);
         return view('users.list')->with('users', $users);
     }
 
@@ -52,9 +52,25 @@ class UserController extends Controller
         $request->validate([
             'iddelete' => 'required|exists:users,id'
         ]);
-        $collection = User::find($request->iddelete);
-        $collection->delete();
-        //return back();
+        $user = User::find($request->iddelete);
+
+        //In case the admin wants to delete itself:
+        if ($user->id == \Auth::user()->id) {
+            $user->delete();
+            return ('/logout');
+        }
+
+        $user->delete();
+
+        /*
+        If we delete in ADMIN view we must be in user.list. Otherwise it means is the same user the one auto-deleting his account, 
+        due to this reason; if it's not the admin it musy go to home page!!!
+        */
+
+        if (\Auth::user()->is_admin) {
+            return back();
+        }
+
         return view('home');
     }
 
@@ -118,11 +134,11 @@ class UserController extends Controller
     public function sortByBalance(Request $request)
     {
         if ($request->sortByBalance == 0) {
-            $users = User::orderBy('balance', 'ASC')->paginate(2);
+            $users = User::orderBy('balance', 'ASC')->paginate(5);
         } elseif ($request->sortByBalance == 1) {
-            $users = User::orderBy('balance', 'DESC')->paginate(2);
+            $users = User::orderBy('balance', 'DESC')->paginate(5);
         } else {
-            $users = User::paginate(2);
+            $users = User::paginate(5);
         }
 
         return view('users.list')->with('users', $users);
@@ -131,11 +147,11 @@ class UserController extends Controller
     public function sortByName(Request $request)
     {
         if ($request->sortByName == 0) {
-            $users = User::orderBy('name', 'ASC')->paginate(2);
+            $users = User::orderBy('name', 'ASC')->paginate(5);
         } elseif ($request->sortByName == 1) {
-            $users = User::orderBy('name', 'DESC')->paginate(2);
+            $users = User::orderBy('name', 'DESC')->paginate(5);
         } else {
-            $users = User::paginate(2);
+            $users = User::paginate(5);
         }
 
         return view('users.list')->with('users', $users);

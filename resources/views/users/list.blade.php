@@ -54,6 +54,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Delete option</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,6 +63,21 @@
                     <td>{{ $user->id }}</td>
                     <td><a href="/api/users/{{$user->id}}">{{ $user->name }}</a></td>
                     <td>{{ $user->email }}</td>
+                    <td>
+                        <form action=" {{ route('user.delete') }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" class="form-control" name="iddelete" value="{{$user->id}}" id="iddelete">
+                            @if($user->id != \Auth::user()->id)
+
+                            <!-- We supose there will be only one admin. And only admins can see this -->
+
+                            <button type="submit" class="btn btn-danger btn-sm">Delete user</button>
+                            @else
+                            -- Can not delete admin profile --
+                            @endif
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -97,6 +113,13 @@
     .sorts {
         display: flex;
         flex-flow: row nowrap;
+    }
+
+    .table td,
+    .table th {
+        padding: 0.75rem;
+        vertical-align: initial !important;
+        border-top: 1px solid #dee2e6;
     }
 
     form {
