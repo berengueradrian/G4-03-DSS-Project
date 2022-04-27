@@ -71,8 +71,8 @@
                             @if($user->id != \Auth::user()->id)
 
                             <!-- We supose there will be only one admin. And only admins can see this -->
+                            <button type="submit" onclick="return confirm('Confirm your operation delete')" class="btn btn-danger btn-sm">Delete user</button>
 
-                            <button type="submit" class="btn btn-danger btn-sm">Delete user</button>
                             @else
                             -- Can not delete admin profile --
                             @endif

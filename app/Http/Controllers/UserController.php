@@ -54,11 +54,6 @@ class UserController extends Controller
         ]);
         $user = User::find($request->iddelete);
 
-        //In case the admin wants to delete itself:
-        if ($user->id == \Auth::user()->id) {
-            $user->delete();
-            return ('/logout');
-        }
 
         $user->delete();
 

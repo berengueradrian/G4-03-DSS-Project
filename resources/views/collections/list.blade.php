@@ -53,7 +53,7 @@
                             @csrf
                             @method('DELETE')
                             <input type="hidden" class="form-control" name="iddelete" value="{{$collection->id}}" id="iddelete">
-                            <button type="submit" class="btn btn-danger btn-sm">Delete collection</button>
+                            <button type="submit" onclick="return confirm('Confirm your operation delete')" class="btn btn-danger btn-sm">Delete collection</button>
                         </form>
                     </td>
                 </tr>
