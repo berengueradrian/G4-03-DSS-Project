@@ -39,15 +39,10 @@ Route::get('/profile', function () {
     return view('profile');
 });
 
-Route::get('/profileSettings', function(){
+Route::get('/profileSettings', function () {
     return view('profileSettings');
 });
 
-//Route::group(['middleware' => 'auth'], function () {
-
-//Route::get('/profile', [UserController::class, 'get'])->name('profile.getOne');
-//Route::get('/profile/delete', [UserController::class, 'delete']);
-//});
 
 //COLLECTIONS
 //Sort by name
