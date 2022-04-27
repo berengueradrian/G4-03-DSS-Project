@@ -4,10 +4,10 @@
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">List of artists</a>
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">List of artists</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Create artist</a>
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Create artist</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="false">Update artist</a>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </form>
-            
+
             <form method="GET" action="{{url('/artists/sortByBalance')}}">
                 @method('GET')
                 @csrf
@@ -49,7 +49,7 @@
                     </div>
                 </div>
             </form>
-            
+
             <form method="GET" action="{{url('/artists/sortByVolume')}}">
                 @method('GET')
                 @csrf
@@ -64,8 +64,8 @@
                     </div>
                 </div>
             </form>
-        </div>  
-        
+        </div>
+
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -74,6 +74,7 @@
                     <th scope="col">Balance</th>
                     <th scope="col">Volume Sold</th>
                     <th scope="col">Description</th>
+                    <th scope="col">Delete option</th>
                 </tr>
             </thead>
             <tbody>
@@ -84,23 +85,34 @@
                     <td>{{ $artist->balance }}</td>
                     <td>{{ $artist->volume_sold }}</td>
                     <td>{{ $artist->description }}</td>
+                    <td>
+                        <form action=" {{ route('artist.delete') }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" class="form-control" name="iddelete" value="{{$artist->id}}" id="iddelete">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete artist</button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        
+
         {{ $artists->appends($_GET)->links() }}
         @if ($errors->has('iddelete'))
-            <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been deleted</div>
+        <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been deleted</div>
         @endif
         @if ($errors->has('id_update') || $errors->has('balance_update') || $errors->has('volume_sold_update')|| $errors->has('name_update') || $errors->has('img_url_update'))
-            <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been updated</div>
+        <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been updated</div>
         @endif
         @if ($errors->has('name')||$errors->has('description')||$errors->has('balance')||$errors->has('img_url'))
-            <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been created</div>
+        <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been created</div>
         @endif
         @if ($withCollection ?? '')
-            <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been deleted</div>
+        <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been deleted</div>
+        @endif
+        @if ($withCollection ?? '')
+        <div class="invalid-tooltip mb-3 mt-3">An artist with collections cannot be deleted</div>
         @endif
     </div>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -119,11 +131,19 @@
 @endsection
 
 <style>
-    .sorts{
+    .sorts {
         display: flex;
         flex-flow: row nowrap;
     }
-    form{
+
+    .table td,
+    .table th {
+        padding: 0.75rem;
+        vertical-align: initial !important;
+        border-top: 1px solid #dee2e6;
+    }
+
+    form {
         width: 300px !important;
         background-color: transparent !important;
         border: none !important;
@@ -132,7 +152,8 @@
         margin-bottom: 0px !important;
         margin-right: 20px;
     }
-    form button{
-      margin-bottom: 0px !important;
+
+    form button {
+        margin-bottom: 0px !important;
     }
 </style>

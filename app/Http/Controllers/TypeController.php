@@ -15,7 +15,7 @@ class TypeController extends Controller
 
     public function getAll()
     {
-        $types = Type::paginate(2);
+        $types = Type::paginate(5);
         return view('types.list')->with('types', $types);
     }
 
@@ -31,7 +31,7 @@ class TypeController extends Controller
 
         Type::create([
             'name' => $data->name,
-            'description' => $data->description,            
+            'description' => $data->description,
             'exclusivity' => $data->exclusivity
         ]);
 
@@ -80,11 +80,11 @@ class TypeController extends Controller
     public function sortByExclusivity(Request $request)
     {
         if ($request->sortByExclusivity == 0) {
-            $types = Type::orderBy('exclusivity', 'ASC')->paginate(2);
+            $types = Type::orderBy('exclusivity', 'ASC')->paginate(5);
         } elseif ($request->sortByExclusivity == 1) {
-            $types = Type::orderBy('exclusivity', 'DESC')->paginate(2);
+            $types = Type::orderBy('exclusivity', 'DESC')->paginate(5);
         } else {
-            $types = Type::paginate(2);
+            $types = Type::paginate(5);
         }
 
         return view('types.list')->with('types', $types);
@@ -111,7 +111,7 @@ class TypeController extends Controller
                 return 1;
             });
         } else {
-            $types = Type::paginate(2);
+            $types = Type::paginate(5);
         }
 
         return view('types.list')->with('types', $types);

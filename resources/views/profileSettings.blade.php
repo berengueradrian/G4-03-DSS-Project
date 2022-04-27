@@ -27,9 +27,13 @@
                     <input type="hidden" class="form-control" name="id_update" value="{{ Auth::user()->id }}" placeholder="Identifier of the user" aria-label="id_update" aria-describedby="basic-addon1" id="id_update">
                 </div>
 
-                <input type="file" style="width:400px; margin-bottom:10px" name="img_url_update" class="custom-file-upload" id="img_url_update">
-                <!-- TODO: Solo funciona con las inside de la carpeta, habria que ver que hago -->
-                <button type="submit" class="btn btn-secondary">Change picture</button>
+                <<<<<<< HEAD <input type="file" style="width:400px; margin-bottom:10px" name="img_url_update" class="custom-file-upload" id="img_url_update">
+                    <!-- TODO: Solo funciona con las inside de la carpeta, habria que ver que hago -->
+                    =======
+                    <input type="file" name="img_url_update" class="custom-file-upload" id="img_url_update">
+                    <!-- TODO: Solo funciona con las inside de la carpeta, habria que ver que poner un boton de upload -->
+                    >>>>>>> mario
+                    <button type="submit" class="btn btn-secondary">Change picture</button>
             </form>
 
         </div>
@@ -125,7 +129,6 @@
 
                     <button type="submit" class="btn btn-primary">Update password</button>
 
-                    <!--TODO: not working :(-->
                     @if ($errors->has('password_update_profile') || $errors->has('password') || $errors->has('current_password'))
                     <div class="invalid-tooltip mb-3 mt-3">ERROR: Eres bobo</div>
                     @endif
