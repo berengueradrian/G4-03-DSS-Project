@@ -5,35 +5,51 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <h3 class="title"><strong>Profile Settings</strong></h3>
 <div class="container">
+    
+    @if(Session::has('msg'))
+    <div class="alert alert-success" role="alert">
+        {!! Session::has('msg') ? Session::get("msg") : '' !!}
+    </div>
+    @endif
 
     <div class="content">
 
         <div class="left-side">
             <div class="foto">
-                <img src="/images/{{Auth::user()->img_url}}" width="210" height="150" alt="">
+                <img src="/images/{{Auth::user()->img_url}}" width="270" height="190" alt="">
             </div>
         </div>
 
-        <div class="right-side">
+        <div class="right-side" style="margin-bottom: 20px;">
             <div class="topic">User id: {{Auth::user()->id}}</div>
             <div class="text-one">User name: {{Auth::user()->name}}</div>
             <div class="text-one">User email: {{Auth::user()->email}}</div>
 
-            <!-- con enctype="multipart/form-data" no detecta como campo rellenado que random!!! -->
-            <form action="{{ route('user.update') }}" method="POST" class="needs-validation create-user-container">
-                @csrf
-                @method('PUT')
+            <br>
+            <div class="foticos">
 
-                <div class="input-group mb-3 bootstrap-input">
+                <text> Upload your photo so you can change it!</text>
+                <!-- THIS IS FOR UPLOADING PHOTO TO PUBLIC FOLDER -->
+                <form method="post" action="{{ route('images.store') }}" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" style="width:400px; margin-bottom:10px" name="img_url" class="custom-file-upload" id="img_url">
+                    <button type="submit" class="btn btn-success">Upload new photo</button>
+                </form>
+            </div>
+            <br>
+            <div class="foticos">
+                <text> Select your uploaded photo to show it!</text>
+                <!-- THIS IS FOR UPDATING EXISTING PHOTO -->
+                <!-- con enctype="multipart/form-data" no detecta como campo rellenado que random!!! -->
+                <form action="{{ route('user.update') }}" method="POST" class="needs-validation create-user-container">
+                    @csrf
+                    @method('PUT')
+
                     <input type="hidden" class="form-control" name="id_update" value="{{ Auth::user()->id }}" placeholder="Identifier of the user" aria-label="id_update" aria-describedby="basic-addon1" id="id_update">
-                </div>
-
-                <input type="file" style="width:400px; margin-bottom:10px" name="img_url_update" class="custom-file-upload" id="img_url_update">
-                <!-- TODO: Solo funciona con las inside de la carpeta, habria que ver que hago -->
-
-                <button type="submit" class="btn btn-secondary">Change picture</button>
-            </form>
-
+                    <input type="file" style="width:400px; margin-bottom:10px" name="img_url_update" class="custom-file-upload" id="img_url_update">
+                    <button type="submit" class="btn btn-secondary">Select uploaded photo</button>
+                </form>
+            </div>
         </div>
 
     </div>
@@ -78,7 +94,6 @@
                     <div class="invalid-tooltip mb-3">{{ $error }}</div>
                     @endforeach
                     @endif
-
                     <button type="submit" class="btn btn-primary">Update name</button>
                 </form>
 
@@ -128,7 +143,7 @@
                     <button type="submit" class="btn btn-primary">Update password</button>
 
                     @if ($errors->has('password_update_profile') || $errors->has('password') || $errors->has('current_password'))
-                    <div class="invalid-tooltip mb-3 mt-3">ERROR: Eres bobo</div>
+                    <div class="invalid-tooltip mb-3 mt-3">ERROR: No updatea</div>
                     @endif
 
                 </form>
@@ -148,6 +163,28 @@
         font-family: "Poppins", sans-serif;
     }
 
+    input[type=file] {
+        color: transparent !important;
+        margin-top: 10px;
+
+    }
+
+    input[type=file]::before {
+        display: none;
+        content: "";
+        color: black;
+        margin-right: 0px;
+    }
+
+    .foticos {
+        border-top: 10px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px !important;
+    }
 
     .center {
         margin: auto;

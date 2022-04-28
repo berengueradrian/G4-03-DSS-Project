@@ -48,21 +48,16 @@
         </div>
     </div>
 
-
     <div class="nombre"> NFTS OWNED </div>
-
     <div class="listado">
 
         @for ($i = 0; $i < Auth::user()->nfts->count(); $i++)
-            <!-- TODO: este link es temporal, cuando este la vista nft si deberia ir a ese link no al de los admins-->
-            <a href="/api/nfts/{{Auth::user()->nfts[$i]->id}}">
+            <a href="/nfts/buy/{{Auth::user()->nfts[$i]->id}}">
                 <img src="/images/{{Auth::user()->nfts[$i]->img_url}}" width="100" height="100" alt="">
                 @endfor
             </a>
 
     </div>
-
-
 
 </div>
 @endsection
