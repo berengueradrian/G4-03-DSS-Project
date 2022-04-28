@@ -160,6 +160,12 @@ class NftController extends Controller
         return false;
     }
 
+
+    //#####################//#####################//#####################//#####################
+    //TODO: WE MUST UPDATE VOLUME_SOLD VARIABLE IN ARTIST IF THE SELLER IS AN ARTIST!!!!!!!! ###
+    //#####################//#####################//#####################//#####################
+
+
     public function bidNFT(Request $request, $id)
     {
         $request->validate([
@@ -167,24 +173,48 @@ class NftController extends Controller
             'bid_wallet' => 'required|max:30'
         ]);
         $newNft = NFT::whereId($id)->first();
-        if($request->bid_amount > $newNft->actual_price) {
+        if ($request->bid_amount > $newNft->actual_price) {
             $u1 = User::whereId(Auth::user()->id)->first();
             $newNft->actual_price = $request->bid_amount;
             $newNft->save();
             $u1->bids()->attach([$newNft->id => ['wallet' => $request->bid_wallet, 'amount' => $request->bid_amount]]);
             session()->flash('msg', 'Bid placed succesfully.');
             return back();
-        }
-        else {
+        } else {
             session()->flash('msg', 'The amount must be bigger than the actual price.');
             return back();
         }
-        
     }
 
-    public function purchaseNFT(int $id): bool
+    public function purchaseNFT(Request $request, int $id)
     {
-        return false;
+        $request->validate([
+            'purchase_wallet' => 'required|max:30'
+        ]);
+
+        $nft = NFT::whereId($id)->first();
+        $buyer = User::whereId(Auth::user()->id)->first();
+
+        if (($buyer->balance - $request->purchase_amount) >= 0) { //If balance user allow buying at that amount
+
+            /* NFT properties update */
+            $nft->user_id = $buyer->id; //Update property user
+            $nft->available = false; //when buying it's unavailable until new owner wants
+            $nft->save();
+
+            /* BUYER USER properties update */
+            /* ARTIST BALANCE properties update */
+            $buyer->balance -= $request->purchase_amount;
+            $buyer->save();
+
+            //TODO: Aqui habria que ver si el seller es un artista o un user normal, para sumarselo al balance del user o al volumen del artist
+
+        } else {
+            session()->flash('fail', 'Insuficient balance!');
+            return back();
+        }
+        session()->flash('success', 'NFT bought correctly!');
+        return back();
     }
 
     public function auction(int $id, DateTime $limit_date): bool
@@ -192,8 +222,8 @@ class NftController extends Controller
         return false;
     }
 
-    public function closeBid(int $id) {
+    public function closeBid(int $id)
+    {
         return false;
     }
-
 }

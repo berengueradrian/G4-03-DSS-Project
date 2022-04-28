@@ -11,6 +11,15 @@
 @endif
 
 <div class="container" onload="onInit($nft)">
+    @if(Session::has('success'))
+    <div class="alert alert-success" role="alert">
+        {!! Session::has('success') ? Session::get("success") : '' !!}
+    </div>
+    @elseif(Session::has('fail'))
+    <div class="alert alert-danger" role="alert">
+        {!! Session::has('fail') ? Session::get("fail") : '' !!}
+    </div>
+    @endif
 
     <div class="content">
 
@@ -32,90 +41,96 @@
 
         <div class="right-side">
 
-            @if($nft->type_id == 5)
-                <div class="textB">
+            @if($nft->type_id == 5 && $nft->available && $nft->limit_date != null)
+            <div class="textB">
                 Bid finishes in:
-                </div>
-                <div>
-                    <span id="cd-days">00</span> days 
-                    <span id="cd-hours">00</span> hours
-                    <span id="cd-minutes">00</span> minutes
-                    <span id="cd-seconds">00</span> seconds
-                </div>
+            </div>
+            <div>
+                <span id="cd-days">00</span> days
+                <span id="cd-hours">00</span> hours
+                <span id="cd-minutes">00</span> minutes
+                <span id="cd-seconds">00</span> seconds
+            </div>
             @endif
 
             <div class="textB">
                 Actual Price: {{$nft->actual_price}} SCAN
             </div>
-            
+
 
             @auth
             @if($nft->available)
-                @if($nft->type_id == 5)
-                <!-- Formulario bid -->
-                <form action="{{ route('nft.bid', ['nft' => $nft->id]) }}" method="POST" class="needs-validation create-bid-container">
-                    @csrf
-                    @method('POST')
-                    <div class="input-group mb-3 bootstrap-input">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Amount</span>
-                        </div>
-                        <input type="number" class="form-control" name="bid_amount" placeholder="$SCAN" aria-label="Username" aria-describedby="basic-addon3" id="bid_amount">
+            @if($nft->type_id == 5)
+            <!-- Formulario bid -->
+            <form action="{{ route('nft.bid', ['nft' => $nft->id]) }}" method="POST" class="needs-validation create-bid-container">
+                @csrf
+                @method('POST')
+                <div class="input-group mb-3 bootstrap-input">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Amount</span>
                     </div>
-                    @if ($errors->has('bid_amount'))
-                        @foreach ($errors->get('name') as $error)
-                            <div class="invalid-tooltip mb-3">{{ $error }}</div>
-                        @endforeach
-                    @endif
-                    <div class="input-group mb-3 bootstrap-input">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Wallet</span>
-                        </div>
-                        <input type="text" class="form-control" name="bid_wallet" placeholder="0x..." aria-label="Username" aria-describedby="basic-addon3" id="bid_wallet">
-                    </div>
-                    @if ($errors->has('bid_wallet'))
-                        @foreach ($errors->get('name') as $error)
-                            <div class="invalid-tooltip mb-3">{{ $error }}</div>
-                        @endforeach
-                    @endif
-                    <button type="submit" class="btn btn-primary">Place Bid</button>
-                    {!! Session::has('msg') ? Session::get("msg") : '' !!}
-                </form>
-                @else
-                <!-- Formulario purchase -->
-                <form action="{{ route('nft.purchase', ['nft' => $nft->id]) }}" method="POST" class="needs-validation create-bid-container">
-                    @csrf
-                    @method('POST')
-                    <div class="input-group mb-3 bootstrap-input">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Amount</span>
-                        </div>
-                        <input type="number" class="form-control" name="purchase_amount" placeholder="$SCAN" aria-label="Username" aria-describedby="basic-addon3" id="purchase_amount">
-                    </div>
-                    @if ($errors->has('purchase_amount'))
-                        @foreach ($errors->get('name') as $error)
-                            <div class="invalid-tooltip mb-3">{{ $error }}</div>
-                        @endforeach
-                    @endif
-                    <div class="input-group mb-3 bootstrap-input">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Wallet</span>
-                        </div>
-                        <input type="text" class="form-control" name="purchase_wallet" placeholder="0x..." aria-label="Username" aria-describedby="basic-addon3" id="purchase_wallet">
-                    </div>
-                    @if ($errors->has('purchase_wallet'))
-                        @foreach ($errors->get('name') as $error)
-                            <div class="invalid-tooltip mb-3">{{ $error }}</div>
-                        @endforeach
-                    @endif
-                    <button type="submit" class="btn btn-primary">Purchase</button>
-
-                </form>
-                @endif
-            @else
-                <div class="text-one">
-                    This NFT is not available yet.
+                    <input type="number" class="form-control" name="bid_amount" placeholder="$SCAN" aria-label="Username" aria-describedby="basic-addon3" id="bid_amount">
                 </div>
+                @if ($errors->has('bid_amount'))
+                @foreach ($errors->get('name') as $error)
+                <div class="invalid-tooltip mb-3">{{ $error }}</div>
+                @endforeach
+                @endif
+                <div class="input-group mb-3 bootstrap-input">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Wallet</span>
+                    </div>
+                    <input type="text" class="form-control" name="bid_wallet" placeholder="0x..." aria-label="Username" aria-describedby="basic-addon3" id="bid_wallet">
+                </div>
+                @if ($errors->has('bid_wallet'))
+                @foreach ($errors->get('name') as $error)
+                <div class="invalid-tooltip mb-3">{{ $error }}</div>
+                @endforeach
+                @endif
+                <button type="submit" class="btn btn-primary">Place Bid</button>
+                {!! Session::has('msg') ? Session::get("msg") : '' !!}
+            </form>
+            @else
+            <!-- Formulario purchase -->
+
+
+
+            @if(Auth::user()->id!=$nft->user_id)
+            <!-- This condition is because you cant buy your own NFT -->
+            <form action="{{ route('nft.purchase', ['nft' => $nft->id]) }}" method="POST" class="needs-validation create-bid-container">
+                @csrf
+                @method('POST')
+                <div class="input-group mb-3 bootstrap-input">
+                    <input type="hidden" class="form-control" name="purchase_amount" value="{{$nft->actual_price}}" placeholder="$SCAN" aria-label="Username" aria-describedby="basic-addon3" id="purchase_amount">
+                </div>
+                @if ($errors->has('purchase_amount'))
+                @foreach ($errors->get('name') as $error)
+                <div class="invalid-tooltip mb-3">{{ $error }}</div>
+                @endforeach
+                @endif
+                <div class="input-group mb-3 bootstrap-input">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Wallet</span>
+                    </div>
+                    <input type="text" class="form-control" name="purchase_wallet" placeholder="0x..." aria-label="Username" aria-describedby="basic-addon3" id="purchase_wallet">
+                </div>
+                @if ($errors->has('purchase_wallet'))
+                @foreach ($errors->get('name') as $error)
+                <div class="invalid-tooltip mb-3">{{ $error }}</div>
+                @endforeach
+                @endif
+                <button type="submit" class="btn btn-primary">Purchase</button>
+            </form>
+            @elseif($nft->available)
+            <div class="textB">
+                Already owneded NFT </div>
+            @endif
+
+            @endif
+            @else
+            <div class="text-one">
+                This NFT is not available yet.
+            </div>
             @endif
             @endauth
 
@@ -127,32 +142,32 @@
         <ul class="timeline">
             @if($nft->type_id == 5)
             <li><span class="badge badge-primary badge-pill font-weight-normal">
-                Base Price: {{$nft->base_price}} SCAN
+                    Base Price: {{$nft->base_price}} SCAN
                 </span>
             </li>
             @endif
             <li><span class="badge badge-primary badge-pill font-weight-normal">
-                Collection: {{$nft->collectionName->name}}
+                    Collection: {{$nft->collectionName->name}}
                 </span>
             </li>
             <li> <span class="badge badge-primary badge-pill font-weight-normal">
-                Type: {{$nft->typeName->name}}
+                    Type: {{$nft->typeName->name}}
                 </span>
             </li>
             <li><span class="badge badge-primary badge-pill font-weight-normal">
-                Type description: {{$nft->typeName->description}}
+                    Type description: {{$nft->typeName->description}}
                 </span>
             </li>
             <li><span class="badge badge-primary badge-pill font-weight-normal">
-                Artist: {{$nft->collectionName->artistName->name}}
+                    Artist: {{$nft->collectionName->artistName->name}}
                 </span>
             </li>
             <li><span class="badge badge-primary badge-pill font-weight-normal">
-                Artist description: {{$nft->collectionName->artistName->description}}
+                    Artist description: {{$nft->collectionName->artistName->description}}
                 </span>
             </li>
         </ul>
-        
+
         <!-- @for($i = 0; $i < 5 && $i < $nft->bids->count(); $i++)
             <div class="text-one">
                 {{$nft->bids[$i]->pivot}}
@@ -164,38 +179,36 @@
 </div>
 @endsection
 
-<script> 
-
-    let timer = function (date) {
-    let timer = Math.round(new Date(date).getTime()/1000) - Math.round(new Date().getTime()/1000);
-		let minutes, seconds;
-		setInterval(function () {
+<script>
+    let timer = function(date) {
+        let timer = Math.round(new Date(date).getTime() / 1000) - Math.round(new Date().getTime() / 1000);
+        let minutes, seconds;
+        setInterval(function() {
             if (--timer < 0) {
-				timer = 0;
-			}
-			days = parseInt(timer / 60 / 60 / 24, 10);
-			hours = parseInt((timer / 60 / 60) % 24, 10);
-			minutes = parseInt((timer / 60) % 60, 10);
-			seconds = parseInt(timer % 60, 10);
+                timer = 0;
+            }
+            days = parseInt(timer / 60 / 60 / 24, 10);
+            hours = parseInt((timer / 60 / 60) % 24, 10);
+            minutes = parseInt((timer / 60) % 60, 10);
+            seconds = parseInt(timer % 60, 10);
 
-			days = days < 10 ? "0" + days : days;
-			hours = hours < 10 ? "0" + hours : hours;
-			minutes = minutes < 10 ? "0" + minutes : minutes;
-			seconds = seconds < 10 ? "0" + seconds : seconds;
+            days = days < 10 ? "0" + days : days;
+            hours = hours < 10 ? "0" + hours : hours;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
 
-			document.getElementById('cd-days').innerHTML = days;
-			document.getElementById('cd-hours').innerHTML = hours;
-			document.getElementById('cd-minutes').innerHTML = minutes;
-			document.getElementById('cd-seconds').innerHTML = seconds;
-		}, 1000);
-	}
+            document.getElementById('cd-days').innerHTML = days;
+            document.getElementById('cd-hours').innerHTML = hours;
+            document.getElementById('cd-minutes').innerHTML = minutes;
+            document.getElementById('cd-seconds').innerHTML = seconds;
+        }, 1000);
+    }
 
- 
-//using the function
-const today = new Date()
-const tomorrow = new Date('{{$nft->limit_date}}')
-timer(tomorrow);
 
+    //using the function
+    const today = new Date()
+    const tomorrow = new Date('{{$nft->limit_date}}')
+    timer(tomorrow);
 </script>
 
 <style lang="scss">
@@ -209,15 +222,13 @@ timer(tomorrow);
     }
 
     /* List */
-    ul.timeline li
-    {
+    ul.timeline li {
         position: relative;
         height: 3em;
         color: #888;
     }
 
-    ul.timeline li:before
-    {
+    ul.timeline li:before {
         content: "";
         display: inline-block;
         height: 3em;
@@ -231,8 +242,7 @@ timer(tomorrow);
         z-index: -1;
     }
 
-    ul.timeline:before
-    {
+    ul.timeline:before {
         content: "●";
         display: inline-block;
         margin: 0;
@@ -243,8 +253,7 @@ timer(tomorrow);
         color: #aaa;
     }
 
-    ul.timeline:after
-    {
+    ul.timeline:after {
         content: "●";
         display: inline-block;
         margin: 0;
@@ -254,9 +263,10 @@ timer(tomorrow);
         top: -1em;
         color: #aaa;
     }
+
     /*  */
 
-    .bootstrap-input{
+    .bootstrap-input {
         width: 400px;
     }
 
