@@ -75,6 +75,16 @@ Route::get('/nfts/available', [NftController::class, 'available']);
 Route::get('/nfts/sortByPrice', [NftController::class, 'sortByPrice']);
 //Sort depending exclusivity
 Route::get('/nfts/sortByExclusivity', [NftController::class, 'sortByExclusivity']);
+//View for bid
+Route::get('/nfts/buy/{nft}', function($id) {
+    $nft = \App\Models\Nft::whereId($id)->first();
+    
+    return view('nfts.buy')->with('nft', $nft);
+});
+//BID
+Route::post('/nfts/bid/{nft}', [NftController::class, 'bidNFT'])->name('nft.bid');
+//PURCHASE
+Route::post('/nfts/purchase/{nft}', [NftController::class, 'purchaseNFT'])->name('nft.purchase');
 
 //ARTISTS
 //Order by name

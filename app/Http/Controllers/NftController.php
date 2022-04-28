@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Nft;
 use DateTime;
-use Tests\Feature\NFTTest;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class NftController extends Controller
 {
@@ -152,4 +153,47 @@ class NftController extends Controller
 
         return view('nfts.list')->with('nfts', $nfts);
     }
+
+    //Bussines extra methods
+    public function putOnSaleNFT(int $id): bool
+    {
+        return false;
+    }
+
+    public function bidNFT(Request $request, $id)
+    {
+        $request->validate([
+            'bid_amount' => 'required|numeric|digits_between:1,20|gte:0',
+            'bid_wallet' => 'required|max:30'
+        ]);
+        $newNft = NFT::whereId($id)->first();
+        if($request->bid_amount > $newNft->actual_price) {
+            $u1 = User::whereId(Auth::user()->id)->first();
+            $newNft->actual_price = $request->bid_amount;
+            $newNft->save();
+            $u1->bids()->attach([$newNft->id => ['wallet' => $request->bid_wallet, 'amount' => $request->bid_amount]]);
+            session()->flash('msg', 'Bid placed succesfully.');
+            return back();
+        }
+        else {
+            session()->flash('msg', 'The amount must be bigger than the actual price.');
+            return back();
+        }
+        
+    }
+
+    public function purchaseNFT(int $id): bool
+    {
+        return false;
+    }
+
+    public function auction(int $id, DateTime $limit_date): bool
+    {
+        return false;
+    }
+
+    public function closeBid(int $id) {
+        return false;
+    }
+
 }
