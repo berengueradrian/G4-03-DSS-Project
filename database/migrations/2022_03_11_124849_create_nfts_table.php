@@ -18,7 +18,7 @@ class CreateNFTSTable extends Migration
             $table->string('name');
             $table->double('base_price');
             $table->date('limit_date')->nullable();
-            $table->boolean('available')->default('false');
+            $table->boolean('available')->default(false);
             $table->double('actual_price');
             $table->string('img_url')->default('default.jpg');
             $table->foreignId('collection_id')->constrained('collections')->onDelete('cascade');
