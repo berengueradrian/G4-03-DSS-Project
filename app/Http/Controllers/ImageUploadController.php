@@ -16,18 +16,14 @@ class ImageUploadController extends Controller
     //Store image
     public function storeImage(Request $request)
     {
-        $data = new User();
-        $data->name = "marioasaooo";
-        $data->email = "vengxskss2a@gmail.com";
-        $data->password = "1123";
         if ($request->file('img_url')) {
+            //$filename = date('c') . $file->getClientOriginalName();
+            //Con la linea comentada podemos sacar el timestamp de la hora que se ha subido, pero vmaos a simplificar
             $file = $request->file('img_url');
-            $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('../public/uploadedByUsers'), $filename);
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('../public/images'), $filename);
             $data['img_url'] = $filename;
-            $data->img_url = $file;
         }
-        $data->save();
-        return view('profileSettings');
+        return redirect()->route('home');
     }
 }

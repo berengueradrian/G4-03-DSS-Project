@@ -46,7 +46,7 @@ Route::get('/profileSettings', function () {
 });
 
 //For adding an image
-Route::get('/add-image', [ImageUploadController::class, 'addImage'])->name('images.add');
+Route::get('/add-image', [ImageUploadController::class, 'addImage']);
 
 //For storing an image
 Route::post('/store-image', [ImageUploadController::class, 'storeImage'])
