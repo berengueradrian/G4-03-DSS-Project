@@ -54,19 +54,17 @@ class UserController extends Controller
         ]);
         $user = User::find($request->iddelete);
 
-
-        $user->delete();
-
         /*
         If we delete in ADMIN view we must be in user.list. Otherwise it means is the same user the one auto-deleting his account, 
         due to this reason; if it's not the admin it musy go to home page!!!
         */
-
         if (\Auth::user()->is_admin) {
+            $user->delete();
             return back();
+        } else {
+            $user->delete();
+            return redirect('login');
         }
-
-        return view('home');
     }
 
     public function update(Request $request)
