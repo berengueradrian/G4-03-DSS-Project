@@ -123,13 +123,13 @@
             </form>
             @elseif($nft->available)
             <div class="textB">
-                Already owneded NFT </div>
+                Your NFT is currently on sale </div>
             @endif
 
             @endif
             @else
             <div class="text-one">
-                This NFT is not available yet.
+                This NFT is not on sale.
             </div>
             @endif
             @endauth
