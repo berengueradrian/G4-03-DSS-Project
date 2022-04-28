@@ -6,6 +6,8 @@ use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\Logoutcontroller;
+use App\Http\Controllers\ImageUploadController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +44,13 @@ Route::get('/profile', function () {
 Route::get('/profileSettings', function () {
     return view('profileSettings');
 });
+
+//For adding an image
+Route::get('/add-image', [ImageUploadController::class, 'addImage'])->name('images.add');
+
+//For storing an image
+Route::post('/store-image', [ImageUploadController::class, 'storeImage'])
+    ->name('images.store');
 
 
 //COLLECTIONS

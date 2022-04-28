@@ -19,7 +19,7 @@
             <div class="text-one">User name: {{Auth::user()->name}}</div>
             <div class="text-one">User email: {{Auth::user()->email}}</div>
 
-            <form action="{{ route('user.update') }}" method="POST" class="needs-validation create-user-container">
+            <form action="{{ route('user.update') }}" method="POST" enctype="multipart/form-data class=" needs-validation create-user-container">
                 @csrf
                 @method('PUT')
 
