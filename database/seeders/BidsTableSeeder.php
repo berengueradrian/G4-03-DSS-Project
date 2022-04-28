@@ -23,10 +23,12 @@ class BidsTableSeeder extends Seeder
 
         $u1 = User::find($usersId[0]);
         $n1 = Nft::find($nftsId[1]);
-        $n1->bids()->attach($u1->id);
+        $u1->bids()->attach([$n1->id => ['wallet' => '0xb1234', 'amount' => '0.1']]);
+        //$n1->bids()->attach($u1->id);
 
         $u2 = User::find($usersId[1]);
         $n2 = Nft::find($nftsId[1]);
-        $n2->bids()->attach($u2->id);
+        $u2->bids()->attach([$n2->id => ['wallet' => '0xb12456', 'amount' => '0.1']]);
+        //$n2->bids()->attach($u2->id);
     }
 }

@@ -15,6 +15,15 @@ class Collection extends Model
         'artist_id'
     ];
 
+    protected $appends = [
+        'artistName'
+    ];
+
+    public function getArtistNameAttribute() {
+        $artist = Artist::whereId($this->artist_id)->first();
+        return $artist;
+    }
+
     public function artist() {
         return $this->belongsTo(Artist::class);
     }
