@@ -31,6 +31,21 @@ class Nft extends Model
         'type_id'
     ];
 
+    protected $appends = [
+        'collectionName',
+        'typeName'
+    ];
+
+    public function getCollectionNameAttribute() {
+        $col = Collection::whereId($this->collection_id)->first();
+        return $col;
+    }
+
+    public function getTypeNameAttribute() {
+        $type = Type::whereId($this->type_id)->first();
+        return $type;
+    }
+
     public function collection()
     {
         return $this->belongsTo(Collection::class);
@@ -51,28 +66,4 @@ class Nft extends Model
         return $this->belongsTo(Type::class);
     }
 
-    //Bussines extra methods
-    public function putOnSaleNFT(int $id): bool
-    {
-        return false;
-    }
-
-    public function bidNFT(int $id): bool
-    {
-        return false;
-    }
-
-    public function purchaseNFT(int $id): bool
-    {
-        return false;
-    }
-
-    public function auction(int $id, DateTime $limit_date): bool
-    {
-        return false;
-    }
-
-    public function closeBid(int $id) {
-        return false;
-    }
 }
