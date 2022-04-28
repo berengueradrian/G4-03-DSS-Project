@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <h3 class="title"><strong>Profile Settings</strong></h3>
 <div class="container">
+    
+    @if(Session::has('msg'))
+    <div class="alert alert-success" role="alert">
+        {!! Session::has('msg') ? Session::get("msg") : '' !!}
+    </div>
+    @endif
 
     <div class="content">
 
@@ -88,7 +94,6 @@
                     <div class="invalid-tooltip mb-3">{{ $error }}</div>
                     @endforeach
                     @endif
-
                     <button type="submit" class="btn btn-primary">Update name</button>
                 </form>
 
@@ -138,7 +143,7 @@
                     <button type="submit" class="btn btn-primary">Update password</button>
 
                     @if ($errors->has('password_update_profile') || $errors->has('password') || $errors->has('current_password'))
-                    <div class="invalid-tooltip mb-3 mt-3">ERROR: Eres bobo</div>
+                    <div class="invalid-tooltip mb-3 mt-3">ERROR: No updatea</div>
                     @endif
 
                 </form>
@@ -174,6 +179,11 @@
     .foticos {
         border-top: 10px;
         text-align: left;
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px !important;
     }
 
     .center {

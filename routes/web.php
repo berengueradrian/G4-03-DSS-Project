@@ -45,13 +45,9 @@ Route::get('/profileSettings', function () {
     return view('profileSettings');
 });
 
-//For adding an image
-Route::get('/add-image', [ImageUploadController::class, 'addImage']);
-
 //For storing an image
 Route::post('/store-image', [ImageUploadController::class, 'storeImage'])
     ->name('images.store');
-
 
 //COLLECTIONS
 //Sort by name
@@ -76,9 +72,9 @@ Route::get('/nfts/sortByPrice', [NftController::class, 'sortByPrice']);
 //Sort depending exclusivity
 Route::get('/nfts/sortByExclusivity', [NftController::class, 'sortByExclusivity']);
 //View for bid
-Route::get('/nfts/buy/{nft}', function($id) {
+Route::get('/nfts/buy/{nft}', function ($id) {
     $nft = \App\Models\Nft::whereId($id)->first();
-    
+
     return view('nfts.buy')->with('nft', $nft);
 });
 //BID

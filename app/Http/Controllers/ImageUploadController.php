@@ -8,11 +8,6 @@ use App\Models\User;
 
 class ImageUploadController extends Controller
 {
-    //Add image
-    public function addImage()
-    {
-        return view('add_image');
-    }
     //Store image
     public function storeImage(Request $request)
     {
@@ -23,7 +18,8 @@ class ImageUploadController extends Controller
             $filename = $file->getClientOriginalName();
             $file->move(public_path('../public/images'), $filename);
             $data['img_url'] = $filename;
+            session()->flash('msg', 'Image uploaded correctly!');
         }
-        return redirect()->route('home');
+        return back();
     }
 }
