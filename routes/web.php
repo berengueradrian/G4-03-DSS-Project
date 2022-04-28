@@ -6,6 +6,8 @@ use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\Logoutcontroller;
+use App\Http\Controllers\ImageUploadController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,15 +41,17 @@ Route::get('/profile', function () {
     return view('profile');
 });
 
-Route::get('/profileSettings', function(){
+Route::get('/profileSettings', function () {
     return view('profileSettings');
 });
 
-//Route::group(['middleware' => 'auth'], function () {
+//For adding an image
+Route::get('/add-image', [ImageUploadController::class, 'addImage'])->name('images.add');
 
-//Route::get('/profile', [UserController::class, 'get'])->name('profile.getOne');
-//Route::get('/profile/delete', [UserController::class, 'delete']);
-//});
+//For storing an image
+Route::post('/store-image', [ImageUploadController::class, 'storeImage'])
+    ->name('images.store');
+
 
 //COLLECTIONS
 //Sort by name

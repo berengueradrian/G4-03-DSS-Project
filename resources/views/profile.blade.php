@@ -18,12 +18,12 @@
             </div>
             <br>
 
-            <!--@if(Auth::user()->is_admin || Auth::user()->id=="9")-->
             <div class="user details">
                 <i class="fas fa-user"></i>
                 <div class="topic">User id: {{Auth::user()->id}}</div>
                 <div class="text-one">User name: {{Auth::user()->name}}</div>
             </div>
+            <!--@if(Auth::user()->is_admin || Auth::user()->id=="9")-->
             <!--@endif-->
 
         </div>
@@ -40,7 +40,6 @@
                 <div class="input-group mb-3 bootstrap-input">
                     <input type="hidden" class="form-control" name="iddelete" value="{{Auth::user()->id}}" aria-label="iddelete" aria-describedby="basic-addon10" id="iddelete">
                 </div>
-                <!-- TODO: TIENE QUE MANDARTE AL MAIN PQ SI NO INTENTA CARGAR LA PAGINA Y HASTA LUEGO -->
                 <button type="submit" class="btn btn-danger">Delete account</button>
 
             </form>

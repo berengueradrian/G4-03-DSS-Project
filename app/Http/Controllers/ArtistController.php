@@ -15,7 +15,7 @@ class ArtistController extends Controller
 
     public function getAll()
     {
-        $artists = Artist::paginate(2);
+        $artists = Artist::paginate(5);
         return view('artists.list')->with('artists', $artists)->with('withCollection', false);
     }
 
@@ -27,29 +27,26 @@ class ArtistController extends Controller
 
         $artist = new Artist();
         $artist->name = $data->name;
-        if($data->balance != null){
-            $data->validate([ 'balance' => 'numeric|gte:0|digits_between:1,20' ]);
+        if ($data->balance != null) {
+            $data->validate(['balance' => 'numeric|gte:0|digits_between:1,20']);
             $artist->balance = $data->balance;
-        }
-        else{
+        } else {
             $artist->balance = 0.0;
         }
-        if($data->img_url != null){
+        if ($data->img_url != null) {
             $data->validate([
-                'img_url' => 'max:50',   
+                'img_url' => 'max:50',
             ]);
             $artist->img_url = $data->img_url;
-        }
-        else{
+        } else {
             $artist->img_url = 'default.jpg';
         }
-        if($data->description != null){
+        if ($data->description != null) {
             $data->validate([
-                'description' => 'max:50',   
+                'description' => 'max:50',
             ]);
             $artist->description = $data->description;
-        }
-        else{
+        } else {
             $artist->description = '';
         }
         $artist->save();
@@ -62,11 +59,10 @@ class ArtistController extends Controller
             'iddelete' => 'required|numeric|exists:artists,id'
         ]);
         $artist = Artist::find($request->iddelete);
-        if($artist->collections->count() > 0){ 
-            $artists = Artist::paginate(2);
+        if ($artist->collections->count() > 0) {
+            $artists = Artist::paginate(5);
             return view('artists.list')->with('artists', $artists)->with('withCollection', true);
-        }
-        else{
+        } else {
             $artist->delete();
         }
         return back()->with('withCollection', false);
@@ -89,7 +85,7 @@ class ArtistController extends Controller
         }
         if ($request->filled('img_url_update')) {
             $request->validate([
-                'img_url_update' => 'max:50',   
+                'img_url_update' => 'max:50',
             ]);
             $newArtist->img_url = $request->img_url_update;
         }
@@ -112,11 +108,11 @@ class ArtistController extends Controller
     public function sortByName(Request $request)
     {
         if ($request->sortByName == 0) {
-            $artists = Artist::orderBy('name', 'DESC')->paginate(2);
+            $artists = Artist::orderBy('name', 'DESC')->paginate(5);
         } elseif ($request->sortByName == 1) {
-            $artists = Artist::orderBy('name', 'ASC')->paginate(2);
+            $artists = Artist::orderBy('name', 'ASC')->paginate(5);
         } else {
-            $artists = Artist::paginate(2);
+            $artists = Artist::paginate(5);
         }
 
         return view('artists.list')->with('artists', $artists);
@@ -125,11 +121,11 @@ class ArtistController extends Controller
     public function sortByBalance(Request $request)
     {
         if ($request->sortByBalance == 0) {
-            $artists = Artist::orderBy('balance', 'DESC')->paginate(2);
+            $artists = Artist::orderBy('balance', 'DESC')->paginate(5);
         } elseif ($request->sortByBalance == 1) {
-            $artists = Artist::orderBy('balance', 'ASC')->paginate(2);
+            $artists = Artist::orderBy('balance', 'ASC')->paginate(5);
         } else {
-            $artists = Artist::paginate(2);
+            $artists = Artist::paginate(5);
         }
 
         return view('artists.list')->with('artists', $artists);
@@ -138,11 +134,11 @@ class ArtistController extends Controller
     public function sortByVolume(Request $request)
     {
         if ($request->sortByVolume == 0) {
-            $artists = Artist::orderBy('volume_sold', 'DESC')->paginate(2);
+            $artists = Artist::orderBy('volume_sold', 'DESC')->paginate(5);
         } elseif ($request->sortByVolume == 1) {
-            $artists = Artist::orderBy('volume_sold', 'ASC')->paginate(2);
+            $artists = Artist::orderBy('volume_sold', 'ASC')->paginate(5);
         } else {
-            $artists = Artist::paginate(2);
+            $artists = Artist::paginate(5);
         }
 
         return view('artists.list')->with('artists', $artists);

@@ -4,10 +4,10 @@
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">List of collections</a>
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">List of collections</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Create collection</a>
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Create collection</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="false">Update collection</a>
@@ -31,7 +31,7 @@
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="submit">Sort</button>
                 </div>
-            </div>    
+            </div>
         </form>
         <table class="table table-hover">
             <thead>
@@ -39,6 +39,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
+                    <th scope="col">Delete option</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,19 +48,27 @@
                     <td>{{ $collection->id }}</td>
                     <td><a href={{ route('collection.getOne', ['collection' => $collection->id]) }}>{{ $collection->name }}</a></td>
                     <td>{{ $collection->description }}</td>
+                    <td>
+                        <form action=" {{ route('collection.delete') }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" class="form-control" name="iddelete" value="{{$collection->id}}" id="iddelete">
+                            <button type="submit" onclick="return confirm('Confirm your operation delete')" class="btn btn-danger btn-sm">Delete collection</button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
         {{ $collections->appends($_GET)->links() }}
         @if ($errors->has('iddelete'))
-            <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been deleted</div>
+        <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been deleted</div>
         @endif
         @if ($errors->has('id') || $errors->has('artist_id_update') || $errors->has('name_update')|| $errors->has('img_url_update') || $errors->has('description_update'))
-            <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been updated</div>
+        <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been updated</div>
         @endif
         @if ($errors->has('name')||$errors->has('description')||$errors->has('artist_id')||$errors->has('img_url'))
-            <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been created</div>
+        <div class="invalid-tooltip mb-3 mt-3">ERROR: The collection has not been created</div>
         @endif
     </div>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -76,12 +85,19 @@
 @endsection
 
 <style lang="scss">
-    form{
+    form {
         width: 300px !important;
         background-color: transparent !important;
         border: none !important;
         padding: 0px !important;
         margin-top: 20px !important;
         margin-bottom: 10px !important;
+    }
+
+    .table td,
+    .table th {
+        padding: 0.75rem;
+        vertical-align: initial !important;
+        border-top: 1px solid #dee2e6;
     }
 </style>
