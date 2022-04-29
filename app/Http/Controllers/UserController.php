@@ -54,19 +54,17 @@ class UserController extends Controller
         ]);
         $user = User::find($request->iddelete);
 
-
-        $user->delete();
-
         /*
         If we delete in ADMIN view we must be in user.list. Otherwise it means is the same user the one auto-deleting his account, 
         due to this reason; if it's not the admin it musy go to home page!!!
         */
-
         if (\Auth::user()->is_admin) {
+            $user->delete();
             return back();
+        } else {
+            $user->delete();
+            return redirect('login');
         }
-
-        return view('home');
     }
 
     public function update(Request $request)
@@ -86,6 +84,7 @@ class UserController extends Controller
             if (\Hash::check($request->current_password, $newUser->password)) {
                 $newUser->name = $request->name_update_profile;
             }
+            session()->flash('msg', 'Name updated correctly!');
         }  //ADMIN NAME UPDATE
         elseif ($request->filled('name_update')) {
             $request->validate([
@@ -102,6 +101,7 @@ class UserController extends Controller
                 'current_password' => 'required|same:password',
             ]);
             $newUser->password = \Hash::make($request['password_update_profile']);
+            session()->flash('msg', 'Password updated correctly!');
         }  //ADMIN PASS UPDATE
         elseif ($request->filled('password_update')) {
             $request->validate(['password_update' => 'max:50']);
@@ -115,6 +115,7 @@ class UserController extends Controller
         if ($request->filled('img_url_update')) {
             $request->validate(['img_url_update' => 'max:50']);
             $newUser->img_url = $request->img_url_update;
+            session()->flash('msg', 'Image updated correctly!');
         }
         if ($request->filled('balance_update')) {
             $request->validate([
