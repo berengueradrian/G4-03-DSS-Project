@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Nft;
 use DateTime;
 use App\Models\User;
+use App\Models\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class NftController extends Controller
@@ -155,9 +156,31 @@ class NftController extends Controller
     }
 
     //Bussines extra methods
-    public function putOnSaleNFT(int $id): bool
+    public function putOnSaleNFT($id)
     {
-        return false;
+        $newNft = NFT::whereId($id)->first();
+        if($newNft->available) {
+            session()->flash('msg', 'NFT available already.');
+        }
+        else {
+            $newNft->available = true;
+            $newNft->save();
+            session()->flash('msg', ' The NFT is available to purchase now.');
+        }
+    }
+
+    public function auction($id, DateTime $limit_date)
+    {
+        $newNft = NFT::whereId($id)->first(); 
+        if($newNft->available && $newNft->limit_date != null) {
+            session()->flash('msg', 'NFT available already.');
+        }
+        else {
+            $newNft->available = true;
+            $newNft->limit_date = $limit_date;
+            $newNft->save();
+            session()->flash('msg', ' The NFT is available to bid now.');
+        }
     }
 
 
@@ -215,11 +238,6 @@ class NftController extends Controller
         }
         session()->flash('success', 'NFT bought correctly!');
         return back();
-    }
-
-    public function auction(int $id, DateTime $limit_date): bool
-    {
-        return false;
     }
 
     public function closeBid(int $id)
