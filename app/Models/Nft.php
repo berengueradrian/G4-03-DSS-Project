@@ -33,7 +33,8 @@ class Nft extends Model
 
     protected $appends = [
         'collectionName',
-        'typeName'
+        'typeName',
+        'userName'
     ];
 
     public function getCollectionNameAttribute() {
@@ -44,6 +45,11 @@ class Nft extends Model
     public function getTypeNameAttribute() {
         $type = Type::whereId($this->type_id)->first();
         return $type;
+    }
+
+    public function getUserNameAttribute() {
+        $user = User::whereId($this->user_id)->first();
+        return $user;
     }
 
     public function collection()
