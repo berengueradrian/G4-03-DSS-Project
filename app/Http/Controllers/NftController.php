@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Nft;
 use DateTime;
 use App\Models\User;
-use App\Models\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class NftController extends Controller
