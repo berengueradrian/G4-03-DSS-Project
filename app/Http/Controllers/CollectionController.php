@@ -30,10 +30,11 @@ class CollectionController extends Controller
             'img_url' => 'max:50'
         ]);
 
-        $collection = new Collection();
-        $collection->name = $data->name;
-        $collection->description = $data->description;
-        $collection->artist_id = $data->artist_id;
+        $collection = Collection::create([
+            'name' => $data->name,
+            'description' => $data->description,
+            'artist_id' => $data->artist_id,
+        ]);
 
         if ($data->filled('img_url')) {
             $data->validate(['img_url' => 'max:50']);

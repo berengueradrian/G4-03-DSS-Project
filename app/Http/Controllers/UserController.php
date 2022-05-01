@@ -29,10 +29,12 @@ class UserController extends Controller
             'balance' => 'required|gte:0|numeric|digits_between:1,20',
         ]);
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->input('password'));
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->input('password'))
+        ]);
+
         if ($request->balance != null) {
             $user->balance = $request->balance;
         } else {
