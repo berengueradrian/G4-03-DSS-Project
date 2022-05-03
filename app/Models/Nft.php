@@ -64,7 +64,7 @@ class Nft extends Model
 
     public function bids()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('amount');
     }
 
     public function type()

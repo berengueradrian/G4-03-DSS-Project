@@ -195,15 +195,21 @@ class NftController extends Controller
             'bid_wallet' => 'required|max:30'
         ]);
         $newNft = NFT::whereId($id)->first();
-        if ($request->bid_amount > $newNft->actual_price) {
-            $u1 = User::whereId(Auth::user()->id)->first();
-            $newNft->actual_price = $request->bid_amount;
-            $newNft->save();
-            $u1->bids()->attach([$newNft->id => ['wallet' => $request->bid_wallet, 'amount' => $request->bid_amount]]);
-            session()->flash('msg', 'Bid placed succesfully.');
-            return back();
-        } else {
-            session()->flash('msg', 'The amount must be bigger than the actual price.');
+        if($request->bid_amount <= Auth::user()->balance) {
+            if ($request->bid_amount > $newNft->actual_price) {
+                $u1 = User::whereId(Auth::user()->id)->first();
+                $newNft->actual_price = $request->bid_amount;
+                $newNft->save();
+                $u1->bids()->attach([$newNft->id => ['wallet' => $request->bid_wallet, 'amount' => $request->bid_amount]]);
+                session()->flash('msg', 'Bid placed succesfully.');
+                return back();
+            } else {
+                session()->flash('msg', 'The amount must be bigger than the actual price.');
+                return back();
+            }
+        }
+        else {
+            session()->flash('msg', 'The balance is not enough.');
             return back();
         }
     }
@@ -239,8 +245,27 @@ class NftController extends Controller
         return back();
     }
 
-    public function closeBid(int $id)
+    public function closeBid($id)
     {
-        return false;
+        $nft = NFT::whereId($id)->first();
+        $nft->available = false;
+        $bids = $nft->bids()->get()->toArray();
+        //dd($bids);
+        usort($bids, function($a, $b) {
+            return ($a['created_at'] > $b['created_at']) ? $a:$b;
+        });
+        
+        $nft->user_id = $bids[0]['pivot']['user_id'];
+        $nft->save();
+
+        $user = User::whereId($bids[0]['pivot']['user_id'])->first();
+        $user->balance = $user->balance - $bids[0]['pivot']['amount'];
+        $user->save();
+        //TODO: Artist aumentarle el volume_sold
+        //$artist = 
+        //$artist->volume_sold += $bid->amount;
+
+        session()->flash('success', 'Bid closed correctly.');
+        return back();
     }
 }

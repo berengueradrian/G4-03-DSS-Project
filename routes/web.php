@@ -85,6 +85,8 @@ Route::post('/nfts/purchase/{nft}', [NftController::class, 'purchaseNFT'])->name
 //Put on sale
 Route::put('nfts/sale/{nft}', [NftController::class, 'putOnSaleNFT'])->name('nfts.sale');
 Route::put('nfts/auction/{nft}', [NftController::class, 'auction'])->name('nfts.auction');
+//Close bid
+Route::post('nfts/close/{nft}', [NftController::class, 'closeBid'])->name('nft.close');
 
 //ARTISTS
 //Order by name
