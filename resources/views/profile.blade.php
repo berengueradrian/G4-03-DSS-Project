@@ -200,4 +200,38 @@
         font-size: 14px;
         color: #afafb6;
     }
+
+    @media (max-width: 950px) {
+        .container{
+            width: 90%;
+            padding: 30px 40px 40px 35px ;
+        }
+        .container .content .right-side{
+            width: 75%;
+            margin-left: 55px;
+        }
+    }
+    @media (max-width: 820px) {
+        .container{
+            margin: 40px 0;
+            height: 100%;
+        }
+        .container .content{
+            flex-direction: column-reverse;
+        }
+        .container .content .left-side{
+            width: 100%;
+            flex-direction: row;
+            margin-top: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .container .content .left-side::before{
+            display: none;
+        }
+        .container .content .right-side{
+            width: 100%;
+            margin-left: 0;
+        }
+    }
 </style>

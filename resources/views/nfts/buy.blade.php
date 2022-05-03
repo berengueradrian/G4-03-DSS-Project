@@ -61,6 +61,8 @@
             @auth
             @if($nft->available)
             @if($nft->type_id == 5)
+                @php($limit_date = \Carbon\Carbon::parse($nft->limit_date))
+                @if(!$limit_date->isPast())
             <!-- Formulario bid -->
             <form action="{{ route('nft.bid', ['nft' => $nft->id]) }}" method="POST" class="needs-validation create-bid-container">
                 @csrf
@@ -90,10 +92,25 @@
                 <button type="submit" class="btn btn-primary">Place Bid</button>
                 {!! Session::has('msg') ? Session::get("msg") : '' !!}
             </form>
+
+                @endif
+
+                <!-- TODO: Filtrar por el user autenticado para mostrar
+                el close bid en caso de que el nft sea suyo -->
+                @if(true) <!-- este if será el de filtrar para el artist-->
+                @php($limit_date2 = \Carbon\Carbon::parse($nft->limit_date))
+                @if($limit_date2->isPast())
+                <form action="{{ route('nft.close', ['nft' => $nft->id]) }}" method="POST" class="needs-validation create-bid-container">
+                    @csrf
+                    @method('POST')
+                    <button type="submit" class="btn btn-primary">Close Bid</button>
+                    {!! Session::has('msg') ? Session::get("msg") : '' !!}
+                </form>
+                @endif
+                @endif
+
             @else
-            <!-- Formulario purchase -->
-
-
+                
 
             @if(Auth::user()->id!=$nft->user_id)
             <!-- This condition is because you cant buy your own NFT -->
@@ -132,6 +149,7 @@
                 This NFT is not on sale.
             </div>
             @endif
+
             @endauth
 
         </div>
@@ -180,6 +198,7 @@
 @endsection
 
 <script>
+    //let $ldate = new DateTime('now');
     let timer = function(date) {
         let timer = Math.round(new Date(date).getTime() / 1000) - Math.round(new Date().getTime() / 1000);
         let minutes, seconds;
