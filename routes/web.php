@@ -52,6 +52,7 @@ Route::post('/store-image', [ImageUploadController::class, 'storeImage'])
 //COLLECTIONS
 //Sort by name
 Route::get('/collections/sortByName', [CollectionController::class, 'sortByName']);
+Route::put('/collections/sale/{collection}', [CollectionController::class, 'putOnSaleCollection'])->name('collections.sale');
 
 // USERS
 // Views
@@ -81,6 +82,9 @@ Route::get('/nfts/buy/{nft}', function ($id) {
 Route::post('/nfts/bid/{nft}', [NftController::class, 'bidNFT'])->name('nft.bid');
 //PURCHASE
 Route::post('/nfts/purchase/{nft}', [NftController::class, 'purchaseNFT'])->name('nft.purchase');
+//Put on sale
+Route::put('nfts/sale/{nft}', [NftController::class, 'putOnSaleNFT'])->name('nfts.sale');
+Route::put('nfts/auction/{nft}', [NftController::class, 'auction'])->name('nfts.auction');
 
 //ARTISTS
 //Order by name

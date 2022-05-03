@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Collection;
+use App\Http\Controllers\NftController;
+use DateTime;
 
 class CollectionController extends Controller
 {
@@ -28,10 +30,11 @@ class CollectionController extends Controller
             'img_url' => 'max:50'
         ]);
 
-        $collection = new Collection();
-        $collection->name = $data->name;
-        $collection->description = $data->description;
-        $collection->artist_id = $data->artist_id;
+        $collection = Collection::create([
+            'name' => $data->name,
+            'description' => $data->description,
+            'artist_id' => $data->artist_id,
+        ]);
 
         if ($data->filled('img_url')) {
             $data->validate(['img_url' => 'max:50']);
@@ -113,5 +116,25 @@ class CollectionController extends Controller
         }
 
         return view('collections.list')->with('collections', $collections);
+    }
+
+    //Business extra methods
+    public function uploadCollection(array $nfts) {
+        return false;
+    }
+
+    public function putOnSaleCollection($id, DateTime $limit_date) {
+        $newCollection = Collection::whereId($id)->first();
+        foreach($newCollection->nfts as $nft) {
+            if($nft->type_id == 5) {
+                $nft->available = true;
+                $nft->limit_date = $limit_date;
+                $nft->save();
+            }
+            else {
+                $nft->available = true;
+                $nft->save();
+            }
+        }
     }
 }

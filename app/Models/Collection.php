@@ -32,11 +32,4 @@ class Collection extends Model
         return $this->hasMany(Nft::class);
     }
 
-    public function uploadCollection(array $nfts) : bool {
-        return false;
-    }
-
-    public function putOnSaleCollection(array $nfts) : bool {
-        return false;
-    }
 }

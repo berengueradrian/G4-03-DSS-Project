@@ -25,8 +25,10 @@ class ArtistController extends Controller
             'name' => 'required|max:50',
         ]);
 
-        $artist = new Artist();
-        $artist->name = $data->name;
+        $artist = Artist::create([
+            'name' => $data->name
+        ]);
+
         if ($data->balance != null) {
             $data->validate(['balance' => 'numeric|gte:0|digits_between:1,20']);
             $artist->balance = $data->balance;
