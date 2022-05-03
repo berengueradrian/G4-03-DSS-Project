@@ -21,6 +21,11 @@ class NftController extends Controller
         return view('nfts.list')->with('nfts', $nfts);
     }
 
+    public function getThree()
+    {
+        $nfts = Nft::all()->take(3);
+    }
+
     public function store(Request $data){
         $data->validate([
             'name' => 'required|max:50',

@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    $nfts = 
     return view('home');
 });
 
