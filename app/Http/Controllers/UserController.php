@@ -83,12 +83,14 @@ class UserController extends Controller
             ]);
             if (\Hash::check($request->current_password, $newUser->password)) {
                 $newUser->name = $request->name_update_profile;
+                session()->flash('msg', 'Name updated correctly!');
+            } else {
+                session()->flash('errorMsg', 'Invalid password!');
             }
-            session()->flash('msg', 'Name updated correctly!');
         }  //ADMIN NAME UPDATE
         elseif ($request->filled('name_update')) {
             $request->validate([
-                'name_update' => 'max:50'
+                'name_update' => 'max:50',
             ]);
             $newUser->name = $request->name_update;
         }

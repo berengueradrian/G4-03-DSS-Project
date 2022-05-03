@@ -5,10 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <h3 class="title"><strong>Profile Settings</strong></h3>
 <div class="container">
-    
+
     @if(Session::has('msg'))
     <div class="alert alert-success" role="alert">
         {!! Session::has('msg') ? Session::get("msg") : '' !!}
+    </div>
+    @elseif(Session::has('errorMsg'))
+    <div class="alert alert-danger" role="alert">
+        {!! Session::has('errorMsg') ? Session::get("errorMsg") : '' !!}
     </div>
     @endif
 
