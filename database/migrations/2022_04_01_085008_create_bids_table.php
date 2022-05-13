@@ -17,6 +17,8 @@ class CreateBidsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('nft_id')->constrained('nfts')->onDelete('cascade');
+            $table->string('wallet');
+            $table->double('amount');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateBidsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bids');
+        Schema::dropIfExists('nft_user');
     }
 }

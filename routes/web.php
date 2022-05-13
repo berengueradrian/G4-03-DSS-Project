@@ -6,6 +6,8 @@ use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\Logoutcontroller;
+use App\Http\Controllers\ImageUploadController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,19 +41,18 @@ Route::get('/profile', function () {
     return view('profile');
 });
 
-Route::get('/profileSettings', function(){
+Route::get('/profileSettings', function () {
     return view('profileSettings');
 });
 
-//Route::group(['middleware' => 'auth'], function () {
-
-//Route::get('/profile', [UserController::class, 'get'])->name('profile.getOne');
-//Route::get('/profile/delete', [UserController::class, 'delete']);
-//});
+//For storing an image
+Route::post('/store-image', [ImageUploadController::class, 'storeImage'])
+    ->name('images.store');
 
 //COLLECTIONS
 //Sort by name
 Route::get('/collections/sortByName', [CollectionController::class, 'sortByName']);
+Route::put('/collections/sale/{collection}', [CollectionController::class, 'putOnSaleCollection'])->name('collections.sale');
 
 // USERS
 // Views
@@ -71,6 +72,21 @@ Route::get('/nfts/available', [NftController::class, 'available']);
 Route::get('/nfts/sortByPrice', [NftController::class, 'sortByPrice']);
 //Sort depending exclusivity
 Route::get('/nfts/sortByExclusivity', [NftController::class, 'sortByExclusivity']);
+//View for bid
+Route::get('/nfts/buy/{nft}', function ($id) {
+    $nft = \App\Models\Nft::whereId($id)->first();
+
+    return view('nfts.buy')->with('nft', $nft);
+});
+//BID
+Route::post('/nfts/bid/{nft}', [NftController::class, 'bidNFT'])->name('nft.bid');
+//PURCHASE
+Route::post('/nfts/purchase/{nft}', [NftController::class, 'purchaseNFT'])->name('nft.purchase');
+//Put on sale
+Route::put('nfts/sale/{nft}', [NftController::class, 'putOnSaleNFT'])->name('nfts.sale');
+Route::put('nfts/auction/{nft}', [NftController::class, 'auction'])->name('nfts.auction');
+//Close bid
+Route::post('nfts/close/{nft}', [NftController::class, 'closeBid'])->name('nft.close');
 
 //ARTISTS
 //Order by name

@@ -6,20 +6,54 @@
 <h3 class="title"><strong>Profile Settings</strong></h3>
 <div class="container">
 
+    @if(Session::has('msg'))
+    <div class="alert alert-success" role="alert">
+        {!! Session::has('msg') ? Session::get("msg") : '' !!}
+    </div>
+    @elseif(Session::has('errorMsg'))
+    <div class="alert alert-danger" role="alert">
+        {!! Session::has('errorMsg') ? Session::get("errorMsg") : '' !!}
+    </div>
+    @endif
+
     <div class="content">
 
         <div class="left-side">
             <div class="foto">
-                <img src="/images/{{Auth::user()->img_url}}" width="210" height="150" alt="">
+                <img src="/images/{{Auth::user()->img_url}}" width="270" height="190" alt="">
             </div>
         </div>
 
-        <div class="right-side">
+        <div class="right-side" style="margin-bottom: 20px;">
             <div class="topic">User id: {{Auth::user()->id}}</div>
             <div class="text-one">User name: {{Auth::user()->name}}</div>
             <div class="text-one">User email: {{Auth::user()->email}}</div>
+
             <br>
-            <button type="button" class="btn btn-secondary">Change picture</button>
+            <div class="foticos">
+
+                <text> Upload your photo so you can change it!</text>
+                <!-- THIS IS FOR UPLOADING PHOTO TO PUBLIC FOLDER -->
+                <form method="post" action="{{ route('images.store') }}" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" style="width:400px; margin-bottom:10px" name="img_url" class="custom-file-upload" id="img_url">
+                    <button type="submit" class="btn btn-success">Upload new photo</button>
+                </form>
+            </div>
+            <br>
+            <div class="foticos">
+                <text> Select your uploaded photo to show it!</text>
+                <!-- THIS IS FOR UPDATING EXISTING PHOTO -->
+                <!-- con enctype="multipart/form-data" no detecta como campo rellenado que random!!! -->
+                <form action="{{ route('user.update') }}" method="POST" class="needs-validation create-user-container">
+                    @csrf
+                    @method('PUT')
+
+                    <input type="hidden" class="form-control" name="id_update" value="{{ Auth::user()->id }}" placeholder="Identifier of the user" aria-label="id_update" aria-describedby="basic-addon1" id="id_update">
+                    <input type="file" style="width:400px; margin-bottom:10px" name="img_url_update" class="custom-file-upload" id="img_url_update">
+                    <button type="submit" class="btn btn-secondary">Select uploaded photo</button>
+                </form>
+            </div>
         </div>
 
     </div>
@@ -29,39 +63,41 @@
             <div class="change name">
                 <h4> Change name </h4>
 
-                <!-- el class="needs-validation este"===?????"??"?"??" -->
+                <!-- TODO: no muestra los errores!!! -->
                 <form action="{{ route('user.update') }}" method="POST" class="needs-validation create-user-container">
                     @csrf
                     @method('PUT')
 
                     <div class="input-group mb-3 bootstrap-input">
-                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="New name" aria-label="Name" aria-describedby="basic-addon1" id="name">
+                        <input type="hidden" class="form-control" name="id_update" value="{{ Auth::user()->id }}" placeholder="Identifier of the user" aria-label="id_update" aria-describedby="basic-addon1" id="id_update">
                     </div>
-                    @if ($errors->has('name'))
-                    @foreach ($errors->get('name') as $error)
+
+                    <div class="input-group mb-3 bootstrap-input">
+                        <input type="text" class="form-control" name="name_update_profile" value="{{ old('name_update_profile') }}" placeholder="New user name" aria-label="Name" aria-describedby="basic-addon1" id="name_update_profile">
+                    </div>
+                    @if ($errors->has('name_update_profile'))
+                    @foreach ($errors->get('name_update_profile') as $error)
                     <div class="invalid-tooltip mb-3">{{ $error }}</div>
                     @endforeach
                     @endif
 
                     <div class="input-group mb-3 bootstrap-input">
-                        <input type="password" class="form-control" name="password1" placeholder="Password" aria-label="pass1" aria-describedby="basic-addon1" id="password1">
+                        <input type="password" class="form-control" name="password" placeholder="Current Password" value="{{ old('password') }}" aria-label="password" aria-describedby="basic-addon3" id="password">
                     </div>
-                    @if ($errors->has('password1'))
-                    @foreach ($errors->get('password1') as $error)
+                    @if ($errors->has('password'))
+                    @foreach ($errors->get('password') as $error)
                     <div class="invalid-tooltip mb-3">{{ $error }}</div>
                     @endforeach
                     @endif
 
                     <div class="input-group mb-3 bootstrap-input">
-                        <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password" aria-label="passConf" aria-describedby="basic-addon1" id="confirmPassword">
+                        <input type="password" class="form-control" name="current_password" placeholder="Confirm password" value="{{ old('current_password') }}" aria-label="current_password" aria-describedby="basic-addon3" id="current_password">
                     </div>
-                    @if ($errors->has('confirmPassword'))
-                    @foreach ($errors->get('confirmPassword') as $error)
+                    @if ($errors->has('current_password'))
+                    @foreach ($errors->get('current_password') as $error)
                     <div class="invalid-tooltip mb-3">{{ $error }}</div>
                     @endforeach
                     @endif
-
-
                     <button type="submit" class="btn btn-primary">Update name</button>
                 </form>
 
@@ -69,24 +105,51 @@
         </div>
         <div class="right-side">
 
+            <h4> Change password </h4>
             <div class="change pass">
-                <h4> Change password </h4>
 
                 <form action="{{ route('user.update') }}" method="POST" class="needs-validation create-user-container">
                     @csrf
                     @method('PUT')
 
                     <div class="input-group mb-3 bootstrap-input">
-                        <input type="password" class="form-control" name="oldPassword" placeholder="Old Password" aria-label="Name" aria-describedby="basic-addon1" id="oldPassword">
-                    </div>
-                    <div class="input-group mb-3 bootstrap-input">
-                        <input type="password" class="form-control" name="password2" placeholder="Password" aria-label="Name" aria-describedby="basic-addon1" id="password2">
-                    </div>
-                    <div class="input-group mb-3 bootstrap-input">
-                        <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password" aria-label="Name" aria-describedby="basic-addon1" id="confirmPassword">
+                        <input type="hidden" class="form-control" name="id_update" value="{{ Auth::user()->id }}" placeholder="Identifier of the user" aria-label="id_update" aria-describedby="basic-addon1" id="id_update">
                     </div>
 
+                    <div class="input-group mb-3 bootstrap-input">
+                        <input type="password" class="form-control" name="password_update_profile" placeholder="New Password" aria-label="Name" aria-describedby="basic-addon1" id="password_update_profile">
+                    </div>
+                    @if ($errors->has('password_update_profile'))
+                    @foreach ($errors->get('password_update_profile') as $error)
+                    <div class="invalid-tooltip mb-3">{{ $error }}</div>
+                    @endforeach
+                    @endif
+
+                    <div class="input-group mb-3 bootstrap-input">
+                        <input type="password" class="form-control" name="password" placeholder="Current Password" aria-label="Name" aria-describedby="basic-addon1" id="password">
+                    </div>
+                    @if ($errors->has('password'))
+                    @foreach ($errors->get('password') as $error)
+                    <div class="invalid-tooltip mb-3">{{ $error }}</div>
+                    @endforeach
+                    @endif
+
+                    <div class="input-group mb-3 bootstrap-input">
+                        <input type="password" class="form-control" name="current_password" placeholder="Confirm Password" aria-label="Name" aria-describedby="basic-addon1" id="current_password">
+                    </div>
+                    @if ($errors->has('current_password'))
+                    @foreach ($errors->get('current_password') as $error)
+                    <div class="invalid-tooltip mb-3">{{ $error }}</div>
+                    @endforeach
+                    @endif
+
+
                     <button type="submit" class="btn btn-primary">Update password</button>
+
+                    @if ($errors->has('password_update_profile') || $errors->has('password') || $errors->has('current_password'))
+                    <div class="invalid-tooltip mb-3 mt-3">ERROR: No updatea</div>
+                    @endif
+
                 </form>
             </div>
         </div>
@@ -104,6 +167,28 @@
         font-family: "Poppins", sans-serif;
     }
 
+    input[type=file] {
+        color: transparent !important;
+        margin-top: 10px;
+
+    }
+
+    input[type=file]::before {
+        display: none;
+        content: "";
+        color: black;
+        margin-right: 0px;
+    }
+
+    .foticos {
+        border-top: 10px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px !important;
+    }
 
     .center {
         margin: auto;
