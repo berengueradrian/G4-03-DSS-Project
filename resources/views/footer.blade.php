@@ -30,7 +30,7 @@
             <div class="icon-copy">
                 <img src="{{ asset('images/footer/copyR.png') }}" width="20" height="20" alt="">
             </div>
-            <div class="nombre">DSG CHAIN</div>
+            <div class="nombre">. DSG CHAIN</div>
         </div>
         
 
@@ -42,8 +42,7 @@
 
 <style lang="scss">
     .footer{
-        height: 260px;
-        position: fixed;
+        height: 240px;
         left: 0;
         bottom: 0;
         width: 100%;
