@@ -9,7 +9,7 @@
     <div class="content-images">
         @foreach ($nfts as $nft)
             <img src="/images/landing1.png" class="content-images-img">
-        @endfor
+        @endforeach
     </div>
     <button type="button" class="btn btn-secondary btn-lg explore">Explore!</button>
     <hr class="separatorNewsletter">
