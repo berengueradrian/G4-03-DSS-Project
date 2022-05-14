@@ -3,8 +3,30 @@
 @section('content')
 <h1>ADD YOUR NFT</h1>
 <div class="add-nft">
-    <div class="nft-foto">
-        <img src="../../images/{{ $collection->artist->img_url }}" alt="NOU"  style="border: 1px black solid">
+    <div class="foticos">
+
+        <text> Upload your photo so you can change it!</text>
+        <!-- THIS IS FOR UPLOADING PHOTO TO PUBLIC FOLDER -->
+        <form method="post" action="{{ route('images.store') }}" enctype="multipart/form-data">
+            @csrf
+    
+            <input type="file" style="width:400px; margin-bottom:10px" name="img_url" class="custom-file-upload" id="img_url">
+            <button type="submit" class="btn btn-success">Upload new photo</button>
+        </form>
+        </div>
+        <br>
+        <div class="foticos">
+        <text> Select your uploaded photo to show it!</text>
+        <!-- THIS IS FOR UPDATING EXISTING PHOTO -->
+        <!-- con enctype="multipart/form-data" no detecta como campo rellenado que random!!! -->
+        <form action="{{ route('user.update') }}" method="POST" class="needs-validation create-user-container">
+            @csrf
+            @method('PUT')
+        
+            <input type="hidden" class="form-control" name="id_update" value="{{ Auth::user()->id }}" placeholder="Identifier of the user" aria-label="id_update" aria-describedby="basic-addon1" id="id_update">
+            <input type="file" style="width:400px; margin-bottom:10px" name="img_url_update" class="custom-file-upload" id="img_url_update">
+            <button type="submit" class="btn btn-secondary">Select uploaded photo</button>
+        </form>
     </div>
     <div class="btn-add-pic">
         <button  type="button" class="btn btn-outline-secondary btn-sm">Add Picture</button>

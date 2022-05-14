@@ -16,6 +16,11 @@ class CollectionController extends Controller
         return view('collections.details')->with('collection', $collection);
     }
 
+    public function show(Collection $collection)
+    {
+        return view('show.collection')->with('collection', $collection);
+    }
+
     public function addNft(Collection $collection)
     {
 
