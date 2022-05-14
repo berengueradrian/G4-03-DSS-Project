@@ -45,6 +45,10 @@ Route::get('/profileSettings', function () {
     return view('profileSettings');
 });
 
+/* Route::get('/add-nft', function () {
+    return view('add-nft');
+}); */
+
 //For storing an image
 Route::post('/store-image', [ImageUploadController::class, 'storeImage'])
     ->name('images.store');
@@ -121,6 +125,7 @@ Route::group(['prefix' => 'api'], function () {
 
     //## Collection ##
     Route::get('/collections/{collection}',  [CollectionController::class, 'get'])->name('collection.getOne');
+    Route::get('/collections/{collection}/addNft',  [CollectionController::class, 'addNft'])->name('collection.addNft');
     Route::get('/collections', [CollectionController::class, 'getAll'])->name('collection.getAll');
     Route::post('/collections', [CollectionController::class, 'store'])->name('collection.store');
     Route::delete('/collections', [CollectionController::class, 'delete'])->name('collection.delete');
