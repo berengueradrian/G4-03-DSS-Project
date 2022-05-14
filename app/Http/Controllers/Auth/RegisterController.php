@@ -66,22 +66,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if($data['is_artist'] === 1){
-            return Artist::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
-                'balance' => 0
-            ]);
-
-        }else{
+    
             return User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'balance' => 0
             ]);
-        }
         
     }
 }

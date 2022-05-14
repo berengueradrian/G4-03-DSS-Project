@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Collection;
 use App\Http\Controllers\NftController;
+use App\Models\Nft;
 use DateTime;
 
 class CollectionController extends Controller
@@ -13,6 +14,17 @@ class CollectionController extends Controller
     public function get(Collection $collection)
     {
         return view('collections.details')->with('collection', $collection);
+    }
+
+    public function show(Collection $collection)
+    {
+        return view('show.collection')->with('collection', $collection);
+    }
+
+    public function addNft(Collection $collection)
+    {
+
+        return view('collections.add-nft')->with('collection', $collection);
     }
 
     public function getAll()

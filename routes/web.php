@@ -45,6 +45,10 @@ Route::get('/profileSettings', function () {
     return view('profileSettings');
 });
 
+/* Route::get('/add-nft', function () {
+    return view('add-nft');
+}); */
+
 //For storing an image
 Route::post('/store-image', [ImageUploadController::class, 'storeImage'])
     ->name('images.store');
@@ -53,6 +57,8 @@ Route::post('/store-image', [ImageUploadController::class, 'storeImage'])
 //Sort by name
 Route::get('/collections/sortByName', [CollectionController::class, 'sortByName']);
 Route::put('/collections/sale/{collection}', [CollectionController::class, 'putOnSaleCollection'])->name('collections.sale');
+Route::get('/collections/{collection}',  [CollectionController::class, 'show'])->name('collection.getOne');
+Route::get('/collections/{collection}/addNft',  [CollectionController::class, 'addNft'])->name('collection.addNft')->middleware('admin');
 
 // USERS
 // Views
@@ -106,39 +112,39 @@ Route::get('/types/sortByExclusivity', [TypeController::class, 'sortByExclusivit
 Route::group(['prefix' => 'api'], function () {
 
     //## NFTS ##
-    Route::get('/nfts/{nft}', [NftController::class, 'get'])->name('nft.getOne');
-    Route::get('/nfts', [NftController::class, 'getAll'])->name('nft.getAll');
-    Route::post('/nfts', [NftController::class, 'store'])->name('nft.store');
-    Route::delete('/nfts', [NftController::class, 'delete'])->name('nft.delete');
-    Route::put('/nfts', [NftController::class, 'update'])->name('nft.update');
+    Route::get('/nfts/{nft}', [NftController::class, 'get'])->name('nft.getOne')->middleware('admin');
+    Route::get('/nfts', [NftController::class, 'getAll'])->name('nft.getAll')->middleware('admin');
+    Route::post('/nfts', [NftController::class, 'store'])->name('nft.store')->middleware('admin');
+    Route::delete('/nfts', [NftController::class, 'delete'])->name('nft.delete')->middleware('admin');
+    Route::put('/nfts', [NftController::class, 'update'])->name('nft.update')->middleware('admin');
 
     //## User ##
-    Route::get('/users/{user}',  [UserController::class, 'get'])->name('user.getOne');
-    Route::get('/users', [UserController::class, 'getAll'])->name('user.getAll');
-    Route::post('/users', [UserController::class, 'create'])->name('user.create');
-    Route::delete('/users', [UserController::class, 'delete'])->name('user.delete');
-    Route::put('/users', [UserController::class, 'update'])->name('user.update');
+    Route::get('/users/{user}',  [UserController::class, 'get'])->name('user.getOne')->middleware('admin');
+    Route::get('/users', [UserController::class, 'getAll'])->name('user.getAll')->middleware('admin');
+    Route::post('/users', [UserController::class, 'create'])->name('user.create')->middleware('admin');
+    Route::delete('/users', [UserController::class, 'delete'])->name('user.delete')->middleware('admin');
+    Route::put('/users', [UserController::class, 'update'])->name('user.update')->middleware('admin');
 
     //## Collection ##
-    Route::get('/collections/{collection}',  [CollectionController::class, 'get'])->name('collection.getOne');
-    Route::get('/collections', [CollectionController::class, 'getAll'])->name('collection.getAll');
-    Route::post('/collections', [CollectionController::class, 'store'])->name('collection.store');
-    Route::delete('/collections', [CollectionController::class, 'delete'])->name('collection.delete');
-    Route::put('/collections', [CollectionController::class, 'update'])->name('collection.update');
+    Route::get('/collections/{collection}',  [CollectionController::class, 'get'])->name('collection.getOne')->middleware('admin');
+    Route::get('/collections', [CollectionController::class, 'getAll'])->name('collection.getAll')->middleware('admin');
+    Route::post('/collections', [CollectionController::class, 'store'])->name('collection.store')->middleware('admin');
+    Route::delete('/collections', [CollectionController::class, 'delete'])->name('collection.delete')->middleware('admin');
+    Route::put('/collections', [CollectionController::class, 'update'])->name('collection.update')->middleware('admin');
 
     //## Type ##
-    Route::get('/types/{type}',  [TypeController::class, 'get'])->name('type.getOne');
-    Route::get('/types', [TypeController::class, 'getAll'])->name('type.getAll');
-    Route::post('/types', [TypeController::class, 'store'])->name('type.store');
-    Route::delete('/types', [TypeController::class, 'delete'])->name('type.delete');
-    Route::put('/types', [TypeController::class, 'update'])->name('type.update');
+    Route::get('/types/{type}',  [TypeController::class, 'get'])->name('type.getOne')->middleware('admin');
+    Route::get('/types', [TypeController::class, 'getAll'])->name('type.getAll')->middleware('admin');
+    Route::post('/types', [TypeController::class, 'store'])->name('type.store')->middleware('admin');
+    Route::delete('/types', [TypeController::class, 'delete'])->name('type.delete')->middleware('admin');
+    Route::put('/types', [TypeController::class, 'update'])->name('type.update')->middleware('admin');
 
     //## Artist ##
-    Route::post('/artists', [ArtistController::class, 'store'])->name('artist.store');
-    Route::get('/artists/{artist}', [ArtistController::class, 'get'])->name('artist.getOne');
-    Route::get('/artists', [ArtistController::class, 'getAll'])->name('artist.getAll');
-    Route::delete('/artists', [ArtistController::class, 'delete'])->name('artist.delete');
-    Route::put('/artists', [ArtistController::class, 'update'])->name('artist.update');
+    Route::post('/artists', [ArtistController::class, 'store'])->name('artist.store')->middleware('admin');
+    Route::get('/artists/{artist}', [ArtistController::class, 'get'])->name('artist.getOne')->middleware('admin');
+    Route::get('/artists', [ArtistController::class, 'getAll'])->name('artist.getAll')->middleware('admin');
+    Route::delete('/artists', [ArtistController::class, 'delete'])->name('artist.delete')->middleware('admin');
+    Route::put('/artists', [ArtistController::class, 'update'])->name('artist.update')->middleware('admin');
 });
 
 Auth::routes();
