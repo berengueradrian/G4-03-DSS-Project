@@ -15,14 +15,12 @@ class CreateArtistsTable extends Migration
     {
         Schema::create('artists', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('name')->unique();
             $table->double('balance')->default(0.0);
             $table->double('volume_sold')->default(0.0);
             $table->string('img_url')->default('default.jpg');
             $table->string('description')->nullable();
             $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
         });
     }

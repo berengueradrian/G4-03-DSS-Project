@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Artist;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -50,22 +49,11 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        $checkboxValue = $data['is_artist'] ?? false;
-        if(!$checkboxValue){
-            return Validator::make($data, [
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'confirmed'], //TODO: , 'min:8' delete for testing easier
-            ]);
-        }
-        // Artists validator
-        else{
-            return Validator::make($data, [
-                'name' => ['required', 'string', 'max:255'],
-                'password' => ['required', 'string', 'confirmed'], //TODO: , 'min:8' delete for testing easier
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:artists'],
-            ]);
-        }
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'confirmed'], //TODO: , 'min:8' delete for testing easier
+        ]);
     }
 
     /**
@@ -76,26 +64,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $checkboxValue = $data['is_artist'] ?? false;
-        if(!$checkboxValue){
-            return User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
-                'balance' => 0
-            ]);
-        }
-        //TODO: Artist no tiene email? Queda raro
-        // Artists registration
-        else{
-            return Artist::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
-                'volume_sold' => 0,
-                'balance' => 0
-            ]);
-        }
-        
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'balance' => 0
+        ]);
     }
 }

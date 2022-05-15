@@ -17,7 +17,7 @@ class Artist extends Authenticatable
         'img_url',
         'description',
         'volume_sold',
-        'email'
+        'password'
     ];
 
     protected $hidden = [

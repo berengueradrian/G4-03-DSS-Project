@@ -27,7 +27,6 @@ class ArtistsTableSeeder extends Seeder
                 'volume_sold' => 0,
                 'password' => Hash::make('1234'),
                 'description' => 'Pedro picazo is the most popular NFT influencer in Hong Kong',
-                'email' => 'picazo@gmail.com'
             ]
         );
         DB::table('artists')->insert(
@@ -37,7 +36,6 @@ class ArtistsTableSeeder extends Seeder
                 'volume_sold' => 500,
                 'password' => Hash::make('1234'),
                 'description' => 'Willy Vetoven is a new artist with high quality creations',
-                'email' => 'vetoven@gmail.com'
             ]
         );
         DB::table('artists')->insert(
@@ -47,7 +45,6 @@ class ArtistsTableSeeder extends Seeder
                 'volume_sold' => 10,
                 'password' => Hash::make('1234'),
                 'description' => 'Jesus, also known as elbicho is a spanish influencer with a high amount of colaborations with some companies such as Zara, Adidas and Nike',
-                'email' => 'elbicho@gmail.com'
             ]
         );
     }
