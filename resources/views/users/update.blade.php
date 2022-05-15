@@ -55,7 +55,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Image</span>
         </div>
-        <input type="text" class="form-control" name="img_url_update" placeholder="New balance (optional)" value="{{ old('img_url_update') }}" aria-label="Username" aria-describedby="basic-addon3" id="img_url_update">
+        <input type="text" class="form-control" name="img_url_update" placeholder="New image (optional)" value="{{ old('img_url_update') }}" aria-label="Username" aria-describedby="basic-addon3" id="img_url_update">
     </div>
     @if ($errors->has('img_url_update'))
     @foreach ($errors->get('img_url_update') as $error)
@@ -67,7 +67,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Password</span>
         </div>
-        <input type="text" class="form-control" name="password_update" placeholder="New balance (optional)" value="{{ old('password_update') }}" aria-label="Username" aria-describedby="basic-addon3" id="password_update">
+        <input type="text" class="form-control" name="password_update" placeholder="New password (optional)" value="{{ old('password_update') }}" aria-label="Username" aria-describedby="basic-addon3" id="password_update">
     </div>
     @if ($errors->has('password_update'))
     @foreach ($errors->get('password_update') as $error)

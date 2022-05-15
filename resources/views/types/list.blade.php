@@ -56,6 +56,7 @@
                     <th scope="col">Type</th>
                     <th scope="col">Exclusivity</th>
                     <th scope="col">Number of NFTs</th>
+                    <th scope="col">Delete option</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,6 +66,14 @@
                     <td><a href={{ route('type.getOne', ['type' => $type->id]) }}>{{ $type->name }}</a></td>
                     <td>{{ $type->exclusivity }}</td>
                     <td>{{ $type->count }}</td>
+                    <td>
+                        <form action=" {{ route('type.delete') }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" class="form-control" name="iddelete" value="{{$type->id}}" id="iddelete">
+                            <button type="submit" onclick="return confirm('Confirm your operation delete')" class="btn btn-danger btn-sm">Delete type</button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -102,6 +111,13 @@
         padding: 0px !important;
         margin-top: 20px !important;
         margin-bottom: 10px !important;
+    }
+
+    .table td,
+    .table th {
+        padding: 0.75rem;
+        vertical-align: initial !important;
+        border-top: 1px solid #dee2e6;
     }
 
     .sorts {

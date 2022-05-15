@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Collection;
+use App\Http\Controllers\NftController;
+use App\Models\Nft;
+use DateTime;
 
 class CollectionController extends Controller
 {
@@ -11,6 +14,17 @@ class CollectionController extends Controller
     public function get(Collection $collection)
     {
         return view('collections.details')->with('collection', $collection);
+    }
+
+    public function show(Collection $collection)
+    {
+        return view('show.collection')->with('collection', $collection);
+    }
+
+    public function addNft(Collection $collection)
+    {
+
+        return view('collections.add-nft')->with('collection', $collection);
     }
 
     public function getAll()
@@ -28,16 +42,16 @@ class CollectionController extends Controller
             'img_url' => 'max:50'
         ]);
 
-        $collection = new Collection();
-        $collection->name = $data->name;
-        $collection->description = $data->description;
-        $collection->artist_id = $data->artist_id;
+        $collection = Collection::create([
+            'name' => $data->name,
+            'description' => $data->description,
+            'artist_id' => $data->artist_id,
+        ]);
 
-        if($data->filled('img_url')){
-            $data->validate([ 'img_url' => 'max:50' ]);
+        if ($data->filled('img_url')) {
+            $data->validate(['img_url' => 'max:50']);
             $collection->img_url = $data->img_url;
-        }
-        else{
+        } else {
             $collection->img_url = 'default.jpg';
         }
 
@@ -93,7 +107,7 @@ class CollectionController extends Controller
         if ($request->artist_id_update != null) {
             $newCollection->artist_id = $request->artist_id_update;
         }
-        if($request->img_url_update != null) {
+        if ($request->img_url_update != null) {
             $request->validate([
                 'img_url_update' => 'max:50'
             ]);
@@ -114,5 +128,25 @@ class CollectionController extends Controller
         }
 
         return view('collections.list')->with('collections', $collections);
+    }
+
+    //Business extra methods
+    public function uploadCollection(array $nfts) {
+        return false;
+    }
+
+    public function putOnSaleCollection($id, DateTime $limit_date) {
+        $newCollection = Collection::whereId($id)->first();
+        foreach($newCollection->nfts as $nft) {
+            if($nft->type_id == 5) {
+                $nft->available = true;
+                $nft->limit_date = $limit_date;
+                $nft->save();
+            }
+            else {
+                $nft->available = true;
+                $nft->save();
+            }
+        }
     }
 }

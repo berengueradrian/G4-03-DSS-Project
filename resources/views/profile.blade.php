@@ -18,12 +18,12 @@
             </div>
             <br>
 
-            <!--@if(Auth::user()->is_admin || Auth::user()->id=="9")-->
             <div class="user details">
                 <i class="fas fa-user"></i>
                 <div class="topic">User id: {{Auth::user()->id}}</div>
                 <div class="text-one">User name: {{Auth::user()->name}}</div>
             </div>
+            <!--@if(Auth::user()->is_admin || Auth::user()->id=="9")-->
             <!--@endif-->
 
         </div>
@@ -40,7 +40,6 @@
                 <div class="input-group mb-3 bootstrap-input">
                     <input type="hidden" class="form-control" name="iddelete" value="{{Auth::user()->id}}" aria-label="iddelete" aria-describedby="basic-addon10" id="iddelete">
                 </div>
-                <!-- TODO: TIENE QUE MANDARTE AL MAIN PQ SI NO INTENTA CARGAR LA PAGINA Y HASTA LUEGO -->
                 <button type="submit" class="btn btn-danger">Delete account</button>
 
             </form>
@@ -49,21 +48,16 @@
         </div>
     </div>
 
-
     <div class="nombre"> NFTS OWNED </div>
-
     <div class="listado">
 
         @for ($i = 0; $i < Auth::user()->nfts->count(); $i++)
-            <!-- TODO: este link es temporal, cuando este la vista nft si deberia ir a ese link no al de los admins-->
-            <a href="/api/nfts/{{Auth::user()->nfts[$i]->id}}">
+            <a href="/nfts/buy/{{Auth::user()->nfts[$i]->id}}">
                 <img src="/images/{{Auth::user()->nfts[$i]->img_url}}" width="100" height="100" alt="">
                 @endfor
             </a>
 
     </div>
-
-
 
 </div>
 @endsection
@@ -205,5 +199,39 @@
     .content .right-side .text-two {
         font-size: 14px;
         color: #afafb6;
+    }
+
+    @media (max-width: 950px) {
+        .container{
+            width: 90%;
+            padding: 30px 40px 40px 35px ;
+        }
+        .container .content .right-side{
+            width: 75%;
+            margin-left: 55px;
+        }
+    }
+    @media (max-width: 820px) {
+        .container{
+            margin: 40px 0;
+            height: 100%;
+        }
+        .container .content{
+            flex-direction: column-reverse;
+        }
+        .container .content .left-side{
+            width: 100%;
+            flex-direction: row;
+            margin-top: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .container .content .left-side::before{
+            display: none;
+        }
+        .container .content .right-side{
+            width: 100%;
+            margin-left: 0;
+        }
     }
 </style>
