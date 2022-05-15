@@ -19,10 +19,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $nfts = 
-    return view('home');
-});
+Route::get('/pepe', [NftController::class, 'getExpensive']);
+
+Route::get('/', [NftController::class, 'getHome']);
 
 //Logout
 Route::get('/logout', [Logoutcontroller::class, 'perform']);

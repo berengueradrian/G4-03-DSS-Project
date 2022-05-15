@@ -21,9 +21,11 @@ class NftController extends Controller
         return view('nfts.list')->with('nfts', $nfts);
     }
 
-    public function getThree()
+    public function getHome()
     {
         $nfts = Nft::all()->take(3);
+        $nft = Nft::selectRaw('*')->whereRaw('actual_price = (select max(actual_price) from nfts)')->get();
+        return view('home')->with('nfts', $nfts)->with('nft', $nft);
     }
 
     public function store(Request $data){
