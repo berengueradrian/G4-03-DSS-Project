@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Artist;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Auth;
 
 class ArtistController extends Controller
 {

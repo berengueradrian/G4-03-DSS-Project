@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ArtistAuthController;
 use App\Http\Controllers\NftController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\TypeController;
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // HOME
-Route::get('/', [NftController::class, 'getHome']);
+Route::get('/', [NftController::class, 'getHome'])->name('mainPage');
 
 //MARKETPLACE
 Route::get('/marketplace', [NftController::class, 'getMarketplace']);
@@ -156,5 +157,11 @@ Route::group(['prefix' => 'api'], function () {
 });
 
 Auth::routes();
+
+Route::get('/login/artists', [ArtistAuthController::class, 'showLoginForm']);
+Route::post('/artists/login', [ArtistAuthController::class, 'login']);
+Route::get('/artists/logout', [ArtistAuthController::class, 'logout']);
+Route::get('/register/artists', [ArtistAuthController::class, 'showRegistrationForm']);
+Route::post('/artists/register', [ArtistAuthController::class, 'register']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
