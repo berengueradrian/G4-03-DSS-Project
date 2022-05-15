@@ -54,5 +54,27 @@ class NftsTableSeeder extends Seeder
                 'type_id' => $typesId[2]
             ]
         );
+        DB::table('nfts')->insert(
+            [
+                'collection_id' => $collectionsId[2],
+                'name' => 'bored2',
+                'base_price' => 676,
+                'limit_date' => NULL,
+                'available' => true,
+                'actual_price' => 676,
+                'type_id' => $typesId[2]
+            ]
+        );
+        DB::table('nfts')->insert(
+            [
+                'collection_id' => $collectionsId[2],
+                'name' => 'bored3',
+                'base_price' => 676,
+                'limit_date' => NULL,
+                'available' => true,
+                'actual_price' => 676,
+                'type_id' => $typesId[2]
+            ]
+        );
     }
 }

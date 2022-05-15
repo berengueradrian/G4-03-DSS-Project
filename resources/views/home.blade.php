@@ -11,7 +11,7 @@
             <img src="/images/{{ $nft->img_url }}" class="content-images-img">
         @endforeach
     </div>
-    <button type="button" class="btn btn-secondary btn-lg explore">Explore!</button>
+    <button type="button" class="btn btn-primary btn-lg explore">Explore!</button>
     <hr class="separatorNewsletter">
     <div class="news-container">
         <div class="news-container-title">
@@ -29,23 +29,37 @@
         </div>
     </div>
     <hr class="separatorNewsletter" style="margin-bottom: 100px;">
-    <div class="expensive-nft">
-        <div class="title">
-            The NFT of the moment
-        </div>
-        <div class="content">
-            <div class="content-img">
-                <img src="/images/{{ $nft->img_url }}" alt="NFTImg" class="content-img-img">
+    <div class="marketplace-popular-nfts">
+        <p class="marketplace-popular-nfts-title">
+          Popular NFTs
+        </p>
+        <div class="marketplace-popular-nfts-content">
+          <div class="marketplace-popular-nfts-best">
+            <img src="/images/{{ $bestNft->img_url }}" alt="" class="marketplace-popular-nfts-best-img">
+            <div class="marketplace-popular-nfts-best-data">
+              <div class="best-main-data">
+                <p>{{$bestNft->name}}</p>
+                <p>{{$bestNft->actual_price}}$</p>
+              </div>
+              <i><p class="best-type">{{$bestNft->type->name}}</p></i>
             </div>
-            <div class="content-data">
-                <p class="content-data-name"><strong>Name:</strong> <i>{{ $nft->name }}</i></p>
-                <p class="content-data-type"><strong>Type:</strong> <i>{{ $nft->type->name }}</i></p>
-                <p class="content-data-collection"><strong>Collection:</strong> <i>{{ $nft->collection->name }}</i></p>
-                <p style="padding-bottom: 50px" class="content-data-price"><strong>Price:</strong> <i>{{ $nft->actual_price }}$</i></p>
-                <button type="button" class="btn btn-primary">Purchase it now!</button>
+          </div>
+          <div class="marketplace-popular-nfts-rest">
+            @foreach($popularNfts as $popularNft)
+            <div class="marketplace-popular-nfts-rest-item">
+              <img src="/images/{{ $popularNft->img_url }}" alt="" class="marketplace-popular-nfts-rest-img">
+              <div class="marketplace-popular-nfts-rest-data">
+                <div class="rest-main-data">
+                  <p>{{$popularNft->name}}</p>
+                  <p>{{$popularNft->actual_price}}$</p>
+                </div>
+                <i><p class="rest-type">{{$popularNft->type->name}}</p></i>
+              </div>
             </div>
+            @endforeach
+          </div>
         </div>
-    </div>
+      </div>
 </div>
 @endsection
 
@@ -105,9 +119,9 @@ h1{
     font-weight: 300;
     font-size: 4rem;
 }
-p{
+/* p{
     margin-bottom: 10px !important;
-}
+} */
 .news-container-title-content{
     font-weight: 100;
     font-size: 1.5rem;
@@ -154,5 +168,77 @@ p{
     display: flex;
     flex-flow: column nowrap;
     font-size: 2rem;
+}
+.marketplace-popular-nfts{
+  display:flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  margin-bottom: 100px;
+}
+.marketplace-popular-nfts-title{
+  font-size: 3.5rem; 
+  margin-bottom: 100px
+}
+.marketplace-popular-nfts-content{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+.marketplace-popular-nfts-best{
+  min-width: 40%;
+  max-width: 40%;
+  margin-left: 50px
+}
+.marketplace-popular-nfts-best .marketplace-popular-nfts-best-img{
+  width: 100%;
+  margin-bottom: 20px;
+}
+.marketplace-popular-nfts-best-data{
+  padding-right: 20px;
+  font-size: 2rem;
+  justify-content: space-between;
+  display: flex;
+  flex-flow: row wrap;
+}
+.best-main-data{
+  display: flex;
+  flex-flow: column nowrap;
+  margin-right: 50px;
+}
+.best-main-data p{
+  margin-bottom: 0px !important;
+}
+.marketplace-popular-nfts-rest{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  row-gap: 20px;
+  column-gap: 50px;
+  margin-right: 50px;
+}
+.marketplace-popular-nfts-rest-item{
+  max-width: 40%;
+}
+.marketplace-popular-nfts-rest .marketplace-popular-nfts-rest-img{
+  width: 100%;
+  margin-bottom: 20px;
+}
+.marketplace-popular-nfts-rest-data{
+  padding-right: 20px;
+  font-size: 1.2rem;
+  justify-content: space-between;
+  display: flex;
+  flex-flow: row wrap;
+}
+.rest-main-data{
+  display: flex;
+  flex-flow: column nowrap;
+  margin-right: 50px;
+}
+
+.rest-main-data p{
+  margin-bottom: 0px !important;
 }
 </style>

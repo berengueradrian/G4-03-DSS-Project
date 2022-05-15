@@ -21,9 +21,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/pepe', [NftController::class, 'getExpensive']);
-
+// HOME
 Route::get('/', [NftController::class, 'getHome']);
+
+//MARKETPLACE
+Route::get('/marketplace', [NftController::class, 'getMarketplace']);
+
+Route::get('/pepe', [NftController::class, 'aux']);
 
 //Logout
 Route::get('/logout', [Logoutcontroller::class, 'perform']);
@@ -37,6 +41,8 @@ Route::get('/about', function () {
     return view('about');
 });
 
+
+// PROFILE
 Route::get('/profile', function () {
     return view('profile');
 });
@@ -70,6 +76,8 @@ Route::get('/users/sortByBalance', [UserController::class, 'sortByBalance']);
 Route::get('/users/sortByName', [UserController::class, 'sortByName']);
 
 // NFTS
+Route::get('/expensiveNft', [NftController::class, 'getExpensive']);
+Route::get('/popularNft', [NftController::class, 'getPopulars']);
 //Filter depending price
 Route::get('/nfts/priceFilter', [NftController::class, 'filterPrice']);
 //Filter depending availability

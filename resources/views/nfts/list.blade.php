@@ -28,6 +28,7 @@
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="submit">Filter</button>
             </div>
+            <input type="hidden" value="admin" name="type">
           </div>
         </form>
 
@@ -61,6 +62,7 @@
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="submit">Sort</button>
             </div>
+            <input type="hidden" value="admin" name="type">
           </div>
         </form>
         <form method="GET" action="{{url('/nfts/sortByExclusivity')}}">
@@ -81,6 +83,7 @@
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="submit">Sort</button>
             </div>
+            <input type="hidden" value="admin" name="type">
           </div>
         </form>
       </div>
