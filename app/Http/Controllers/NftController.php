@@ -21,12 +21,36 @@ class NftController extends Controller
         $nfts = Nft::paginate(5);
         return view('nfts.list')->with('nfts', $nfts);
     }
+
     public function getHome()
     {
         $nfts = Nft::all()->take(3);
-        $nft = Nft::selectRaw('*')->whereRaw('actual_price = (select max(actual_price) from nfts)')->get();
-        return view('home')->with('nfts', $nfts)->with('nft', $nft);
+        $nft = NftController::getExpensive();
+        $popularNfts = NftController::getPopulars();
+        return view('home')
+            ->with('nfts', $nfts)
+            ->with('bestNft', $nft)
+            ->with('popularNfts', $popularNfts);
     }
+
+    public function getMarketplace() {
+        $nfts = Nft::all();
+        return view('marketplace')->with('nfts', $nfts);
+    }
+
+    public function getExpensive() {
+        $nft = Nft::selectRaw('*')->whereRaw('actual_price = (select max(actual_price) from nfts)')->get();
+        return $nft->first();
+    }
+
+    public function getPopulars() {
+        return Nft::orderBy('actual_price', 'DESC')->skip(1)->take(4)->get();
+    }
+
+    public function aux() {
+
+    }
+
     public function store(Request $data)
     {
         $data->validate([
@@ -129,8 +153,12 @@ class NftController extends Controller
         } else {
             $nfts = Nft::paginate(5);
         }
-
-        return view('nfts.list')->with('nfts', $nfts);
+        if($request->input('type') == 'admin'){
+            return view('nfts.list')->with('nfts', $nfts);    
+        }
+        else{
+            return view('marketplace')->with('nfts', $nfts);
+        }
     }
 
     public function sortByPrice(Request $request)
@@ -142,8 +170,13 @@ class NftController extends Controller
         } else {
             $nfts = Nft::paginate(5);
         }
+        if($request->input('type') == 'admin'){
+            return view('nfts.list')->with('nfts', $nfts);    
+        }
+        else{
 
-        return view('nfts.list')->with('nfts', $nfts);
+            return view('marketplace')->with('nfts', $nfts);
+        }
     }
 
     public function sortByExclusivity(Request $request)
@@ -155,8 +188,13 @@ class NftController extends Controller
         } else {
             $nfts = Nft::paginate(5);
         }
-
-        return view('nfts.list')->with('nfts', $nfts);
+        if($request->input('type') == 'admin'){
+            return view('nfts.list')->with('nfts', $nfts);    
+        }
+        else{
+            return view('marketplace')->with('nfts', $nfts);return view('home');
+        }
+        
     }
 
     //Bussines extra methods
