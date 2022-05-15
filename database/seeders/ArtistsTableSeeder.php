@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ArtistsTableSeeder extends Seeder
 {
@@ -24,7 +25,9 @@ class ArtistsTableSeeder extends Seeder
                 'name' => 'picazo',
                 'balance' => 88,
                 'volume_sold' => 0,
-                'description' => 'Pedro picazo is the most popular NFT influencer in Hong Kong'
+                'password' => Hash::make('1234'),
+                'description' => 'Pedro picazo is the most popular NFT influencer in Hong Kong',
+                'email' => 'picazo@gmail.com'
             ]
         );
         DB::table('artists')->insert(
@@ -32,7 +35,9 @@ class ArtistsTableSeeder extends Seeder
                 'name' => 'vetoven',
                 'balance' => 99,
                 'volume_sold' => 500,
-                'description' => 'Willy Vetoven is a new artist with high quality creations'
+                'password' => Hash::make('1234'),
+                'description' => 'Willy Vetoven is a new artist with high quality creations',
+                'email' => 'vetoven@gmail.com'
             ]
         );
         DB::table('artists')->insert(
@@ -40,7 +45,9 @@ class ArtistsTableSeeder extends Seeder
                 'name' => 'elbicho',
                 'balance' => 111,
                 'volume_sold' => 10,
-                'description' => 'Jesus, also known as elbicho is a spanish influencer with a high amount of colaborations with some companies such as Zara, Adidas and Nike'
+                'password' => Hash::make('1234'),
+                'description' => 'Jesus, also known as elbicho is a spanish influencer with a high amount of colaborations with some companies such as Zara, Adidas and Nike',
+                'email' => 'elbicho@gmail.com'
             ]
         );
     }

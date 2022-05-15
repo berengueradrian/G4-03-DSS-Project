@@ -30,6 +30,7 @@
             <li class="nav-item2">
                 <a class="nav-link" href="/logout">Logout</a>
             </li>
+            {{ Auth::user()->name }}
             @endauth
             @guest
             <li class="nav-item2">
