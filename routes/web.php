@@ -9,6 +9,7 @@ use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\Logoutcontroller;
 use App\Http\Controllers\ImageUploadController;
 
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,12 +44,15 @@ Route::get('/about', function () {
 
 // PROFILE
 Route::get('/profile', function () {
-    return view('profile');
-});
+    if(!Auth::guard('custom')->check()){
+        return view('profile');
+    }
+    return redirect('/');
+})->middleware('auth');
 
 Route::get('/profileSettings', function () {
     return view('profileSettings');
-});
+})->middleware('auth');
 
 /* Route::get('/add-nft', function () {
     return view('add-nft');
@@ -131,6 +135,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/users', [UserController::class, 'create'])->name('user.create')->middleware('admin');
     Route::delete('/users', [UserController::class, 'delete'])->name('user.delete')->middleware('admin');
     Route::put('/users', [UserController::class, 'update'])->name('user.update')->middleware('admin');
+    Route::put('/users/addBalance', [UserController::class, 'addBalance'])->name('user.updateBalance')->middleware('auth');
 
     //## Collection ##
     Route::get('/collections/{collection}',  [CollectionController::class, 'get'])->name('collection.getOne')->middleware('admin');

@@ -9,7 +9,45 @@
 
 
     <div class="content">
-
+        <!-- MODAL -->
+        <div class="modal fade" id="balanceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <form action="{{ route('user.updateBalance') }}" method="POST" class="needs-validation create-collection-container">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Add balance to your account</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <!--<form action="{{ route('user.update') }}" method="POST" class="needs-validation create-collection-container">-->
+                        @csrf
+                        @method('PUT')
+                        <div class="input-group mb-3 bootstrap-input">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon10">ETH</span>
+                            </div>
+                            <input type="text" class="form-control" name="addBalance" value="{{ old('addBalance') }}" placeholder="Balance you want to add..." aria-label="iddelete" aria-describedby="basic-addon10" id="addBalance">
+                            <input type="hidden" value={{ Auth::user()->id }} name="userId" id="userId">
+                        </div>
+                        @if ($errors->has('addBalance'))
+                            @foreach ($errors->get('addBalance') as $error)
+                                <div class="invalid-tooltip mb-3">{{ $error }}</div>
+                            @endforeach
+                        @endif
+                    <!--</form>-->
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Add balance</button>
+                </div>
+              </div>
+            </div>
+            </form>
+        </div>
+        <!-- ----------------------------------------------- -->
+        
         <div class="left-side">
 
             <br>
@@ -29,7 +67,13 @@
         </div>
 
         <div class="right-side">
-            <div class="textB">Balance: {{Auth::user()->balance}}</div>
+            <div class="balance" style="display: flex; gap: 5px; flex-flow: row wrap; align-items:center">
+                <div class="textB">{{Auth::user()->balance}} <strong>ETH</strong></div>
+                <img src="/images/eth.svg" width="25px" alt="">
+                <button type="button" class="btn btn-outline-primary add-balance-icon" data-toggle="modal" data-target="#balanceModal">
+                    +
+                </button>
+            </div>
             <a href="/profileSettings">
                 <button type="button" class="btn btn-secondary">Profile Settings</button>
             </a>
@@ -65,6 +109,17 @@
 <style lang="scss">
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
+    .add-balance-icon{
+        /*position: fixed;
+        top: 120px;
+        right: 50px;*/
+        height: 50px;
+        width: 50px;
+        border-radius: 999px !important;
+        
+        margin-left: 20px;
+    }
+
     * {
         margin: 0;
         padding: 0;
@@ -87,8 +142,9 @@
 
     .textB {
         padding: 12px;
-        font-size: 22px;
-        font-weight: bolder;
+        padding-left: 0px;
+        font-size: 60px;
+        font-weight: lighter;
     }
 
 

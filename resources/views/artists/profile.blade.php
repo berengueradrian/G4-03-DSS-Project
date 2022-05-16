@@ -9,7 +9,6 @@
 
 
     <div class="content">
-
         <div class="left-side">
 
             <br>
@@ -27,7 +26,10 @@
         </div>
 
         <div class="right-side">
-            <div class="textB">{{Auth::guard('custom')->user()->balance}} <strong>ETH</strong></div>
+            <div class="balance" style="display: flex; gap: 5px; flex-flow: row wrap;">
+                <div class="textB">{{Auth::guard('custom')->user()->balance}} <strong>ETH</strong></div>
+                <img src="/images/eth.svg" width="25px" alt="">
+            </div>
             <div class="buttons">
                 <button type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Add Collection</button>
                 <div class="bottom-buttons">
@@ -35,7 +37,7 @@
                         <button type="button" class="btn btn-secondary">Profile Settings</button>
                     </a>
 
-                    <form action="{{ route('user.delete') }}" method="POST" class="needs-validation create-collection-container">
+                    <form action="{{ route('artist.delete') }}" method="POST" class="needs-validation create-collection-container">
                         @csrf
                         @method('DELETE')
                         <div class="input-group bootstrap-input">
@@ -46,19 +48,23 @@
                     </form>
                 </div>
             </div>
-
-
         </div>
+    </div>
+    <div class="description">
+        <div class="nombre" style="text-align: center;">
+            DESCRIPTION
+        </div>
+        <p class="desc-content">
+            {{ Auth::guard('custom')->user()->description }}
+        </p>
     </div>
 
     <div class="nombre"> COLLECTIONS </div>
     <div class="listado">
 
         @for ($i = 0; $i < Auth::guard('custom')->user()->collections->count(); $i++)
-            <!--<a href="/nfts/buy/{{Auth::guard('custom')->user()->collections[$i]->id}}">-->
-                <a href='#'>
+            <a href='/collections/{{ Auth::guard('custom')->user()->collections[$i]->id }}'>
                 <img src="/images/{{Auth::guard('custom')->user()->collections[$i]->img_url}}" width="150" alt="">
-                
             </a>
         @endfor
 
@@ -69,6 +75,11 @@
 
 <style lang="scss">
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+    
+    .desc-content{
+        text-align: center;
+        font-size: 1rem;
+    }
 
     * {
         margin: 0;
