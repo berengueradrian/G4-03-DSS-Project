@@ -146,4 +146,8 @@ class ArtistController extends Controller
 
         return view('artists.list')->with('artists', $artists);
     }
+
+    public function getProfile(Request $data) {
+        return view('artists.profile');
+    }
 }
