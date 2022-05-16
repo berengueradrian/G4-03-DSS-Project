@@ -130,12 +130,7 @@ class CollectionController extends Controller
         return view('collections.list')->with('collections', $collections);
     }
 
-    //Business extra methods
-    public function uploadCollection(array $nfts) {
-        return false;
-    }
-
-    public function putOnSaleCollection($id, DateTime $limit_date) {
+    public function putOnSaleCollection($id, DateTime $limit_date) { //TODO: Comprobar fecha posterior a la de ahora
         $newCollection = Collection::whereId($id)->first();
         foreach($newCollection->nfts as $nft) {
             if($nft->type_id == 5) {
