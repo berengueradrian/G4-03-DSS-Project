@@ -131,6 +131,16 @@ class UserController extends Controller
         return back();
     }
 
+    public function addBalance(Request $request) {
+        $request->validate([
+            'addBalance' => 'required|numeric|gte:0'
+        ]);
+        $user = User::find($request->userId);
+        $user->balance = $user->balance + $request->addBalance;
+        $user->update();
+        return back();
+    }
+
     public function sortByBalance(Request $request)
     {
         if ($request->sortByBalance == 0) {

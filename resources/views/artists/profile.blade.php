@@ -9,7 +9,6 @@
 
 
     <div class="content">
-
         <div class="left-side">
 
             <br>
@@ -38,7 +37,7 @@
                         <button type="button" class="btn btn-secondary">Profile Settings</button>
                     </a>
 
-                    <form action="{{ route('user.delete') }}" method="POST" class="needs-validation create-collection-container">
+                    <form action="{{ route('artist.delete') }}" method="POST" class="needs-validation create-collection-container">
                         @csrf
                         @method('DELETE')
                         <div class="input-group bootstrap-input">
@@ -49,8 +48,6 @@
                     </form>
                 </div>
             </div>
-
-
         </div>
     </div>
     <div class="description">
@@ -66,10 +63,8 @@
     <div class="listado">
 
         @for ($i = 0; $i < Auth::guard('custom')->user()->collections->count(); $i++)
-            <!--<a href="/nfts/buy/{{Auth::guard('custom')->user()->collections[$i]->id}}">-->
-                <a href='#'>
+            <a href='/collections/{{ Auth::guard('custom')->user()->collections[$i]->id }}'>
                 <img src="/images/{{Auth::guard('custom')->user()->collections[$i]->img_url}}" width="150" alt="">
-                
             </a>
         @endfor
 
@@ -80,7 +75,7 @@
 
 <style lang="scss">
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-
+    
     .desc-content{
         text-align: center;
         font-size: 1rem;

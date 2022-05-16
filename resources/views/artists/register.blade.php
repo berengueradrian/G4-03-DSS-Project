@@ -47,6 +47,10 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <a href="/register" class="artist-login col-md-4 col-form-label text-md-end"><label class="artist-register" for="is_artist">{{ __('Aren\'t you an artist?') }}</label></a>
+                        </div>
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -61,3 +65,9 @@
     </div>
 </div>
 @endsection
+
+<style lang="scss">
+.artist-register{
+    cursor: pointer;
+}
+</style>

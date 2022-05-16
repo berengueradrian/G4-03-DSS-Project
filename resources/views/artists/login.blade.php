@@ -39,6 +39,10 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <a href="/login" class="artist-login col-md-4 col-form-label text-md-end"><label class="artist-login" for="is_artist">{{ __('Aren\'t you an artist?') }}</label></a>
+                        </div>
+
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -53,3 +57,9 @@
     </div>
 </div>
 @endsection
+
+<style lang="scss">
+.artist-login{
+    cursor: pointer;
+}
+</style>

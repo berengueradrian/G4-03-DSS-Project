@@ -14,7 +14,7 @@ use Auth;
 class ArtistAuthController extends Controller
 {
     public function showLoginForm() {
-        if(Auth::guard('custom')->check()) {
+        if(Auth::guard('custom')->check() || Auth::check()) {
             return redirect()->route('mainPage');
         }
         else{

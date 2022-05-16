@@ -62,11 +62,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="is_artist" class="col-md-4 col-form-label text-md-end">{{ __('Artist') }}</label>
-
-                            <div class="col-md-6">
-                                <input type="checkbox" id="is_artist" class="form-control" name="is_artist" value="false">
-                            </div>
+                            <a href="/register/artists" class="artist-login col-md-4 col-form-label text-md-end"><label class="artist-register" for="is_artist">{{ __('Are you an artist?') }}</label></a>
                         </div>
 
                         <div class="row mb-0">
@@ -83,3 +79,9 @@
     </div>
 </div>
 @endsection
+
+<style>
+.artist-register{
+    cursor: pointer;
+}
+</style>
