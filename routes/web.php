@@ -28,8 +28,6 @@ Route::get('/', [NftController::class, 'getHome'])->name('mainPage');
 //MARKETPLACE
 Route::get('/marketplace', [NftController::class, 'getMarketplace']);
 
-Route::get('/pepe', [NftController::class, 'aux']);
-
 //Logout
 Route::get('/logout', [Logoutcontroller::class, 'perform']);
 
@@ -163,5 +161,6 @@ Route::post('/artists/login', [ArtistAuthController::class, 'login']);
 Route::get('/artists/logout', [ArtistAuthController::class, 'logout']);
 Route::get('/register/artists', [ArtistAuthController::class, 'showRegistrationForm']);
 Route::post('/artists/register', [ArtistAuthController::class, 'register']);
+Route::get('/profile/artists', [ArtistController::class, 'getProfile']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

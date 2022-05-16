@@ -36,7 +36,7 @@
                 <img src="/images/{{Auth::guard('custom')->user()->img_url}}" width="40" height="40" alt="" style="border-radius: 50%;">
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/" style="margin-left: auto;">My Profile</a>
+                <a class="nav-link" href="/profile/artists" style="margin-left: auto;">My Profile</a>
             </li>
             <li class="nav-item2">
                 <a class="nav-link" href="/artists/logout">Logout</a>
