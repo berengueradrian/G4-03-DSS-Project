@@ -117,11 +117,7 @@
             </form>
           </td>
           <td>
-            <form action=" {{ route('nft.update') }}" method="POST">
-              @csrf
-              @method('PUT')
-              <input type="hidden" class="form-control" name="iddelete" value="{{$nft->id}}" id="iddelete">
-            </form>
+            <button type="button" onclick="changeTab(`{{ $nft->id }}`)" class="btn btn-outline-secondary btn-sm">Edit NFT</button>
           </td>
         </tr>
         @endforeach
@@ -151,6 +147,14 @@
 </div>
 
 @endsection
+
+<script>
+  function changeTab(value) {
+    $('[href="#update"]').tab('show');
+    element = document.getElementById('id_update');
+    element.value = value;
+  }
+</script>
 
 <style lang="scss">
   .modifiers {
