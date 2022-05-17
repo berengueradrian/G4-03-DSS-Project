@@ -63,6 +63,7 @@
     <div class="centered-nfts">
       <div class="marketplace-nfts">
         @foreach($nfts as $nft)
+        @if($nft->available) <!-- TODO: Quitamos este filtro y lo ponemos como filtro opcional?? -->
         <a href="/nfts/buy/{{ $nft->id }}"><div class="marketplace-popular-nfts-rest-item">
           <img src="/images/{{ $nft->img_url }}" alt="" class="marketplace-popular-nfts-rest-img">
           <div class="marketplace-popular-nfts-rest-data">
@@ -73,6 +74,7 @@
             <i><p class="rest-type">{{$nft->type->name}}</p></i>
           </div>
         </div></a>
+        @endif
         @endforeach
       </div>
     </div>

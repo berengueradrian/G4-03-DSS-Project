@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [NftController::class, 'getHome'])->name('mainPage');
 
 //MARKETPLACE
-Route::get('/marketplace', [NftController::class, 'getMarketplace']);
+Route::get('/marketplace', [NftController::class, 'getMarketplace'])->middleware('isauth');
 
 //Logout
 Route::get('/logout', [Logoutcontroller::class, 'perform']);
@@ -134,7 +134,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/users', [UserController::class, 'getAll'])->name('user.getAll')->middleware('admin');
     Route::post('/users', [UserController::class, 'create'])->name('user.create')->middleware('admin');
     Route::delete('/users', [UserController::class, 'delete'])->name('user.delete')->middleware('admin');
-    Route::put('/users', [UserController::class, 'update'])->name('user.update')->middleware('admin');
+    Route::put('/users', [UserController::class, 'update'])->name('user.update')->middleware('auth');
     Route::put('/users/addBalance', [UserController::class, 'addBalance'])->name('user.updateBalance')->middleware('auth');
 
     //## Collection ##
@@ -155,8 +155,9 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/artists', [ArtistController::class, 'store'])->name('artist.store')->middleware('admin');
     Route::get('/artists/{artist}', [ArtistController::class, 'get'])->name('artist.getOne')->middleware('admin');
     Route::get('/artists', [ArtistController::class, 'getAll'])->name('artist.getAll')->middleware('admin');
-    Route::delete('/artists', [ArtistController::class, 'delete'])->name('artist.delete')->middleware('admin');
-    Route::put('/artists', [ArtistController::class, 'update'])->name('artist.update')->middleware('admin');
+    Route::delete('/artists', [ArtistController::class, 'delete'])->name('artist.delete')->middleware('isauth');
+    Route::delete('/artists/delete', [ArtistController::class, 'deleteArtist'])->name('artist.deleteProfile')->middleware('artist');
+    Route::put('/artists', [ArtistController::class, 'update'])->name('artist.update')->middleware('isauth');  // ISAUTH Comprueba que es artist o user
 });
 
 Auth::routes();
@@ -166,6 +167,7 @@ Route::post('/artists/login', [ArtistAuthController::class, 'login']);
 Route::get('/artists/logout', [ArtistAuthController::class, 'logout']);
 Route::get('/register/artists', [ArtistAuthController::class, 'showRegistrationForm']);
 Route::post('/artists/register', [ArtistAuthController::class, 'register']);
-Route::get('/profile/artists', [ArtistController::class, 'getProfile']);
+Route::get('/profile/artists', [ArtistController::class, 'getProfile'])->middleware('artist');
+Route::get('/profileSettings/artists', [ArtistController::class, 'getProfileSettings'])->middleware('artist');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
