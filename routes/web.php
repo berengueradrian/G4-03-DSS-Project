@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [NftController::class, 'getHome'])->name('mainPage');
 
 //MARKETPLACE
-Route::get('/marketplace', [NftController::class, 'getMarketplace']);
+Route::get('/marketplace', [NftController::class, 'getMarketplace'])->middleware('isauth');
 
 //Logout
 Route::get('/logout', [Logoutcontroller::class, 'perform']);
@@ -156,7 +156,8 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/artists/{artist}', [ArtistController::class, 'get'])->name('artist.getOne')->middleware('admin');
     Route::get('/artists', [ArtistController::class, 'getAll'])->name('artist.getAll')->middleware('admin');
     Route::delete('/artists', [ArtistController::class, 'delete'])->name('artist.delete')->middleware('isauth');
-    Route::put('/artists', [ArtistController::class, 'update'])->name('artist.update')->middleware('isauth');
+    Route::delete('/artists/delete', [ArtistController::class, 'deleteArtist'])->name('artist.deleteProfile')->middleware('artist');
+    Route::put('/artists', [ArtistController::class, 'update'])->name('artist.update')->middleware('isauth');  // ISAUTH Comprueba que es artist o user
 });
 
 Auth::routes();

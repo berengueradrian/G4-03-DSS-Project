@@ -199,4 +199,10 @@ class ArtistController extends Controller
     public function getProfileSettings(Request $data) {
         return view('artists.profileSettings');
     }
+
+    public function deleteArtist(Request $request) {
+        $artist = Artist::find($request->artistId);
+        $artist->delete();
+        return redirect('login');
+    }
 }
