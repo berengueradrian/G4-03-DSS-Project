@@ -8,10 +8,10 @@
     <hr class="separator">
     <div class="content-images">
         @foreach ($nfts as $nft)
-            <img src="/images/{{ $nft->img_url }}" class="content-images-img">
+            <a href="/nfts/buy/{{ $nft->id }}"><img src="/images/{{ $nft->img_url }}" class="content-images-img"></a>
         @endforeach
     </div>
-    <button type="button" class="btn btn-primary btn-lg explore">Explore!</button>
+    <a href="/marketplace"><button type="button" class="btn btn-primary btn-lg explore" >Explore!</button></a>
     <hr class="separatorNewsletter">
     <div class="news-container">
         <div class="news-container-title">
