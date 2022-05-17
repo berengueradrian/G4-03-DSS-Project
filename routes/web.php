@@ -44,7 +44,7 @@ Route::get('/about', function () {
 
 // PROFILE
 Route::get('/profile', function () {
-    if(!Auth::guard('custom')->check()){
+    if (!Auth::guard('custom')->check()) {
         return view('profile');
     }
     return redirect('/');
@@ -133,7 +133,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/users/{user}',  [UserController::class, 'get'])->name('user.getOne')->middleware('admin');
     Route::get('/users', [UserController::class, 'getAll'])->name('user.getAll')->middleware('admin');
     Route::post('/users', [UserController::class, 'create'])->name('user.create')->middleware('admin');
-    Route::delete('/users', [UserController::class, 'delete'])->name('user.delete')->middleware('admin');
+    Route::delete('/users', [UserController::class, 'delete'])->name('user.delete')->middleware('auth');
     Route::put('/users', [UserController::class, 'update'])->name('user.update')->middleware('admin');
     Route::put('/users/addBalance', [UserController::class, 'addBalance'])->name('user.updateBalance')->middleware('auth');
 

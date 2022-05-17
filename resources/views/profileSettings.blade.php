@@ -18,7 +18,7 @@
 
     <div class="content">
 
-        <div class="left-side">
+        <div class="right-side">
             <div class="foto">
                 <img src="/images/{{Auth::user()->img_url}}" width="270" height="190" alt="">
             </div>
@@ -59,7 +59,7 @@
     </div>
 
     <div class="content">
-        <div class="left-side">
+        <div class="right-side">
             <div class="change name">
                 <h4> Change name </h4>
 
@@ -218,7 +218,7 @@
         margin-top: 30px;
         margin-bottom: 50px;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
     }
 
     .container .content .left-side {
@@ -233,17 +233,6 @@
         position: relative;
     }
 
-    .content .left-side::before {
-        content: '';
-        position: absolute;
-        height: 70%;
-        width: 2px;
-        margin-right: 50px;
-        right: -15px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: #afafb6;
-    }
 
     .content .left-side .details {
         margin: 14px;
@@ -273,7 +262,7 @@
         margin-left: 75px;
         display: flex;
         max-width: 350px;
-        margin-right: 170px;
+        /*margin-right: 170px;*/
         margin-top: 15px;
         flex-direction: column;
         position: relative;
@@ -295,5 +284,46 @@
     .content .right-side .text-two {
         font-size: 14px;
         color: #afafb6;
+    }
+
+
+    @media (max-width: 950px) {
+        .container {
+            width: 90%;
+            padding: 30px 40px 40px 35px;
+        }
+
+        .container .content .right-side {
+            width: 75%;
+            margin-left: 55px;
+        }
+    }
+
+    @media (max-width: 820px) {
+        .container {
+            margin: 40px 0;
+            height: 100%;
+        }
+
+        .container .content {
+            flex-direction: column-reverse;
+        }
+
+        .container .content .left-side {
+            width: 100%;
+            flex-direction: row;
+            margin-top: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .container .content .left-side::before {
+            display: none;
+        }
+
+        .container .content .right-side {
+            width: 100%;
+            margin-left: 0;
+        }
     }
 </style>
