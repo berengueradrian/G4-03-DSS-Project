@@ -3,7 +3,7 @@
 @section('content')
 <div class="main-home-guest">
     <div class="title">
-        <strong><h1>DSG CHAIN MARKETPLACE</h1></strong>
+        <strong><h1 class="title-text">DSG CHAIN MARKETPLACE</h1></strong>
     </div>
     <hr class="separator">
     <div class="content-images">
@@ -76,8 +76,8 @@
     font-weight: lighter;
     padding-bottom: 20px;
 }
-h1{
-    font-size: 5rem !important;
+.title-text{
+    font-size: 5rem;
 }
 .separator{
     width: 500px;
@@ -240,5 +240,45 @@ h1{
 
 .rest-main-data p{
   margin-bottom: 0px !important;
+}
+
+@media(max-width: 500px) {
+  .title-text{
+    font-size: 3rem;
+  }
+  .separator{
+    width: 250px;
+  }
+
+  .content-images{
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .explore{
+    margin-bottom: 70px;
+    font-size: 1rem !important;
+  }
+
+  .news-container-title-head{
+    font-size: 2.5rem;
+  }
+
+  .news-container-title-content{
+    font-size: 1rem;
+  }
+
+  .email{
+    padding: 10px 20px !important;
+    font-size: 1rem !important;
+  }
+
+  .btn-subscribe{
+    font-size: 1rem !important;
+    padding: 10px 20px !important;
+  }
+
+
+
 }
 </style>
