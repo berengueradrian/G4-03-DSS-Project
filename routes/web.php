@@ -134,7 +134,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/users', [UserController::class, 'getAll'])->name('user.getAll')->middleware('admin');
     Route::post('/users', [UserController::class, 'create'])->name('user.create')->middleware('admin');
     Route::delete('/users', [UserController::class, 'delete'])->name('user.delete')->middleware('auth');
-    Route::put('/users', [UserController::class, 'update'])->name('user.update')->middleware('admin');
+    Route::put('/users', [UserController::class, 'update'])->name('user.update')->middleware('auth');
     Route::put('/users/addBalance', [UserController::class, 'addBalance'])->name('user.updateBalance')->middleware('auth');
 
     //## Collection ##
