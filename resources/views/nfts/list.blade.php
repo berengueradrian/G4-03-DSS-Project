@@ -97,6 +97,7 @@
           <th scope="col">Exclusivity</th>
           <th scope="col">Limit Date</th>
           <th scope="col">Delete option</th>
+          <th scope="col">Edit option</th>
         </tr>
       </thead>
       <tbody>
@@ -113,6 +114,13 @@
               @method('DELETE')
               <input type="hidden" class="form-control" name="iddelete" value="{{$nft->id}}" id="iddelete">
               <button type="submit" onclick="return confirm('Confirm your operation delete')" class="btn btn-danger btn-sm">Delete NFT</button>
+            </form>
+          </td>
+          <td>
+            <form action=" {{ route('nft.update') }}" method="POST">
+              @csrf
+              @method('PUT')
+              <input type="hidden" class="form-control" name="iddelete" value="{{$nft->id}}" id="iddelete">
             </form>
           </td>
         </tr>
