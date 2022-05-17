@@ -75,6 +75,7 @@
                     <th scope="col">Volume Sold</th>
                     <th scope="col">Description</th>
                     <th scope="col">Delete option</th>
+                    <th scope="col">Edit option</th>
                 </tr>
             </thead>
             <tbody>
@@ -92,6 +93,9 @@
                             <input type="hidden" class="form-control" name="iddelete" value="{{$artist->id}}" id="iddelete">
                             <button type="submit" onclick="return confirm('Confirm your operation delete')" class="btn btn-danger btn-sm">Delete artist</button>
                         </form>
+                    </td>
+                    <td>
+                        <button type="button" onclick="changeTab(`{{ $artist->id }}`)" class="btn btn-outline-secondary btn-sm">Edit type</button>
                     </td>
                 </tr>
                 @endforeach
@@ -128,6 +132,14 @@
 
 
 @endsection
+
+<script>
+    function changeTab(value) {
+      $('[href="#update"]').tab('show');
+      element = document.getElementById('id_update');
+      element.value = value;
+    }
+</script>
 
 <style>
     .sorts {
