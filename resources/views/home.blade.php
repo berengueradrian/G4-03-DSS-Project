@@ -3,7 +3,7 @@
 @section('content')
 <div class="main-home-guest">
     <div class="title">
-        <strong><h1>DSG CHAIN MARKETPLACE</h1></strong>
+        <strong><h1 class="title-text">DSG CHAIN MARKETPLACE</h1></strong>
     </div>
     <hr class="separator">
     <div class="content-images">
@@ -76,8 +76,8 @@
     font-weight: lighter;
     padding-bottom: 20px;
 }
-h1{
-    font-size: 5rem !important;
+.title-text{
+    font-size: 5rem;
 }
 .separator{
     width: 500px;
@@ -88,7 +88,7 @@ h1{
     flex-flow: row wrap;
     justify-content: space-between;
     align-items: center;
-    width: 55%;
+    column-gap: 80px;
     padding-bottom: 100px;
 }
 .explore{
@@ -97,7 +97,7 @@ h1{
     font-size: 1.5rem !important;
 }
 .content-images-img{
-    width: 200px;       
+    width: 300px;       
 }
 .separatorNewsletter{
     width: 100%;
@@ -241,4 +241,94 @@ h1{
 .rest-main-data p{
   margin-bottom: 0px !important;
 }
+
+@media(max-width: 500px) {
+  .content-images-img{
+    width: 200px;       
+  }
+  .title-text{
+    font-size: 3rem;
+  }
+  .separator{
+    width: 250px;
+  }
+
+  .content-images{
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .explore{
+    margin-bottom: 70px;
+    font-size: 1rem !important;
+  }
+
+  .news-container-title-head{
+    font-size: 2.5rem;
+  }
+
+  .news-container-title-content{
+    font-size: 1rem;
+  }
+
+  .email{
+    padding: 10px 20px !important;
+    font-size: 1rem !important;
+  }
+
+  .email-icon{
+    font-size: 1rem !important;
+  }
+
+  .btn-subscribe{
+    font-size: 1rem !important;
+    padding: 10px 20px !important;
+  }
+
+  .marketplace-popular-nfts-title{
+    font-size: 2.5rem;
+  }
+
+  .marketplace-popular-nfts-best{
+    margin-left: 0px;
+    max-width: none;
+  }
+
+  .marketplace-popular-nfts-rest{
+    margin-right: 0px;
+    justify-content: center;
+    max-width: none;
+  }
+
+  .marketplace-popular-nfts-best-data{
+    font-size: 1.2rem;
+  }
+
+  .marketplace-popular-nfts-rest-item{
+    max-width: none;
+  }
+}
+@media(max-width: 1100px){
+  .marketplace-popular-nfts-content{
+    flex-wrap: wrap;
+  }
+  .marketplace-popular-nfts-best{
+    margin-left: 0px;
+    max-width: none;
+  }
+
+  .marketplace-popular-nfts-rest{
+    margin-right: 0px;
+    justify-content: center;
+    max-width: none;
+  }
+}
+
+@media(max-width: 1200px){
+  .content-images{
+    row-gap: 10px;
+    flex-direction: column;
+  }
+}
+
 </style>
