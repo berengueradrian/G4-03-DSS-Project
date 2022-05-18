@@ -18,16 +18,15 @@
 
     <div class="content">
 
-        <div class="right-side">
+        <div class="left-side">
             <div class="foto">
-                <img src="/images/{{Auth::user()->img_url}}" width="270" height="190" alt="">
+                <img src="/images/{{Auth::guard('custom')->user()->img_url}}" width="270" height="190" alt="">
             </div>
         </div>
 
         <div class="right-side" style="margin-bottom: 20px;">
-            <div class="topic">User id: {{Auth::user()->id}}</div>
-            <div class="text-one">User name: {{Auth::user()->name}}</div>
-            <div class="text-one">User email: {{Auth::user()->email}}</div>
+            <div class="topic">Artist id: {{Auth::guard('custom')->user()->id}}</div>
+            <div class="text-one">Artist name: {{Auth::guard('custom')->user()->name}}</div>
 
             <br>
             <div class="foticos">
@@ -45,11 +44,11 @@
                 <text> Select your uploaded photo to show it!</text>
                 <!-- THIS IS FOR UPDATING EXISTING PHOTO -->
                 <!-- con enctype="multipart/form-data" no detecta como campo rellenado que random!!! -->
-                <form action="{{ route('user.update') }}" method="POST" class="needs-validation create-user-container">
+                <form action="{{ route('artist.update') }}" method="POST" class="needs-validation create-user-container">
                     @csrf
                     @method('PUT')
 
-                    <input type="hidden" class="form-control" name="id_update" value="{{ Auth::user()->id }}" placeholder="Identifier of the user" aria-label="id_update" aria-describedby="basic-addon1" id="id_update">
+                    <input type="hidden" class="form-control" name="id_update" value="{{ Auth::guard('custom')->user()->id }}" placeholder="Identifier of the user" aria-label="id_update" aria-describedby="basic-addon1" id="id_update">
                     <input type="file" style="width:400px; margin-bottom:10px" name="img_url_update" class="custom-file-upload" id="img_url_update">
                     <button type="submit" class="btn btn-secondary">Select uploaded photo</button>
                 </form>
@@ -59,17 +58,17 @@
     </div>
 
     <div class="content">
-        <div class="right-side">
+        <div class="left-side">
             <div class="change name">
                 <h4> Change name </h4>
 
                 <!-- TODO: no muestra los errores!!! -->
-                <form action="{{ route('user.update') }}" method="POST" class="needs-validation create-user-container">
+                <form action="{{ route('artist.update') }}" method="POST" class="needs-validation create-user-container">
                     @csrf
                     @method('PUT')
 
                     <div class="input-group mb-3 bootstrap-input">
-                        <input type="hidden" class="form-control" name="id_update" value="{{ Auth::user()->id }}" placeholder="Identifier of the user" aria-label="id_update" aria-describedby="basic-addon1" id="id_update">
+                        <input type="hidden" class="form-control" name="id_update" value="{{ Auth::guard('custom')->user()->id }}" placeholder="Identifier of the user" aria-label="id_update" aria-describedby="basic-addon1" id="id_update">
                     </div>
 
                     <div class="input-group mb-3 bootstrap-input">
@@ -108,12 +107,12 @@
             <h4> Change password </h4>
             <div class="change pass">
 
-                <form action="{{ route('user.update') }}" method="POST" class="needs-validation create-user-container">
+                <form action="{{ route('artist.update') }}" method="POST" class="needs-validation create-user-container">
                     @csrf
                     @method('PUT')
 
                     <div class="input-group mb-3 bootstrap-input">
-                        <input type="hidden" class="form-control" name="id_update" value="{{ Auth::user()->id }}" placeholder="Identifier of the user" aria-label="id_update" aria-describedby="basic-addon1" id="id_update">
+                        <input type="hidden" class="form-control" name="id_update" value="{{ Auth::guard('custom')->user()->id }}" placeholder="Identifier of the user" aria-label="id_update" aria-describedby="basic-addon1" id="id_update">
                     </div>
 
                     <div class="input-group mb-3 bootstrap-input">
@@ -154,6 +153,56 @@
             </div>
         </div>
     </div>
+    <div class="right-side" style="margin: 0px 90px; margin-bottom: 50px">
+
+      <h4> Change description </h4>
+      <div class="change pass">
+
+          <form action="{{ route('artist.update') }}" method="POST" class="needs-validation create-user-container">
+              @csrf
+              @method('PUT')
+
+              <div class="input-group mb-3 bootstrap-input">
+                  <input type="hidden" class="form-control" name="id_update" value="{{ Auth::guard('custom')->user()->id }}" placeholder="Identifier of the user" aria-label="id_update" aria-describedby="basic-addon1" id="id_update">
+              </div>
+
+              <div class="input-group mb-3 bootstrap-input">
+                  <input type="text" class="form-control" name="description_update_profile" placeholder="New description" aria-label="Name" aria-describedby="basic-addon1" id="description_update_profile">
+              </div>
+              @if ($errors->has('description_update_profile'))
+              @foreach ($errors->get('description_update_profile') as $error)
+              <div class="invalid-tooltip mb-3">{{ $error }}</div>
+              @endforeach
+              @endif
+
+              <div class="input-group mb-3 bootstrap-input">
+                  <input type="password" class="form-control" name="password" placeholder="Current Password" aria-label="Name" aria-describedby="basic-addon1" id="password">
+              </div>
+              @if ($errors->has('password'))
+              @foreach ($errors->get('password') as $error)
+              <div class="invalid-tooltip mb-3">{{ $error }}</div>
+              @endforeach
+              @endif
+
+              <div class="input-group mb-3 bootstrap-input">
+                  <input type="password" class="form-control" name="current_password" placeholder="Confirm Password" aria-label="Name" aria-describedby="basic-addon1" id="current_password">
+              </div>
+              @if ($errors->has('current_password'))
+              @foreach ($errors->get('current_password') as $error)
+              <div class="invalid-tooltip mb-3">{{ $error }}</div>
+              @endforeach
+              @endif
+
+
+              <button type="submit" class="btn btn-primary">Update description</button>
+
+              @if ($errors->has('password_update_profile') || $errors->has('password') || $errors->has('current_password'))
+              <div class="invalid-tooltip mb-3 mt-3">ERROR: No updatea</div>
+              @endif
+
+          </form>
+      </div>
+  </div>
 </div>
 @endsection
 
@@ -218,7 +267,7 @@
         margin-top: 30px;
         margin-bottom: 50px;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
     }
 
     .container .content .left-side {
@@ -233,6 +282,17 @@
         position: relative;
     }
 
+    .content .left-side::before {
+        content: '';
+        position: absolute;
+        height: 70%;
+        width: 2px;
+        margin-right: 50px;
+        right: -15px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #afafb6;
+    }
 
     .content .left-side .details {
         margin: 14px;
@@ -262,7 +322,7 @@
         margin-left: 75px;
         display: flex;
         max-width: 350px;
-        /*margin-right: 170px;*/
+        margin-right: 170px;
         margin-top: 15px;
         flex-direction: column;
         position: relative;
@@ -284,46 +344,5 @@
     .content .right-side .text-two {
         font-size: 14px;
         color: #afafb6;
-    }
-
-
-    @media (max-width: 950px) {
-        .container {
-            width: 90%;
-            padding: 30px 40px 40px 35px;
-        }
-
-        .container .content .right-side {
-            width: 75%;
-            margin-left: 55px;
-        }
-    }
-
-    @media (max-width: 820px) {
-        .container {
-            margin: 40px 0;
-            height: 100%;
-        }
-
-        .container .content {
-            flex-direction: column-reverse;
-        }
-
-        .container .content .left-side {
-            width: 100%;
-            flex-direction: row;
-            margin-top: 40px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .container .content .left-side::before {
-            display: none;
-        }
-
-        .container .content .right-side {
-            width: 100%;
-            margin-left: 0;
-        }
     }
 </style>

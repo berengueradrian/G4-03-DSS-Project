@@ -5,49 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <h3 class="title"><strong>Profile</strong></h3>
 <div class="container">
-
-
-
+    @if($errors->has('addBalance'))
+        <div class="invalid-tooltip mb-3 mt-3 error-msg">{{ $errors->first('addBalance') }}</div>
+    @endif
     <div class="content">
         <!-- MODAL -->
         <div class="modal fade" id="balanceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <form action="{{ route('user.updateBalance') }}" method="POST" class="needs-validation create-collection-container">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Add balance to your account</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                    <!--<form action="{{ route('user.update') }}" method="POST" class="needs-validation create-collection-container">-->
-                        @csrf
-                        @method('PUT')
-                        <div class="input-group mb-3 bootstrap-input">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text" id="basic-addon10">ETH</span>
-                            </div>
-                            <input type="text" class="form-control" name="addBalance" value="{{ old('addBalance') }}" placeholder="Balance you want to add..." aria-label="iddelete" aria-describedby="basic-addon10" id="addBalance">
-                            <input type="hidden" value={{ Auth::user()->id }} name="userId" id="userId">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Add balance to your account</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                        @if ($errors->has('addBalance'))
+                        <div class="modal-body">
+                            <!--<form action="{{ route('user.update') }}" method="POST" class="needs-validation create-collection-container">-->
+                            @csrf
+                            @method('PUT')
+                            <div class="input-group mb-3 bootstrap-input">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon10">ETH</span>
+                                </div>
+                                <input type="text" class="form-control" name="addBalance" value="{{ old('addBalance') }}" placeholder="Balance you want to add..." aria-label="iddelete" aria-describedby="basic-addon10" id="addBalance">
+                                <input type="hidden" value={{ Auth::user()->id }} name="userId" id="userId">
+                            </div>
+                            @if ($errors->has('addBalance'))
                             @foreach ($errors->get('addBalance') as $error)
-                                <div class="invalid-tooltip mb-3">{{ $error }}</div>
+                            <div class="invalid-tooltip mb-3">{{ $error }}</div>
                             @endforeach
-                        @endif
-                    <!--</form>-->
+                            @endif
+                            <!--</form>-->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add balance</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Add balance</button>
-                </div>
-              </div>
-            </div>
             </form>
         </div>
         <!-- ----------------------------------------------- -->
-        
         <div class="left-side">
 
             <br>
@@ -109,14 +108,21 @@
 <style lang="scss">
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
-    .add-balance-icon{
+    .error-msg{
+        display: block !important;
+        position: relative !important;
+        width: fit-content;
+        top: 0 !important;
+    }
+
+    .add-balance-icon {
         /*position: fixed;
         top: 120px;
         right: 50px;*/
         height: 50px;
         width: 50px;
         border-radius: 999px !important;
-        
+
         margin-left: 20px;
     }
 
@@ -196,7 +202,6 @@
         align-items: center;
         justify-content: center;
         margin-top: 15px;
-        margin-left: 50px;
         margin-right: 0px;
         position: relative;
     }
@@ -258,34 +263,40 @@
     }
 
     @media (max-width: 950px) {
-        .container{
+        .container {
             width: 90%;
-            padding: 30px 40px 40px 35px ;
+            padding: 30px 40px 40px 35px;
         }
-        .container .content .right-side{
+
+        .container .content .right-side {
             width: 75%;
             margin-left: 55px;
         }
     }
+
     @media (max-width: 820px) {
-        .container{
+        .container {
             margin: 40px 0;
             height: 100%;
         }
-        .container .content{
+
+        .container .content {
             flex-direction: column-reverse;
         }
-        .container .content .left-side{
+
+        .container .content .left-side {
             width: 100%;
             flex-direction: row;
             margin-top: 40px;
             justify-content: center;
             flex-wrap: wrap;
         }
-        .container .content .left-side::before{
+
+        .container .content .left-side::before {
             display: none;
         }
-        .container .content .right-side{
+
+        .container .content .right-side {
             width: 100%;
             margin-left: 0;
         }

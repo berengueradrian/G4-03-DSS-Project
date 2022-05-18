@@ -40,6 +40,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
                     <th scope="col">Delete option</th>
+                    <th scope="col">Edit option</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,6 +56,9 @@
                             <input type="hidden" class="form-control" name="iddelete" value="{{$collection->id}}" id="iddelete">
                             <button type="submit" onclick="return confirm('Confirm your operation delete')" class="btn btn-danger btn-sm">Delete collection</button>
                         </form>
+                    </td>
+                    <td>
+                        <button type="button" onclick="changeTab(`{{ $collection->id }}`)" class="btn btn-outline-secondary btn-sm">Edit collection</button>
                     </td>
                 </tr>
                 @endforeach
@@ -83,6 +87,14 @@
 </div>
 
 @endsection
+
+<script>
+  function changeTab(value) {
+    $('[href="#update"]').tab('show');
+    element = document.getElementById('id');
+    element.value = value;
+  }
+</script>
 
 <style lang="scss">
     form {

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use Illuminate\Validation\ValidationException;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
@@ -36,7 +37,9 @@ class ArtistAuthController extends Controller
 
             return redirect()->intended(url('/'));
         } else {
-            return redirect()->back()->withError('Credentials doesn\'t match.');
+            return throw ValidationException::withMessages([
+                'name' => [trans('auth.failed')],
+            ]);
         }
     }
 

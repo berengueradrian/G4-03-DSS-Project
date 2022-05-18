@@ -97,6 +97,7 @@
           <th scope="col">Exclusivity</th>
           <th scope="col">Limit Date</th>
           <th scope="col">Delete option</th>
+          <th scope="col">Edit option</th>
         </tr>
       </thead>
       <tbody>
@@ -114,6 +115,9 @@
               <input type="hidden" class="form-control" name="iddelete" value="{{$nft->id}}" id="iddelete">
               <button type="submit" onclick="return confirm('Confirm your operation delete')" class="btn btn-danger btn-sm">Delete NFT</button>
             </form>
+          </td>
+          <td>
+            <button type="button" onclick="changeTab(`{{ $nft->id }}`)" class="btn btn-outline-secondary btn-sm">Edit NFT</button>
           </td>
         </tr>
         @endforeach
@@ -143,6 +147,14 @@
 </div>
 
 @endsection
+
+<script>
+  function changeTab(value) {
+    $('[href="#update"]').tab('show');
+    element = document.getElementById('id_update');
+    element.value = value;
+  }
+</script>
 
 <style lang="scss">
   .modifiers {

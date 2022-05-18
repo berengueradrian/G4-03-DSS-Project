@@ -55,6 +55,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Delete option</th>
+                    <th scope="col">Edit option</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,6 +78,9 @@
                             -- Can not delete admin profile --
                             @endif
                         </form>
+                    </td>
+                    <td>
+                        <button type="button" onclick="changeTab(`{{ $user->id }}`)" class="btn btn-outline-secondary btn-sm">Edit type</button>
                     </td>
                 </tr>
                 @endforeach
@@ -108,6 +112,14 @@
 </div>
 
 @endsection
+
+<script>
+    function changeTab(value) {
+      $('[href="#update"]').tab('show');
+      element = document.getElementById('id_update');
+      element.value = value;
+    }
+</script>
 
 <style>
     .sorts {
