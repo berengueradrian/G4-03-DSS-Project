@@ -196,6 +196,13 @@ class ArtistController extends Controller
         return view('artists.profile');
     }
 
+    public function addCollection(Artist $artist) {
+        if (!Auth::guard('custom')->user()->id) {
+            return view('profile');
+        }
+        return view('artists.addCollection')->with('artist',$artist);
+    }
+
     public function getProfileSettings(Request $data) {
         return view('artists.profileSettings');
     }

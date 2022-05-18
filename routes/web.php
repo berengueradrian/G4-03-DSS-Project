@@ -168,6 +168,7 @@ Route::get('/artists/logout', [ArtistAuthController::class, 'logout']);
 Route::get('/register/artists', [ArtistAuthController::class, 'showRegistrationForm']);
 Route::post('/artists/register', [ArtistAuthController::class, 'register']);
 Route::get('/profile/artists', [ArtistController::class, 'getProfile'])->middleware('artist');
+Route::get('/profile/artists/{artist}/addCollection', [ArtistController::class, 'addCollection'])->middleware('artist');
 Route::get('/profileSettings/artists', [ArtistController::class, 'getProfileSettings'])->middleware('artist');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

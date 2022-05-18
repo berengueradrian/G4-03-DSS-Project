@@ -31,7 +31,9 @@
                 <img src="/images/eth.svg" width="25px" alt="">
             </div>
             <div class="buttons">
+                <a href="/profile/artists/addCollection" style="width: 100% ;">
                 <button type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Add Collection</button>
+                </a>
                 <div class="bottom-buttons">
                     <a href="/profileSettings/artists">
                         <button type="button" class="btn btn-secondary">Profile Settings</button>

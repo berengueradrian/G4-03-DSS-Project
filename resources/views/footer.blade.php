@@ -30,7 +30,7 @@
             <div class="icon-copy">
                 <img src="{{ asset('images/footer/copyR.png') }}" width="20" height="20" alt="">
             </div>
-            <div class="nombre">. DSG CHAIN</div>
+            <div class="name">. DSG CHAIN</div>
         </div>
         
 
@@ -46,10 +46,12 @@
         left: 0;
         bottom: 0;
         width: 100%;
+        
     }
     
+    
     .contenido{
-        margin-left: 100px;
+        justify-content: center;
         height: 160px;
         display: flex;
         align-items: center;
@@ -75,9 +77,13 @@
     .dsg-chain{
         display: flex;
         align-items: center;
-        margin-left: 20px;
-        margin-bottom: 20px;
+        justify-content: flex-start;
 
     }
-
+    @media(max-width: 1230px){
+        .crypto{
+            display:none;
+        
+        }
+    }
 </style>
