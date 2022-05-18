@@ -63,7 +63,7 @@
     <div class="centered-nfts">
       <div class="marketplace-nfts">
         @foreach($nfts as $nft)
-        <a href="/nfts/buy/{{ $nft->id }}"><div class="marketplace-popular-nfts-rest-item">
+        <a class="linkNft" href="/nfts/buy/{{ $nft->id }}"><div class="marketplace-popular-nfts-rest-item">
           <img src="/images/{{ $nft->img_url }}" alt="" class="marketplace-popular-nfts-rest-img">
           <div class="marketplace-popular-nfts-rest-data">
             <div class="rest-main-data">
@@ -155,12 +155,12 @@
   margin-bottom: 0px !important;  
 }
 
-a:hover{
+.linkNft:hover{
   text-decoration: none !important;
   color: black !important;
 }
 
-a{
+.linkNft{
   color: black !important;
 }
 

@@ -6,8 +6,6 @@
 <h3 class="title"><strong>Artist Profile</strong></h3>
 <div class="container">
 
-
-
     <div class="content">
         <div class="left-side">
 
@@ -111,7 +109,6 @@
         text-align: center;
         font-size: 20px;
         font-weight: bolder;
-
     }
 
     .textB {

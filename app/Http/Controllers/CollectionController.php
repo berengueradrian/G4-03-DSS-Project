@@ -7,6 +7,7 @@ use App\Models\Collection;
 use App\Http\Controllers\NftController;
 use App\Models\Nft;
 use DateTime;
+use Session;
 
 class CollectionController extends Controller
 {
@@ -130,18 +131,33 @@ class CollectionController extends Controller
         return view('collections.list')->with('collections', $collections);
     }
 
-    public function putOnSaleCollection($id, DateTime $limit_date) { //TODO: Comprobar fecha posterior a la de ahora
+    public function putOnSaleCollection(int $id, Request $request) {
         $newCollection = Collection::whereId($id)->first();
-        foreach($newCollection->nfts as $nft) {
-            if($nft->type_id == 5) {
-                $nft->available = true;
-                $nft->limit_date = $limit_date;
-                $nft->save();
+        $request->validate([
+            'limit_date' => 'required|date|after:today'
+        ]);
+        if($request->limit_date < now()) {
+            session()->flash('fail', 'The date is required.');
+            return back();
+            //return redirect()->route('collection.getOne');
+        }
+        else {
+            foreach($newCollection->nfts as $nft) {
+                if($nft->type_id == 5) {
+                    $nft->available = true;
+                    $nft->limit_date = $request->limit_date;
+                    $nft->save();
+                }
+                else {
+                    $nft->available = true;
+                    $nft->save();
+                }
             }
-            else {
-                $nft->available = true;
-                $nft->save();
-            }
+            $newCollection->on_sale = true;
+            $newCollection->save();
+            session()->flash('success', 'The collection was put on sale correctly.');
+            return back();
+            //return redirect()->route('collection.getOne');
         }
     }
 }
