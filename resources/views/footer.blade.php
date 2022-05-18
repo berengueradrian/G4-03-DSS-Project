@@ -66,12 +66,13 @@
 
     .crypto{
         margin-left: 15%;
-        opacity: .5;
+        opacity: .3;
         
     }
     .ubicacion{
         margin-left: 10px;
         font-style: oblique;
+        opacity: .8;
     }
 
     .dsg-chain{

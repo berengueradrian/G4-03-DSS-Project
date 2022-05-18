@@ -29,7 +29,7 @@
                 <img src="/images/eth.svg" width="25px" alt="">
             </div>
             <div class="buttons">
-                <a href="/profile/artists/addCollection" style="width: 100% ;">
+                <a href="/profile/artists/{{Auth::guard('custom')->user()->id}}/addCollection" style="width: 100% ;">
                 <button type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Add Collection</button>
                 </a>
                 <div class="bottom-buttons">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Artist;
+use App\Models\Collection;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Auth;
 use Hash;
@@ -197,10 +198,19 @@ class ArtistController extends Controller
     }
 
     public function addCollection(Artist $artist) {
-        if (!Auth::guard('custom')->user()->id) {
-            return view('profile');
-        }
-        return view('artists.addCollection')->with('artist',$artist);
+        if (Auth::guard('custom')->user()->id==$artist->id) {
+            return view('artists.addCollection')->with('artist',$artist);
+        }else
+            return redirect('home');
+        
+    }
+
+    public function addNft(Artist $artist, Collection $collection) {
+        if (Auth::guard('custom')->user()->id==$artist->id) {
+            app('App\Http\Controllers\CollectionController')->addNft($artist->id, $collection);
+        }else
+            return redirect('home');
+        
     }
 
     public function getProfileSettings(Request $data) {
