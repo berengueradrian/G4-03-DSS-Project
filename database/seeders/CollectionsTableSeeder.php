@@ -75,5 +75,13 @@ class CollectionsTableSeeder extends Seeder
                 'name' => 'FifthCollection'
             ]
         );
+
+        DB::table('collections')->insert(
+            [
+                'description' => 'Trying some methods',
+                'artist_id' => $artistsId[2],
+                'name' => 'CollectionTry'
+            ]
+        );
     }
 }

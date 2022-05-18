@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Validation\ValidationException;
 use Hash;
 
 class UserController extends Controller
 {
+
+    const MAX_BALANCE = 1000000000;
 
     public function get(User $user)
     {
@@ -133,10 +136,17 @@ class UserController extends Controller
 
     public function addBalance(Request $request) {
         $request->validate([
-            'addBalance' => 'required|numeric|gte:0'
+            'addBalance' => 'required|numeric|gte:0|max:1000000000'
         ]);
         $user = User::find($request->userId);
-        $user->balance = $user->balance + $request->addBalance;
+        $newBalance = $user->balance + $request->addBalance;
+        if($newBalance > self::MAX_BALANCE){
+            $newBalance = self::MAX_BALANCE;
+            return throw ValidationException::withMessages([
+                'addBalance' => 'Maximum balance overloaded. You can own a maximum of 1000M of ETH in your account.'
+            ]);
+        }
+        $user->balance = $newBalance;
         $user->update();
         return back();
     }

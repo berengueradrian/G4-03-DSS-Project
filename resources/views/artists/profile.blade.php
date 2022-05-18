@@ -6,8 +6,6 @@
 <h3 class="title"><strong>Artist Profile</strong></h3>
 <div class="container">
 
-
-
     <div class="content">
         <div class="left-side">
 
@@ -101,7 +99,11 @@
     .buttons{
         display: flex;
         flex-flow: column nowrap;
-        width: 60%;
+        width: fit-content;
+    }
+
+    .addCollection{
+        width: 100%;
     }
 
     .bottom-buttons{
@@ -109,6 +111,7 @@
         flex-flow: row wrap;
         align-items: center;
         gap: 10px;
+        width: fit-content;
     }
 
     .nombre {
@@ -121,7 +124,6 @@
         text-align: center;
         font-size: 20px;
         font-weight: bolder;
-
     }
 
     .textB {
@@ -185,18 +187,6 @@
         position: relative;
     }
 
-    .content .left-side::before {
-        content: '';
-        position: absolute;
-        height: 70%;
-        width: 2px;
-        margin-right: 50px;
-        right: -15px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: #afafb6;
-    }
-
     .content .left-side .details {
         margin: 14px;
         text-align: center;
@@ -252,12 +242,18 @@
         }
     }
     @media (max-width: 820px) {
+        .addCollection{
+            width: 100%;
+        }
         .container{
             margin: 40px 0;
             height: 100%;
         }
         .container .content{
-            flex-direction: column-reverse;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 0;
+            
         }
         .container .content .left-side{
             width: 100%;
@@ -265,6 +261,7 @@
             margin-top: 40px;
             justify-content: center;
             flex-wrap: wrap;
+            margin-left: 0px;
         }
         .container .content .left-side::before{
             display: none;
@@ -272,6 +269,18 @@
         .container .content .right-side{
             width: 100%;
             margin-left: 0;
+            display: flex;
+            align-items: center;
+            flex-flow: column wrap;
+        }
+        .buttons{
+            align-items: center;
+            width: fit-content;
+        }
+    }
+    @media(max-width: 500px) {
+        .listado{
+            width: fit-content;
         }
     }
 </style>

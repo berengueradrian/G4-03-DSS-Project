@@ -19,7 +19,15 @@
 
 <body>
     <div class="app">
+    @if(Auth::check())
+        @if(Auth::user()->is_admin)
+            @include('navbarAdmin')
+        @else
+            @include('navbar')
+        @endif
+    @else
         @include('navbar')
+    @endif
         <div class="app-main">
             <div class="app-centered">
                 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -27,7 +35,7 @@
                 @yield('content')
             </div>
         </div>
-        @include('footer')
+        
     </div>
 </body>
 

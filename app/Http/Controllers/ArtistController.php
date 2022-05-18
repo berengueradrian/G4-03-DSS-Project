@@ -208,6 +208,7 @@ class ArtistController extends Controller
     }
 
     public function deleteArtist(Request $request) {
+        Auth::guard('custom')->logout();
         $artist = Artist::find($request->artistId);
         $artist->delete();
         return redirect('login');

@@ -29,7 +29,38 @@
                 {{$collection->artist->name}}
             </div>
         </div>
+        
     </div>
+    
+    @if(Auth::guard('custom')->user()->id == $collection->artist_id )
+    @if(!$collection->on_sale)
+    <div class="centered" style="align-items: center; width: 100%;">
+    <div class="putSale" style="align-items: center; text-align: left; align-content: center; width:100%;">
+    <div class="col-text2">
+        <h5>Put on sale your collection introducing the limit date for the bidable nfts</h5>
+    </div>
+        <form action="{{ route('collection.sale', ['collection' => $collection->id]) }}" method="POST" class="needs-validation create-sale-container">
+            @csrf
+            @method('POST')
+            <div class="input-group mb-3 bootstrap-input" style="width: 37%; align-items: center;">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Limit Date</span>
+                    </div>
+                    <input type="date" style="width: 20px;" class="form-control" name="limit_date" placeholder="" aria-label="Username" aria-describedby="basic-addon3" id="limit_date">
+            </div>
+            @if ($errors->has('limit_date'))
+                @foreach ($errors->get('limit_date') as $error)
+                <div class="invalid-tooltip mb-3">{{ $error }}</div>
+                @endforeach
+            @endif
+            <button type="submit" class="btn btn-primary" style="align-self: center;">Put on sale collection</button>
+            {!! Session::has('msg') ? Session::get("msg") : '' !!}    
+        </form>
+    </div>
+    </div>
+    @endif
+    @endif
+    
     <div class="col-nfts">
         <h3>NFTS</h3>
         <div class="nfts">
@@ -44,8 +75,39 @@
 
     </div>
 </div>
+@endsection
 
 <style lang="scss">
+    .putSale {
+        align-items: center;
+    }
+    .input-group-text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* margin: auto; */
+        width: fit-content;
+    }
+    .form-control {
+        width: 30%!important;
+        display:felx;
+    }
+    .input[type="date"] {
+        display:flex;
+        width: 20px;
+    }
+    .centered {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        /* text-align: center; */
+    }
+    .col-text2{
+        align-self: flex-start;
+        height: 100%;
+        margin-bottom: 20px;
+    }
+
     .collection{
         margin-left: 120px;
         margin-right: 120px;
@@ -71,7 +133,6 @@
         align-self: flex-start;
         margin-left: 60px;
         height: 100%;
-        
     }
     .col-pic{
         width: 32%;
@@ -93,5 +154,3 @@
         width: 15%;
     }
 </style>
-
-@endsection
