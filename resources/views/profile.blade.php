@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <h3 class="title"><strong>Profile</strong></h3>
 <div class="container">
-
-
-
+    @if($errors->has('addBalance'))
+        <div class="invalid-tooltip mb-3 mt-3 error-msg">{{ $errors->first('addBalance') }}</div>
+    @endif
     <div class="content">
         <!-- MODAL -->
         <div class="modal fade" id="balanceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -47,7 +47,6 @@
             </form>
         </div>
         <!-- ----------------------------------------------- -->
-
         <div class="left-side">
 
             <br>
@@ -108,6 +107,13 @@
 
 <style lang="scss">
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+    .error-msg{
+        display: block !important;
+        position: relative !important;
+        width: fit-content;
+        top: 0 !important;
+    }
 
     .add-balance-icon {
         /*position: fixed;

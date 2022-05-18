@@ -31,7 +31,7 @@
                 <img src="/images/eth.svg" width="25px" alt="">
             </div>
             <div class="buttons">
-                <button type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Add Collection</button>
+                <button type="button" class="btn btn-outline-primary addCollection" style="margin-bottom: 10px;">Add Collection</button>
                 <div class="bottom-buttons">
                     <a href="/profileSettings/artists">
                         <button type="button" class="btn btn-secondary">Profile Settings</button>
@@ -99,7 +99,11 @@
     .buttons{
         display: flex;
         flex-flow: column nowrap;
-        width: 60%;
+        width: fit-content;
+    }
+
+    .addCollection{
+        width: 100%;
     }
 
     .bottom-buttons{
@@ -107,6 +111,7 @@
         flex-flow: row wrap;
         align-items: center;
         gap: 10px;
+        width: fit-content;
     }
 
     .nombre {
@@ -183,18 +188,6 @@
         position: relative;
     }
 
-    .content .left-side::before {
-        content: '';
-        position: absolute;
-        height: 70%;
-        width: 2px;
-        margin-right: 50px;
-        right: -15px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: #afafb6;
-    }
-
     .content .left-side .details {
         margin: 14px;
         text-align: center;
@@ -250,12 +243,18 @@
         }
     }
     @media (max-width: 820px) {
+        .addCollection{
+            width: 100%;
+        }
         .container{
             margin: 40px 0;
             height: 100%;
         }
         .container .content{
-            flex-direction: column-reverse;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 0;
+            
         }
         .container .content .left-side{
             width: 100%;
@@ -263,6 +262,7 @@
             margin-top: 40px;
             justify-content: center;
             flex-wrap: wrap;
+            margin-left: 0px;
         }
         .container .content .left-side::before{
             display: none;
@@ -270,6 +270,18 @@
         .container .content .right-side{
             width: 100%;
             margin-left: 0;
+            display: flex;
+            align-items: center;
+            flex-flow: column wrap;
+        }
+        .buttons{
+            align-items: center;
+            width: fit-content;
+        }
+    }
+    @media(max-width: 500px) {
+        .listado{
+            width: fit-content;
         }
     }
 </style>
