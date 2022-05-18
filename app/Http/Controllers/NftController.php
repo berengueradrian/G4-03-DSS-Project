@@ -8,6 +8,7 @@ use App\Models\Artist;
 use App\Models\User;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class NftController extends Controller
 {
@@ -213,17 +214,17 @@ class NftController extends Controller
 
     public function auction($id, DateTime $limit_date)
     {
-        $newNft = Nft::whereId($id)->first();
-        if ($newNft->available && $newNft->limit_date != null) {
-            session()->flash('msg', 'NFT available already.');
-        } else {
+        $newNft = NFT::whereId($id)->first(); 
+        if($newNft->available && $newNft->limit_date != null) {
+            session()->flash('fail', 'NFT available already.');
+        }
+        else {
             $newNft->available = true;
             $newNft->limit_date = $limit_date;
             $newNft->save();
-            session()->flash('msg', ' The NFT is available to bid now.');
+            session()->flash('success', ' The NFT is available to bid now.');
         }
     }
-
 
     public function bidNFT(Request $request, $id)
     {
@@ -238,14 +239,15 @@ class NftController extends Controller
                 $newNft->actual_price = $request->bid_amount;
                 $newNft->save();
                 $u1->bids()->attach([$newNft->id => ['wallet' => $request->bid_wallet, 'amount' => $request->bid_amount]]);
-                session()->flash('msg', 'Bid placed succesfully.');
+                session()->flash('success', 'Bid placed succesfully.');
                 return back();
             } else {
-                session()->flash('msg', 'The amount must be bigger than the actual price.');
+                session()->flash('fail', 'The amount must be bigger than the actual price.');
                 return back();
             }
-        } else {
-            session()->flash('msg', 'The balance is not enough.');
+        }
+        else {
+            session()->flash('fail', 'The balance is not enough.');
             return back();
         }
     }
@@ -284,25 +286,33 @@ class NftController extends Controller
 
     public function closeBid($id)
     {
-        $nft = Nft::whereId($id)->first();
-        $nft->available = false;
-        $bids = $nft->bids()->get()->toArray();
-        //dd($bids);
-        usort($bids, function ($a, $b) {
-            return ($a['created_at'] > $b['created_at']) ? $a : $b;
-        });
+        $nft = NFT::whereId($id)->first();
+        if($nft->bids()->count() > 0) {
+            $bids = $nft->bids()->get()->toArray();
+            
+            usort($bids, function($a, $b) {
+                return ($a['created_at'] > $b['created_at']) ? $a:$b;
+            });
+            
+            $nft->available = false;
+            $nft->user_id = $bids[0]['pivot']['user_id'];
+            $nft->save();
 
-        $nft->user_id = $bids[0]['pivot']['user_id'];
-        $nft->save();
+            $user = User::whereId($bids[0]['pivot']['user_id'])->first();
+            $user->balance = $user->balance - $bids[0]['pivot']['amount'];
+            $user->save();
+            
+            $artist = Artist::whereId($nft->collection->artist_id)->first();
+            $artist->volume_sold += $bids[0]['pivot']['amount'];
+            $artist->update();
 
-        $user = User::whereId($bids[0]['pivot']['user_id'])->first();
-        $user->balance = $user->balance - $bids[0]['pivot']['amount'];
-        $user->save();
-        //TODO: Artist aumentarle el volume_sold
-        //$artist = 
-        //$artist->volume_sold += $bid->amount;
-
-        session()->flash('success', 'Bid closed correctly.');
+            session()->flash('success', 'Bid closed correctly.');
+        }
+        else {
+            $nft->limit_date = Carbon::now()->addMonths(1);
+            $nft->update();
+            session()->flash('fail', 'The NFT has not bids, so it will be added a month to its limit date.');
+        }
         return back();
     }
 }

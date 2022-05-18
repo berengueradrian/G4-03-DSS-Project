@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">
         <img src="{{ asset('images/logo.png') }}" width="40" height="40" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse" id="navbarNav" style="background-color: #343a40; color: rgba(255,255,255,.5)!important; z-index: 99;">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="/marketplace">Marketplace<span class="sr-only">(current)</span></a>
@@ -18,10 +18,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="/about">About Us</a>
             </li>
-            </ul>
-            <ul class="navbar-nav justify-content-end" style="margin-left: auto;">
+        </ul>
+        <ul class="navbar-nav justify-content-end" style="margin-left: auto;">
             @auth
-            <li>
+            <li class="nav-item">
                 <img src="/images/{{Auth::user()->img_url}}" width="40" height="40" alt="" style="border-radius: 50%;">
             </li>
             <li class="nav-item">
@@ -32,7 +32,7 @@
             </li>
             @endauth
             @auth('custom')
-            <li>
+            <li class="nav-item">
                 <img src="/images/{{Auth::guard('custom')->user()->img_url}}" width="40" height="40" alt="" style="border-radius: 50%;">
             </li>
             <li class="nav-item">
@@ -50,7 +50,7 @@
                 <a class="nav-link" href="/register">Register</a>
             </li>
             @endif
-            </ul>
+        </ul>
     </div>
 </nav>
 
@@ -68,11 +68,14 @@
     }
 
     .nav-item {
-        padding-right: 30px
+        padding-right: 30px;
+        margin-left: 15px;
     }
 
     .nav-item2 {
         padding-right: 14px;
+        margin-left: 15px;
+        margin-bottom: 5px;
     }
 
     .navbar-nav > li:last-child

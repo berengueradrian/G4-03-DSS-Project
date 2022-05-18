@@ -41,22 +41,29 @@
 
         <div class="right-side">
 
+            <div class="textH">
+                Actual Price: {{$nft->actual_price}}
+                <strong>ETH</strong>
+                <img src="/images/eth.svg" height="20px" width="25px" alt="">
+            </div>
+
+            <div class="textG">
+                Base Price: {{$nft->base_price}}
+                <strong>ETH</strong>
+                <img src="/images/eth.svg" width="10px" alt="">
+            </div>
+
             @if($nft->type_id == 5 && $nft->available && $nft->limit_date != null)
             <div class="textB">
                 Bid finishes in:
             </div>
-            <div>
-                <span id="cd-days">00</span> days
-                <span id="cd-hours">00</span> hours
-                <span id="cd-minutes">00</span> minutes
-                <span id="cd-seconds">00</span> seconds
+            <div class="textDays">
+                <span id="cd-days">00</span> D
+                <span id="cd-hours">00</span> H
+                <span id="cd-minutes">00</span> M
+                <span id="cd-seconds">00</span> s
             </div>
             @endif
-
-            <div class="textB">
-                Actual Price: {{$nft->actual_price}} SCAN
-            </div>
-
 
             @auth
             @if($nft->available)
@@ -71,7 +78,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Amount</span>
                     </div>
-                    <input type="number" class="form-control" name="bid_amount" placeholder="$SCAN" aria-label="Username" aria-describedby="basic-addon3" id="bid_amount">
+                    <input type="number" class="form-control" name="bid_amount" placeholder="$ETH" aria-label="Username" aria-describedby="basic-addon3" id="bid_amount">
                 </div>
                 @if ($errors->has('bid_amount'))
                 @foreach ($errors->get('name') as $error)
@@ -95,20 +102,6 @@
 
                 @endif
 
-                <!-- TODO: Filtrar por el user autenticado para mostrar
-                el close bid en caso de que el nft sea suyo -->
-                @if(true) <!-- este if será el de filtrar para el artist-->
-                @php($limit_date2 = \Carbon\Carbon::parse($nft->limit_date))
-                @if($limit_date2->isPast())
-                <form action="{{ route('nft.close', ['nft' => $nft->id]) }}" method="POST" class="needs-validation create-bid-container">
-                    @csrf
-                    @method('POST')
-                    <button type="submit" class="btn btn-primary">Close Bid</button>
-                    {!! Session::has('msg') ? Session::get("msg") : '' !!}
-                </form>
-                @endif
-                @endif
-
             @else
                 
 
@@ -118,10 +111,10 @@
                 @csrf
                 @method('POST')
                 <div class="input-group mb-3 bootstrap-input">
-                    <input type="hidden" class="form-control" name="purchase_amount" value="{{$nft->actual_price}}" placeholder="$SCAN" aria-label="Username" aria-describedby="basic-addon3" id="purchase_amount">
+                    <input type="hidden" class="form-control" name="purchase_amount" value="{{$nft->actual_price}}" placeholder="$ETH" aria-label="Username" aria-describedby="basic-addon3" id="purchase_amount">
                 </div>
                 @if ($errors->has('purchase_amount'))
-                @foreach ($errors->get('name') as $error)
+                @foreach ($errors->get('purchase_amount') as $error)
                 <div class="invalid-tooltip mb-3">{{ $error }}</div>
                 @endforeach
                 @endif
@@ -132,7 +125,7 @@
                     <input type="text" class="form-control" name="purchase_wallet" placeholder="0x..." aria-label="Username" aria-describedby="basic-addon3" id="purchase_wallet">
                 </div>
                 @if ($errors->has('purchase_wallet'))
-                @foreach ($errors->get('name') as $error)
+                @foreach ($errors->get('purchase_wallet') as $error)
                 <div class="invalid-tooltip mb-3">{{ $error }}</div>
                 @endforeach
                 @endif
@@ -152,18 +145,32 @@
 
             @endauth
 
+            @auth('custom')
+            @if($nft->available)
+            @if(Auth::guard('custom')->user()->id == $nft->collection->artist_id)
+            @php($limit_date2 = \Carbon\Carbon::parse($nft->limit_date))
+                @if($limit_date2->isPast())
+                <form action="{{ route('nft.close', ['nft' => $nft->id]) }}" method="POST" class="needs-validation create-bid-container">
+                    @csrf
+                    @method('POST')
+                    <button type="submit" class="btn btn-primary">Close Bid</button>
+                    {!! Session::has('msg') ? Session::get("msg") : '' !!}
+                </form>
+                @endif
+            @endif
+            @else
+                <div class="text-one">
+                    This NFT is not on sale.
+                </div>
+            @endif
+            @endauth
+
         </div>
     </div>
 
     <div class="nombre">NFT CHARACTERISTICS</div>
     <div class="listado">
         <ul class="timeline">
-            @if($nft->type_id == 5)
-            <li><span class="badge badge-primary badge-pill font-weight-normal">
-                    Base Price: {{$nft->base_price}} SCAN
-                </span>
-            </li>
-            @endif
             <li><span class="badge badge-primary badge-pill font-weight-normal">
                     Collection: {{$nft->collectionName->name}}
                 </span>
@@ -186,13 +193,7 @@
             </li>
         </ul>
 
-        <!-- @for($i = 0; $i < 5 && $i < $nft->bids->count(); $i++)
-            <div class="text-one">
-                {{$nft->bids[$i]->pivot}}
-            </div>
-        @endfor -->
     </div>
-
 
 </div>
 @endsection
@@ -232,12 +233,25 @@
 
 <style lang="scss">
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-
+    @import url(https://fonts.googleapis.com/css?family=Montserrat:900|Raleway:400,400i,700,700i);
+    
+    /*  */
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
         font-family: "Poppins", sans-serif;
+    }
+
+    .textDays {
+        color: red;
+        font-size: 28px;
+    }
+
+    .textG {
+        color: #808080;
+        padding: 12px;
+        font-size: 22px;
     }
 
     /* List */
@@ -261,7 +275,7 @@
         z-index: -1;
     }
 
-    ul.timeline:before {
+    /* ul.timeline:before {
         content: "●";
         display: inline-block;
         margin: 0;
@@ -270,9 +284,9 @@
         left: -1em;
         top: 0.1em;
         color: #aaa;
-    }
+    } */
 
-    ul.timeline:after {
+    /* ul.timeline:after {
         content: "●";
         display: inline-block;
         margin: 0;
@@ -281,6 +295,13 @@
         left: -1em;
         top: -1em;
         color: #aaa;
+    } */
+
+    .badge-primary {
+        /* color: #fff; */
+        color: black ! important;
+        padding: 10px 10px!important;
+        background-color: whitesmoke!important;
     }
 
     /*  */
@@ -308,6 +329,11 @@
         font-weight: bolder;
     }
 
+    .textH {
+        padding: 12px;
+        font-size: 35px;
+        font-weight: bolder;
+    }
 
     .listado {
 
@@ -362,7 +388,7 @@
         position: relative;
     }
 
-    .content .left-side::before {
+    /* .content .left-side::before {
         content: '';
         position: absolute;
         height: 70%;
@@ -372,7 +398,7 @@
         top: 50%;
         transform: translateY(-50%);
         background: #afafb6;
-    }
+    } */
 
     .content .left-side .details {
         margin: 14px;

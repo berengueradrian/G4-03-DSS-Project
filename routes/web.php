@@ -64,8 +64,8 @@ Route::post('/store-image', [ImageUploadController::class, 'storeImage'])
 
 //COLLECTIONS
 //Sort by name
+Route::post('/collections/sale/{collection}', [CollectionController::class, 'putOnSaleCollection'])->name('collection.sale');
 Route::get('/collections/sortByName', [CollectionController::class, 'sortByName']);
-Route::put('/collections/sale/{collection}', [CollectionController::class, 'putOnSaleCollection'])->name('collections.sale');
 Route::get('/collections/{collection}',  [CollectionController::class, 'show'])->name('collection.getOne');
 Route::get('/collections/{collection}/addNft',  [CollectionController::class, 'addNft'])->name('collection.addNft')->middleware('admin');
 
