@@ -20,7 +20,7 @@
 
         <div class="left-side">
             <div class="foto">
-                <img src="/images/{{Auth::guard('custom')->user()->img_url}}" width="270" height="190" alt="">
+                <img src="/images/{{Auth::guard('custom')->user()->img_url}}" class="artist-img" alt="">
             </div>
         </div>
 
@@ -35,7 +35,7 @@
                 <!-- THIS IS FOR UPLOADING PHOTO TO PUBLIC FOLDER -->
                 <form method="post" action="{{ route('images.store') }}" enctype="multipart/form-data">
                     @csrf
-                    <input type="file" style="width:400px; margin-bottom:10px" name="img_url" class="custom-file-upload" id="img_url">
+                    <input type="file" style="margin-bottom:10px" name="img_url" class="custom-file-upload" id="img_url">
                     <button type="submit" class="btn btn-success">Upload new photo</button>
                 </form>
             </div>
@@ -49,7 +49,7 @@
                     @method('PUT')
 
                     <input type="hidden" class="form-control" name="id_update" value="{{ Auth::guard('custom')->user()->id }}" placeholder="Identifier of the user" aria-label="id_update" aria-describedby="basic-addon1" id="id_update">
-                    <input type="file" style="width:400px; margin-bottom:10px" name="img_url_update" class="custom-file-upload" id="img_url_update">
+                    <input type="file" style="margin-bottom:10px" name="img_url_update" class="custom-file-upload" id="img_url_update">
                     <button type="submit" class="btn btn-secondary">Select uploaded photo</button>
                 </form>
             </div>
@@ -57,9 +57,9 @@
 
     </div>
 
-    <div class="content">
+    <div class="content content-forms">
         <div class="left-side">
-            <div class="change name">
+            <div class="change-name">
                 <h4> Change name </h4>
 
                 <!-- TODO: no muestra los errores!!! -->
@@ -105,7 +105,7 @@
         <div class="right-side">
 
             <h4> Change password </h4>
-            <div class="change pass">
+            <div class="change-pass">
 
                 <form action="{{ route('artist.update') }}" method="POST" class="needs-validation create-user-container">
                     @csrf
@@ -153,7 +153,7 @@
             </div>
         </div>
     </div>
-    <div class="right-side" style="margin: 0px 90px; margin-bottom: 50px">
+    <div class="right-side content-forms-right">
 
       <h4> Change description </h4>
       <div class="change pass">
@@ -209,6 +209,10 @@
 <style lang="scss">
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
+    .artist-img{
+        width: 370px;
+    }
+
     * {
         margin: 0;
         padding: 0;
@@ -220,13 +224,6 @@
         color: transparent !important;
         margin-top: 10px;
 
-    }
-
-    input[type=file]::before {
-        display: none;
-        content: "";
-        color: black;
-        margin-right: 0px;
     }
 
     .foticos {
@@ -282,18 +279,6 @@
         position: relative;
     }
 
-    .content .left-side::before {
-        content: '';
-        position: absolute;
-        height: 70%;
-        width: 2px;
-        margin-right: 50px;
-        right: -15px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: #afafb6;
-    }
-
     .content .left-side .details {
         margin: 14px;
         text-align: center;
@@ -345,4 +330,78 @@
         font-size: 14px;
         color: #afafb6;
     }
+
+    .content-forms-right{
+        margin: 0px 90px;
+        margin-bottom: 50px;
+    }
+
+    @media(max-width: 1200px) {
+        .content{
+            flex-flow: column wrap;
+            justify-content: center;
+            align-items: center; 
+        }
+        .container .content .right-side{
+            width: fit-content;
+            margin-left: 0px;
+            max-width: none;
+            margin-right: 0px;
+            flex-direction: column;
+            display: flex;
+        }
+        .container .content .left-side{
+            margin-left: 0px;
+        }
+        .right-side form{
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .topic{
+            text-align: center;
+        }
+        .text-one{
+            text-align: center;
+        }
+        .content-forms{
+            align-items: flex-start !important;
+            margin: 0px 90px;
+        }
+        .content-forms .left-side{
+            align-items: flex-start;
+            margin-bottom: 20px;
+            width: 100% !important;  
+        }
+        .content-forms .right-side{
+            align-items: flex-start;
+            width: 100% !important;  
+        }
+        .content-forms .left-side .change-name{
+            width: 100%;
+        }
+
+        .content-forms .right-side .change-pass{
+            width: 100%;
+        }
+    }
+    @media(max-width: 500px) {
+        .artist-img{
+            width: 270px;
+        }
+        .container .content .left-side{
+            width: fit-content;
+        }
+        .container .content .right-side{
+            max-width: 100%;
+        }
+        .content-forms{
+            margin: 0;
+        }
+        .content-forms-right{
+            margin: 0;
+        }
+    }
+    
 </style>
