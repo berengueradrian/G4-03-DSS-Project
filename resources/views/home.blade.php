@@ -1,6 +1,11 @@
 @extends('layouts')
 
 @section('content')
+@if(Session::has('msg'))
+  <div class="alert alert-success" role="alert" style="width: fit-content;">
+    {!! Session::has('msg') ? Session::get("msg") : '' !!}
+  </div>
+@endif
 <div class="main-home-guest">
     <div class="title">
         <strong><h1 class="title-text">DSG CHAIN MARKETPLACE</h1></strong>

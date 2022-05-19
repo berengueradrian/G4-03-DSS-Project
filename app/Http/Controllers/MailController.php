@@ -23,6 +23,7 @@ class MailController extends Controller
         else{
             Mail::to($data->email_subs)->send(new SendNewsletter(''));
         }
+        session()->flash('msg', 'Your subscription has been completed. A confimartion email has been sent to you.');
         return back();
     }
 }

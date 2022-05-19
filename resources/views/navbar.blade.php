@@ -58,8 +58,13 @@
 
 <style lang="scss">
     .navbar {
-        height: 100px;
+        height: 90px;
         font-size: 20px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 99;
+        box-shadow: 0px 0px 20px 3px rgba(52,58,64,0.88);
     }
 
     .navbar-brand {
