@@ -73,7 +73,6 @@
             <i><p class="rest-type">{{$nft->type->name}}</p></i>
           </div>
         </div></a>
-        @endif
         @endforeach
       </div>
     </div>

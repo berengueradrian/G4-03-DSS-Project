@@ -8,7 +8,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\Logoutcontroller;
 use App\Http\Controllers\ImageUploadController;
-use App\Models\Artist;
+use App\Http\Controllers\MailController;
+
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -114,6 +116,9 @@ Route::get('/artists/sortByVolume', [ArtistController::class, 'sortByVolume']);
 //Order by name
 Route::get('/types/sortByExclusivity', [TypeController::class, 'sortByExclusivity']);
 //Route::get('/types/sortByCount', [TypeController::class, 'sortByCount']);
+
+// MAIL
+Route::post('/suscribeNewsletter', [MailController::class, 'suscribeToNewsletter'])->name('sendMail');
 
 
 // ###########

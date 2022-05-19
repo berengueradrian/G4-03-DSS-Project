@@ -1,6 +1,11 @@
 @extends('layouts')
 
 @section('content')
+@if(Session::has('msg'))
+  <div class="alert alert-success" role="alert" style="width: fit-content;">
+    {!! Session::has('msg') ? Session::get("msg") : '' !!}
+  </div>
+@endif
 <div class="main-home-guest">
     <div class="title">
         <strong><h1 class="title-text">DSG CHAIN MARKETPLACE</h1></strong>
@@ -21,11 +26,18 @@
             </p>
         </div>
         <div class="news-container-data">
-            <div class="input-group subscribe">
+            <form method="POST" action="{{ route('sendMail') }}" style="display: flex">
+              <div class="input-group subscribe">
                 <span class="input-group-text email-icon" id="basic-addon1">@</span>
-                <input type="text" class="form-control email" placeholder="E-mail" aria-label="Email" aria-describedby="basic-addon1">
-            </div>
-            <button type="button" class="btn btn-light btn-subscribe">Subscribe</button>
+                <input type="email" name="email_subs" id="email_subs" class="form-control email" placeholder="E-mail" aria-label="Email" aria-describedby="basic-addon1">
+              </div>
+              <button type="submit" class="btn btn-light btn-subscribe">Subscribe</button>
+            </form>
+            @if ($errors->has('email_subs'))
+              @foreach ($errors->get('email_subs') as $error)
+                  <div class="invalid-tooltip mb-3 subscription-tooltip">{{ $error }}</div>
+              @endforeach
+            @endif
         </div>
     </div>
     <hr class="separatorNewsletter" style="margin-bottom: 100px;">
@@ -64,6 +76,10 @@
 @endsection
 
 <style lang="scss">
+.subscription-tooltip{
+  display: block !important;
+  position: relative !important;
+}
 .main-home-guest{
     display: flex;
     flex-flow: column nowrap;
@@ -128,8 +144,8 @@
 }
 .news-container-data{
     display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
+    flex-flow: column nowrap;
+    align-items: flex-start;
 }
 .subscribe{
     margin-right: 1.5rem;
