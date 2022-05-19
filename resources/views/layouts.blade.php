@@ -50,7 +50,7 @@
         display: flex;
         justify-content: center; 
         /*background-color: #f8f9fa!important;*/
-        margin-top: 40px
+        margin-top: 140px
     }
     .app-centered{
         padding-top: 20px;
