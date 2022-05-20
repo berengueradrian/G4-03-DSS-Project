@@ -68,7 +68,6 @@ Route::post('/store-image', [ImageUploadController::class, 'storeImage'])
 Route::post('/collections/sale/{collection}', [CollectionController::class, 'putOnSaleCollection'])->name('collection.sale');
 Route::get('/collections/sortByName', [CollectionController::class, 'sortByName']);
 Route::get('/collections/{collection}',  [CollectionController::class, 'show'])->name('collection.getOne');
-Route::get('/collections/{collection}/addNft',  [CollectionController::class, 'addNft'])->name('collection.addNft')->middleware('admin');
 
 // USERS
 // Views
@@ -179,5 +178,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //ARTIST ADD COLLECTION AND ADD NFT
 Route::get('/profile/artists/{artist}/addCollection', [ArtistController::class, 'addCollection'])->middleware('artist');
-Route::get('/profile/artists/{artist}/collections/{collection}/edit', [ArtistController::class, 'addNft'])->middleware('artist');
+Route::get('/profile/artists/{artist}/collections/{collection}/edit', [ArtistController::class, 'editCollection'])->middleware('artist');
 Route::get('/profile/artists/{artist}/collections/{collection}/edit/addNft', [ArtistController::class, 'addNft'])->middleware('artist');

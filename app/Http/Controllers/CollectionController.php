@@ -22,13 +22,6 @@ class CollectionController extends Controller
         return view('show.collection')->with('collection', $collection);
     }
 
-    public function addNft($id, Collection $collection) {
-        if ($collection->artist_id==$id) {
-            return view('collections.add-nft')->with('collection', $collection);
-        }else
-            return redirect('home');
-        
-    }
 
     public function getAll()
     {

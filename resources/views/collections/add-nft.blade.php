@@ -28,9 +28,6 @@
             <button type="submit" class="btn btn-secondary">Select uploaded photo</button>
         </form>
     </div>
-    <div class="btn-add-pic">
-        <button  type="button" class="btn btn-outline-secondary btn-sm">Add Picture</button>
-    </div>
     <div class="name-input">
         <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1">
     </div>
@@ -73,8 +70,6 @@
     .add-nft{
         display: flex;
         flex-flow: column;
-        margin-left: 120px;
-        margin-right: 120px;
         align-items: center;
     }
     .input-group{

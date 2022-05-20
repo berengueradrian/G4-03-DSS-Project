@@ -206,11 +206,15 @@ class ArtistController extends Controller
     }
 
     public function addNft(Artist $artist, Collection $collection) {
-        if (Auth::guard('custom')->user()->id==$artist->id) {
-            app('App\Http\Controllers\CollectionController')->addNft($artist->id, $collection);
+        if (Auth::guard('custom')->user()->id==$artist->id && $artist->id==$collection->artist_id) {
+            return view('collections.add-nft')->with('collection', $collection);
         }else
             return redirect('home');
         
+    }
+
+    public function editCollection(Artist $artist, Collection $collection) {
+        return view('artists.editCollection')->with('collection', $collection);
     }
 
     public function getProfileSettings(Request $data) {

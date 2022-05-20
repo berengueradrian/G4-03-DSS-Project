@@ -46,6 +46,7 @@
         left: 0;
         bottom: 0;
         width: 100%;
+        margin-top: 120px;
         
     }
     
@@ -83,6 +84,13 @@
     }
     @media(max-width: 1230px){
         .crypto{
+            display:none;
+        
+        }
+    }
+
+    @media(max-width: 600px){
+        .footer{
             display:none;
         
         }

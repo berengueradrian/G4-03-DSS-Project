@@ -4,7 +4,7 @@
 <div class="collection">
     <div class="col-info">
         <div class="col-pic">
-            <img src="../../images/{{ $collection->img_url }}" alt="" width="100%" style="border: 1px black solid">
+            <img src="../../images/{{ $collection->img_url }}" alt="" width="400px" style="border: 1px black solid">
         </div>
         <div class="col-text">
             <h1>{{ $collection->name }}</h1>
@@ -33,6 +33,11 @@
     </div>
     
     @if(Auth::guard('custom')->user()->id == $collection->artist_id )
+    <div class="edit-collection">
+        <a href="/profile/artists/{{$collection->artist_id}}/collections/{{$collection->id}}/edit">
+        <button class="btn btn-primary" style="align-self: center;">Edit Collection</button>
+        </a>
+    </div>
     @if(!$collection->on_sale)
     <div class="centered" style="align-items: center; width: 100%;">
     <div class="putSale" style="align-items: center; text-align: left; align-content: center; width:100%;">
@@ -65,7 +70,7 @@
         <h3>NFTS</h3>
         <div class="nfts">
             @foreach ($collection->nfts as $nft)
-                <div class="nft">
+                <div class="nft" style="width: 200px; margin-right:50px;">
                 <a href="/nfts/buy/{{$nft->id}}">
                     <img src="../../images/{{ $nft->img_url }}" width="100%" alt="" style="border: 1px black solid">
                 </a>
@@ -135,7 +140,7 @@
         height: 100%;
     }
     .col-pic{
-        width: 32%;
+        width: 400px;
     }
     .col-artist{
         margin-left: 100px;
@@ -146,11 +151,8 @@
     }
 
     .nfts{
+        justify-content: center;
         margin-top: 30px;
-        margin-left: 200px;
-        margin-right: 200px;
         display: flex;
-        flex-wrap: wrap;
-        width: 15%;
     }
 </style>
