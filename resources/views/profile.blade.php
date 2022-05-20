@@ -6,7 +6,7 @@
 <h3 class="title"><strong>Profile</strong></h3>
 <div class="container">
     @if($errors->has('addBalance'))
-        <div class="invalid-tooltip mb-3 mt-3 error-msg">{{ $errors->first('addBalance') }}</div>
+    <div class="invalid-tooltip mb-3 mt-3 error-msg">{{ $errors->first('addBalance') }}</div>
     @endif
     <div class="content">
         <!-- MODAL -->
@@ -83,8 +83,7 @@
                 <div class="input-group mb-3 bootstrap-input">
                     <input type="hidden" class="form-control" name="iddelete" value="{{Auth::user()->id}}" aria-label="iddelete" aria-describedby="basic-addon10" id="iddelete">
                 </div>
-                <button type="submit" class="btn btn-danger">Delete account</button>
-
+                <button type="submit" onclick="return confirm('Confirm your operation delete')" class="btn btn-danger">Delete account</button>
             </form>
 
 
@@ -108,7 +107,7 @@
 <style lang="scss">
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
-    .error-msg{
+    .error-msg {
         display: block !important;
         position: relative !important;
         width: fit-content;
