@@ -226,6 +226,7 @@ class NftController extends Controller
         }
     }
 
+    /*
     public function purchaseNFT(Request $request, int $id)
     {
         $request->validate([
@@ -238,16 +239,16 @@ class NftController extends Controller
 
         if (($buyer->balance - $request->purchase_amount) >= 0) { //If balance user allow buying at that amount
 
-            /* NFT properties update */
+            // NFT properties update 
             $nft->user_id = $buyer->id; //Update property user
             $nft->available = false; //when buying it's unavailable until new owner wants
             $nft->save();
 
-            /* BUYER USER properties update */
+            // BUYER USER properties update 
             $buyer->balance -= $request->purchase_amount;
             $buyer->save();
 
-            /* ARTIST BALANCE properties update */
+            // ARTIST BALANCE properties update 
             $seller->volume_sold += $request->purchase_amount;
             $seller->save();
         } else {
@@ -256,7 +257,8 @@ class NftController extends Controller
         }
         session()->flash('success', 'NFT bought correctly!');
         return back();
-    }
+    }*/
+    
 
     // public function closeBid($id)
     // {
