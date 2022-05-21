@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\ArtistAuthController;
 use App\Http\Controllers\NftController;
+use App\ServiceLayer\NftServices;
+use App\ServiceLayer\CollectionServices;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
@@ -65,7 +67,7 @@ Route::post('/store-image', [ImageUploadController::class, 'storeImage'])
 
 //COLLECTIONS
 //Sort by name
-Route::post('/collections/sale/{collection}', [CollectionController::class, 'putOnSaleCollection'])->name('collection.sale');
+Route::post('/collections/sale/{collection}', [CollectionServices::class, 'putOnSaleCollection'])->name('collection.sale');
 Route::get('/collections/sortByName', [CollectionController::class, 'sortByName']);
 Route::get('/collections/{collection}',  [CollectionController::class, 'show'])->name('collection.getOne');
 
@@ -96,14 +98,14 @@ Route::get('/nfts/buy/{nft}', function ($id) {
     return view('nfts.buy')->with('nft', $nft);
 });
 //BID
-Route::post('/nfts/bid/{nft}', [NftController::class, 'bidNFT'])->name('nft.bid');
+Route::post('/nfts/bid/{nft}', [NftServices::class, 'bidNFT'])->name('nft.bid');
 //PURCHASE
 Route::post('/nfts/purchase/{nft}', [NftController::class, 'purchaseNFT'])->name('nft.purchase');
 //Put on sale
 Route::put('nfts/sale/{nft}', [NftController::class, 'putOnSaleNFT'])->name('nfts.sale');
 Route::put('nfts/auction/{nft}', [NftController::class, 'auction'])->name('nfts.auction');
 //Close bid
-Route::post('nfts/close/{nft}', [NftController::class, 'closeBid'])->name('nft.close');
+Route::post('nfts/close/{nft}', [NftServices::class, 'closeBid'])->name('nft.close');
 
 //ARTISTS
 //Order by name
