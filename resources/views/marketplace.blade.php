@@ -63,7 +63,7 @@
     <div class="centered-nfts">
       <div class="marketplace-nfts">
         @foreach($nfts as $nft)
-        <a class="linkNft" href="/nfts/buy/{{ $nft->id }}"><div class="marketplace-popular-nfts-rest-item">
+        <a class="linkNft" href="/nfts/buy/{{ $nft->id }}"><div class="marketplace-popular-nfts-rest-item @if($nft->type_id=='5') leg @endif">
           <img src="/images/{{ $nft->img_url }}" alt="" class="marketplace-popular-nfts-rest-img">
           <div class="marketplace-popular-nfts-rest-data">
             <div class="rest-main-data">
@@ -80,6 +80,13 @@
 @endsection
 
 <style lang="scss">
+.leg:hover{
+  /* background-color: #4709D5 !important; */
+  background-color: #e0aa33 !important;
+  transition: 0.5s ease all !important;
+  color: white;
+  font-weight: bold;
+}
 .marketplace-title{
   font-size: 3.5rem;
   text-align: center;

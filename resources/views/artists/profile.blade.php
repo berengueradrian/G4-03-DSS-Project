@@ -142,7 +142,7 @@
         row-gap: 10px;
         column-gap: 10px;
         padding: 10px 0;
-
+        justify-content: center;
         width: 80%;
     }
 
