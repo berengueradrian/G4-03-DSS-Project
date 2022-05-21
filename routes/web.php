@@ -163,6 +163,10 @@ Route::group(['prefix' => 'api'], function () {
     Route::delete('/artists', [ArtistController::class, 'delete'])->name('artist.delete')->middleware('isauth');
     Route::delete('/artists/delete', [ArtistController::class, 'deleteArtist'])->name('artist.deleteProfile')->middleware('artist');
     Route::put('/artists', [ArtistController::class, 'update'])->name('artist.update')->middleware('isauth');  // ISAUTH Comprueba que es artist o user
+    Route::put('/artists/profileName', [ArtistController::class, 'updateProfileName'])->name('artist.updateProfileName')->middleware('isauth');
+    Route::put('/artists/profilePassword', [ArtistController::class, 'updateProfilePassword'])->name('artist.updateProfilePassword')->middleware('isauth');
+    Route::put('/artists/profileDescription', [ArtistController::class, 'updateProfileDescription'])->name('artist.updateProfileDescription')->middleware('isauth');
+    
 });
 
 Auth::routes();

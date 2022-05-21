@@ -17,7 +17,7 @@ class MailController extends Controller
         if(Auth::check()){
             Mail::to($data->email_subs)->send(new SendNewsletter(Auth::user()->name));
         }
-        elseif(Auth::guard('custom')->user()->name){
+        elseif(Auth::guard('custom')->check()){
             Mail::to($data->email_subs)->send(new SendNewsletter(Auth::guard('custom')->user()->name));
         }
         else{
