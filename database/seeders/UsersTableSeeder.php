@@ -24,7 +24,8 @@ class UsersTableSeeder extends Seeder
                 'name' => 'marioalc19',
                 'balance' => 19,
                 'email' => 'marioloco@gmail.com',
-                'password' => Hash::make('1234')
+                'password' => Hash::make('1234'),
+                'img_url' => 'user_1.png'
             ]);
             DB::table('users')->insert(
             [
@@ -32,15 +33,33 @@ class UsersTableSeeder extends Seeder
                 'balance' => 7,
                 'email' => 'amamancio@gmail.com',
                 'password' => Hash::make('1234'),
-                'is_admin' => true
+                'is_admin' => true,
+                'img_url' => 'musk.jpeg'
             ]);
             DB::table('users')->insert(
             [
                 'name' => 'mesipeq',
                 'balance' => 16,
                 'email' => 'adrinano@gmail.com',
-                'password' => Hash::make('1234')
+                'password' => Hash::make('1234'),
+                'img_url' => 'cr.jpg'
             ]
         );
+        DB::table('users')->insert(
+            [
+                'name' => 'kariim',
+                'balance' => 10000,
+                'email' => 'karim@gmail.com',
+                'password' => Hash::make('1234'),
+                'img_url' => 'karim.jpg'
+            ]);
+        DB::table('users')->insert(
+            [
+                'name' => 'vinijr',
+                'balance' => 10000,
+                'email' => 'vinisius@gmail.com',
+                'password' => Hash::make('1234'),
+                'img_url' => 'vini.jpg'
+            ]);
     }
 }
