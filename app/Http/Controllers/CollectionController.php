@@ -126,6 +126,62 @@ class CollectionController extends Controller
         return view('collections.list')->with('collections', $collections);
     }
 
+    public function putOnSaleCollection( Request $request, int $id) {
+        
+        $request->validate([
+            'limit_date' => 'required|date|after:today'
+        ]);
+        $newCollection = Collection::whereId($id)->first();
+        if($request->limit_date < now()) {
+            session()->flash('fail', 'The date is required.');
+            return back();
+            //return redirect()->route('collection.getOne');
+        }
+        else {
+            foreach($newCollection->nfts as $nft) {
+                if($nft->type_id == 5) {
+                    $nft->available = true;
+                    $nft->limit_date = $request->limit_date;
+                    $nft->save();
+                }
+                else {
+                    $nft->available = true;
+                    $nft->save();
+                }
+            }
+            $newCollection->on_sale = true;
+            $newCollection->save();
+            session()->flash('success', 'The collection was put on sale correctly.');
+            return back();
+            //return redirect()->route('collection.getOne');
+        }
+    }
+
+    public function addCollection(Request $request, $artist)
+    {
+        $request->validate([
+            'name' => 'required|max:50',
+            'description' => 'required|max:50',
+            'img_url' => 'max:50'
+        ]);
+
+        $collection = Collection::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'artist_id' => $artist,
+        ]);
+
+        if ($request->filled('img_url')) {
+            $request->validate(['img_url' => 'max:50']);
+            $collection->img_url = $request->img_url;
+        } else {
+            $collection->img_url = 'default.jpg';
+        }
+
+        $collection->save();
+
+        return back();
+    }
     // public function putOnSaleCollection(int $id, Request $request) {
     //     $newCollection = Collection::whereId($id)->first();
     //     $request->validate([

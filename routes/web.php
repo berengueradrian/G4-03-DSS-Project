@@ -64,6 +64,8 @@ Route::get('/profileSettings', function () {
 //For storing an image
 Route::post('/store-image', [ImageUploadController::class, 'storeImage'])
     ->name('images.store');
+Route::post('/store-collection-image', [ImageUploadController::class, 'storeCollectionImage'])
+    ->name('imagesCollection.store');
 
 //COLLECTIONS
 //Sort by name
@@ -147,7 +149,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/collections', [CollectionController::class, 'getAll'])->name('collection.getAll')->middleware('admin');
     Route::post('/collections', [CollectionController::class, 'store'])->name('collection.store')->middleware('admin');
     Route::delete('/collections', [CollectionController::class, 'delete'])->name('collection.delete')->middleware('admin');
-    Route::put('/collections', [CollectionController::class, 'update'])->name('collection.update')->middleware('admin');
+    Route::put('/collections', [CollectionController::class, 'update'])->name('collection.update')->middleware('artist');
 
     //## Type ##
     Route::get('/types/{type}',  [TypeController::class, 'get'])->name('type.getOne')->middleware('admin');
@@ -184,5 +186,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //ARTIST ADD COLLECTION AND ADD NFT
 Route::get('/profile/artists/{artist}/addCollection', [ArtistController::class, 'addCollection'])->middleware('artist');
-Route::get('/profile/artists/{artist}/collections/{collection}/edit', [ArtistController::class, 'editCollection'])->middleware('artist');
+Route::post('artists/{artist}/addCollection', [CollectionController::class, 'addCollection'])->name('collection.add');
+Route::get('/profile/artists/{artist}/collections/{collection}/edit', [ArtistController::class, 'editCollection']);
 Route::get('/profile/artists/{artist}/collections/{collection}/edit/addNft', [ArtistController::class, 'addNft'])->middleware('artist');

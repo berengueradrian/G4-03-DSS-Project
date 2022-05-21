@@ -13,7 +13,7 @@
     @endif
     <div class="col-info">
         <div class="col-pic">
-            <img src="../../images/{{ $collection->img_url }}" alt="" width="400px" style="border: 1px black solid">
+            <img src="../../images/{{ $collection->img_url }}" alt="" width="100%" style="border: 1px black solid">
         </div>
         <div class="col-text">
             <h1>{{ $collection->name }}</h1>
@@ -42,7 +42,7 @@
     </div>
     
     @if(Auth::guard('custom')->user()->id == $collection->artist_id )
-    <div class="edit-collection">
+    <div class="edit-collection" style="margin-bottom: 20px;">
         <a href="/profile/artists/{{$collection->artist_id}}/collections/{{$collection->id}}/edit">
         <button class="btn btn-primary" style="align-self: center;">Edit Collection</button>
         </a>
@@ -111,7 +111,7 @@
     }
     .form-control {
         width: 30%!important;
-        display:felx;
+        display:flex;
     }
     .input[type="date"] {
         display:flex;
@@ -130,13 +130,15 @@
     }
 
     .collection{
-        margin-left: 120px;
-        margin-right: 120px;
+        margin-left: 7%;
+        margin-right: 7%;
+        align-self: center;
     }
     .col-info{
         display: flex;
         align-items: center;
         margin-bottom: 100px;
+        flex-wrap: wrap;
         
     }
     h3{
@@ -160,7 +162,7 @@
     }
     .col-artist{
         margin-left: 100px;
-        width: 12%;
+        width: 150px;
         display: flex;
         flex-flow: column;
         align-items: center;
@@ -170,5 +172,32 @@
         justify-content: center;
         margin-top: 30px;
         display: flex;
+    }
+
+    @media (max-width:1300px){
+        .col-info{
+        display: flex;
+        align-items: center;
+        margin-bottom: 100px;
+        flex-flow: column;
+        justify-content: center;
+        }
+
+        .col-text{
+            margin-top: 10px;
+            align-self:center;
+            height: 100%;
+            margin-left: 0;
+        }
+        .col-pic{
+            width: 100%;
+        }
+        .col-artist{
+            width: 150px;
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            margin: 0;
+        }
     }
 </style>
