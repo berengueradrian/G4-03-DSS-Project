@@ -28,7 +28,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon10">ETH</span>
                                 </div>
-                                <input type="text" class="form-control" name="addBalance" value="{{ old('addBalance') }}" placeholder="Balance you want to add..." aria-label="iddelete" aria-describedby="basic-addon10" id="addBalance">
+                                <input type="text" class="form-control" name="addBalance" placeholder="Balance you want to add..." aria-label="iddelete" aria-describedby="basic-addon10" id="addBalance">
                                 <input type="hidden" value={{ Auth::user()->id }} name="userId" id="userId">
                             </div>
                             @if ($errors->has('addBalance'))
@@ -95,7 +95,7 @@
 
         @for ($i = 0; $i < Auth::user()->nfts->count(); $i++)
             <a href="/nfts/buy/{{Auth::user()->nfts[$i]->id}}">
-                <img src="/images/{{Auth::user()->nfts[$i]->img_url}}" width="100" height="100" alt="">
+                <img src="/images/{{Auth::user()->nfts[$i]->img_url}}" width="150" alt="">
                 @endfor
             </a>
 
@@ -161,8 +161,8 @@
         row-gap: 10px;
         column-gap: 10px;
         padding: 10px 0;
-
-        width: 80%;
+        justify-content: center;
+        width: fit-content !important; 
     }
 
     .center {
