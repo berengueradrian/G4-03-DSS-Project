@@ -16,9 +16,14 @@
     <p><strong>Collections:</strong></p>
     <div class="listado">
         @foreach($artist->collections as $collection)
+        <div>
             <a href='/api/collections/{{ $collection->id }}'>
-                <img src="/images/{{ $collection->img_url}}" width="150" alt="">
+                <img src="/images/{{ $collection->img_url}}" width="220px" alt="">
             </a>
+            <div class="namecol">
+                <p>{{$collection->name}}</p>
+            </div>
+        </div>
         @endforeach
 
     </div>
@@ -29,6 +34,10 @@
 @endsection
 
 <style lang="css">
+
+    .namecol {
+        text-align: center;
+    }
 
     .listado {
         flex-wrap: wrap;

@@ -8,7 +8,7 @@
 @endif
 <div class="main-home-guest">
     <div class="title">
-        <strong><h1 class="title-text">DSG CHAIN MARKETPLACE</h1></strong>
+        <strong><h1 class="title-text">DSG CHAIN CORPORATION</h1></strong>
     </div>
     <hr class="separator">
     <div class="content-images">
@@ -29,7 +29,12 @@
             <form method="POST" action="{{ route('sendMail') }}" style="display: flex">
               <div class="input-group subscribe">
                 <span class="input-group-text email-icon" id="basic-addon1">@</span>
+                @auth
+                <input value="{{ Auth::user()->email }}" type="email" name="email_subs" id="email_subs" class="form-control email" placeholder="E-mail" aria-label="Email" aria-describedby="basic-addon1">
+                @endauth
+                @guest
                 <input type="email" name="email_subs" id="email_subs" class="form-control email" placeholder="E-mail" aria-label="Email" aria-describedby="basic-addon1">
+                @endguest
               </div>
               <button type="submit" class="btn btn-light btn-subscribe">Subscribe</button>
             </form>
@@ -47,7 +52,7 @@
         </p>
         <div class="marketplace-popular-nfts-content">
           <div class="marketplace-popular-nfts-best">
-            <img src="/images/{{ $bestNft->img_url }}" alt="" class="marketplace-popular-nfts-best-img">
+            <a href="nfts/buy/{{ $bestNft->id }}"><img src="/images/{{ $bestNft->img_url }}" alt="" class="marketplace-popular-nfts-best-img"></a>
             <div class="marketplace-popular-nfts-best-data">
               <div class="best-main-data">
                 <p>{{$bestNft->name}}</p>
@@ -58,8 +63,8 @@
           </div>
           <div class="marketplace-popular-nfts-rest">
             @foreach($popularNfts as $popularNft)
-            <div class="marketplace-popular-nfts-rest-item">
-              <img src="/images/{{ $popularNft->img_url }}" alt="" class="marketplace-popular-nfts-rest-img">
+            <div class="marketplace-popular-nfts-rest-item" >
+              <a href="nfts/buy/{{ $popularNft->id }}"><img src="/images/{{ $popularNft->img_url }}" alt="" class="marketplace-popular-nfts-rest-img"></a>
               <div class="marketplace-popular-nfts-rest-data">
                 <div class="rest-main-data">
                   <p>{{$popularNft->name}}</p>
@@ -288,7 +293,7 @@
   }
 
   .email{
-    padding: 10px 20px !important;
+    padding: 25px 20px !important;
     font-size: 1rem !important;
   }
 

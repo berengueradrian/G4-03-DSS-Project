@@ -6,7 +6,7 @@
 <h3 class="title"><strong>Profile</strong></h3>
 <div class="container">
     @if($errors->has('addBalance'))
-        <div class="invalid-tooltip mb-3 mt-3 error-msg">{{ $errors->first('addBalance') }}</div>
+    <div class="invalid-tooltip mb-3 mt-3 error-msg">{{ $errors->first('addBalance') }}</div>
     @endif
     <div class="content">
         <!-- MODAL -->
@@ -28,7 +28,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon10">ETH</span>
                                 </div>
-                                <input type="text" class="form-control" name="addBalance" value="{{ old('addBalance') }}" placeholder="Balance you want to add..." aria-label="iddelete" aria-describedby="basic-addon10" id="addBalance">
+                                <input type="text" class="form-control" name="addBalance" placeholder="Balance you want to add..." aria-label="iddelete" aria-describedby="basic-addon10" id="addBalance">
                                 <input type="hidden" value={{ Auth::user()->id }} name="userId" id="userId">
                             </div>
                             @if ($errors->has('addBalance'))
@@ -83,8 +83,7 @@
                 <div class="input-group mb-3 bootstrap-input">
                     <input type="hidden" class="form-control" name="iddelete" value="{{Auth::user()->id}}" aria-label="iddelete" aria-describedby="basic-addon10" id="iddelete">
                 </div>
-                <button type="submit" class="btn btn-danger">Delete account</button>
-
+                <button type="submit" onclick="return confirm('Confirm your operation delete')" class="btn btn-danger">Delete account</button>
             </form>
 
 
@@ -96,7 +95,7 @@
 
         @for ($i = 0; $i < Auth::user()->nfts->count(); $i++)
             <a href="/nfts/buy/{{Auth::user()->nfts[$i]->id}}">
-                <img src="/images/{{Auth::user()->nfts[$i]->img_url}}" width="100" height="100" alt="">
+                <img src="/images/{{Auth::user()->nfts[$i]->img_url}}" width="150" alt="">
                 @endfor
             </a>
 
@@ -108,7 +107,7 @@
 <style lang="scss">
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
-    .error-msg{
+    .error-msg {
         display: block !important;
         position: relative !important;
         width: fit-content;
@@ -162,8 +161,8 @@
         row-gap: 10px;
         column-gap: 10px;
         padding: 10px 0;
-
-        width: 80%;
+        justify-content: center;
+        width: fit-content !important; 
     }
 
     .center {

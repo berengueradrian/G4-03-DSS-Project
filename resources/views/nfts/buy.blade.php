@@ -167,33 +167,29 @@
 
         </div>
     </div>
-
+    
     <div class="nombre">NFT CHARACTERISTICS</div>
     <div class="listado">
-        <ul class="timeline">
-            <li><span class="badge badge-primary badge-pill font-weight-normal">
-                    Collection: {{$nft->collectionName->name}}
-                </span>
+        <ul>
+            <li>
+                <p class="clase2">Collection: {{$nft->collectionName->name}}</p> 
             </li>
-            <li> <span class="badge badge-primary badge-pill font-weight-normal">
-                    Type: {{$nft->typeName->name}}
-                </span>
+            <li>
+                <p class="clase2">Type: {{$nft->typeName->name}}</p>
             </li>
-            <li><span class="badge badge-primary badge-pill font-weight-normal">
-                    Type description: {{$nft->typeName->description}}
-                </span>
+            <li>
+                <p class="clase2">Type description: {{$nft->typeName->description}}</p>
             </li>
-            <li><span class="badge badge-primary badge-pill font-weight-normal">
-                    Artist: {{$nft->collectionName->artistName->name}}
-                </span>
+            <li>
+                <p class="clase2">Artist: {{$nft->collectionName->artistName->name}}</p>
             </li>
-            <li><span class="badge badge-primary badge-pill font-weight-normal">
-                    Artist description: {{$nft->collectionName->artistName->description}}
-                </span>
+            <li>
+                <p class="clase2">Artist description: {{$nft->collectionName->artistName->description}}</p>
             </li>
         </ul>
 
     </div>
+    
 
 </div>
 @endsection
@@ -235,6 +231,32 @@
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
     @import url(https://fonts.googleapis.com/css?family=Montserrat:900|Raleway:400,400i,700,700i);
     
+    @media(max-width: 500px) {
+        .container .content {
+            flex-direction: column;
+        }
+        
+    }
+
+    .invalid-tooltip {
+        display: block!important;
+        position: relative!important;
+        width: fit-content!important;
+    }
+    
+    .adriclas {
+        display: flex;
+        margin: 10px 0;
+    }
+
+    .clase2 {
+        display: flex;
+        background-color: whitesmoke!important;
+        color: black ! important;
+        padding: 10px 15px!important;
+        border-radius: 20px;
+        width: fit-content;
+    }
     /*  */
     * {
         margin: 0;
@@ -261,48 +283,33 @@
         color: #888;
     }
 
+    .timeline {
+        display: flex;
+        flex-direction: column;
+    }
+
     ul.timeline li:before {
         content: "";
-        display: inline-block;
+        /* display: inline-block; */
         height: 3em;
         width: 1px;
+        display: flex;
         background: #aaaa;
         margin: 0;
         padding: 0;
-        position: absolute;
+        /* position: absolute; */
         left: -11px;
         top: -0.4em;
         z-index: -1;
     }
 
-    /* ul.timeline:before {
-        content: "●";
-        display: inline-block;
-        margin: 0;
-        padding: 0;
-        position: relative;
-        left: -1em;
-        top: 0.1em;
-        color: #aaa;
-    } */
-
-    /* ul.timeline:after {
-        content: "●";
-        display: inline-block;
-        margin: 0;
-        padding: 0;
-        position: relative;
-        left: -1em;
-        top: -1em;
-        color: #aaa;
-    } */
-
-    .badge-primary {
-        /* color: #fff; */
+    /* .badge-primary {
+        /* color: #fff; 
         color: black ! important;
         padding: 10px 10px!important;
         background-color: whitesmoke!important;
-    }
+        display: flex;
+    } */
 
     /*  */
 
@@ -312,6 +319,8 @@
 
     .nombre {
         margin: auto;
+        display: flex;
+        justify-content: center;
         border-bottom: 1px solid black;
         margin-bottom: 20px;
         margin-top: 30px;
@@ -320,7 +329,6 @@
         text-align: center;
         font-size: 20px;
         font-weight: bolder;
-
     }
 
     .textB {
@@ -373,6 +381,7 @@
         margin-bottom: 10px;
         align-items: center;
         justify-content: space-between;
+        
     }
 
     .container .content .left-side {

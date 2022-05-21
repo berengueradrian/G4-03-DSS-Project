@@ -23,7 +23,8 @@ class CollectionsTableSeeder extends Seeder
             [
                 'description' => 'Developed by Elon Musk and Michael Jordan',
                 'artist_id' => $artistsId[0],
-                'name' => 'MuskCollection'
+                'name' => 'MuskCollection',
+                'img_url' => 'zxc.jpeg'
             ]
         );
 
@@ -31,7 +32,8 @@ class CollectionsTableSeeder extends Seeder
             [
                 'description' => 'Most exotics NFTs are here!',
                 'artist_id' => $artistsId[1],
-                'name' => 'ExoticCollection'
+                'name' => 'ExoticCollection',
+                'img_url' => 'col1.jpg'
             ]
         );
 
@@ -40,7 +42,8 @@ class CollectionsTableSeeder extends Seeder
             [
                 'description' => 'The first collection ever created!',
                 'artist_id' => $artistsId[2],
-                'name' => 'FirstCollection'
+                'name' => 'FirstCollection',
+                'img_url' => 'col2.jpg'
             ]
         );
 
@@ -48,39 +51,44 @@ class CollectionsTableSeeder extends Seeder
             [
                 'description' => 'The second collection ever created!',
                 'artist_id' => $artistsId[2],
-                'name' => 'SecondCollection'
+                'name' => 'SecondCollection',
+                'img_url' => 'col3.jpg'
             ]
         );
 
         DB::table('collections')->insert(
             [
                 'description' => 'The third collection ever created!',
-                'artist_id' => $artistsId[2],
-                'name' => 'ThirdCollection'
+                'artist_id' => $artistsId[3],
+                'name' => 'ThirdCollection',
+                'img_url' => 'col4.jpg'
             ]
         );
 
         DB::table('collections')->insert(
             [
                 'description' => 'The Fourth collection ever created!',
-                'artist_id' => $artistsId[2],
-                'name' => 'FourthCollection'
+                'artist_id' => $artistsId[1],
+                'name' => 'FourthCollection',
+                'img_url' => 'col5.jpg'
             ]
         );
 
         DB::table('collections')->insert(
             [
                 'description' => 'The Fifth collection ever created!',
-                'artist_id' => $artistsId[2],
-                'name' => 'FifthCollection'
+                'artist_id' => $artistsId[3],
+                'name' => 'FifthCollection',
+                'img_url' => 'col6.jpg'
             ]
         );
 
         DB::table('collections')->insert(
             [
                 'description' => 'Trying some methods',
-                'artist_id' => $artistsId[2],
-                'name' => 'CollectionTry'
+                'artist_id' => $artistsId[0],
+                'name' => 'CollectionTry',
+                'img_url' => 'col7.jpg'
             ]
         );
     }
