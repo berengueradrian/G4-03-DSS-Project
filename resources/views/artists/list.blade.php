@@ -95,7 +95,7 @@
                         </form>
                     </td>
                     <td>
-                        <button type="button" onclick="changeTab(`{{ $artist->id }}`)" class="btn btn-outline-secondary btn-sm">Edit type</button>
+                        <button type="button" onclick="changeTab(`{{ $artist->id }}`)" class="btn btn-outline-secondary btn-sm">Edit artist</button>
                     </td>
                 </tr>
                 @endforeach

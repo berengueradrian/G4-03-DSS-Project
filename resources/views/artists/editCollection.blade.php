@@ -32,15 +32,17 @@
         </div>
         
     </div>
-    
-        
-   
+  
+    <form action="{{ route('collection.update') }}" 
+        method="POST" class="needs-validation update-collection-container">
+        @csrf
+        @method('PUT')
     <div class="name-input">
-        <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1">
+        <input type="text" class="form-control" value="{{ old('name_update') }}" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" name="name_update" id="name_update">
     </div>
 
     <div class="description-input">
-        <textarea placeholder="Description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <textarea placeholder="Description" class="form-control" id="exampleFormControlTextarea1" rows="3" name="description_update" id="description_update"></textarea>
     </div>
 
     <div class="create-col-btn">
@@ -52,17 +54,18 @@
 
     <div class="added-nfts">
         @foreach ($collection->nfts as $nft)
-                <div class="nft" style="width: 450px;">
+                <div class="nft" style="width: 300px;">
                 <a href="/nfts/buy/{{$nft->id}}">
-                    <img src="../../images/{{ $nft->img_url }}" width="450px" alt="" style="border: 1px black solid">
+                    <img src="/images/{{ $nft->img_url }}" width="300px" alt="" style="border: 1px black solid">
                 </a>
                 </div>
         @endforeach
     </div>
 
     <div class="create-col-btn">
-        <button type="button" class="btn btn-outline-dark btn-lg">&nbsp;Edit &nbsp;</button>
+        <button type="sumbit" class="btn btn-outline-dark btn-lg">&nbsp;Save changes &nbsp;</button>
     </div>
+    </form>
 
     
 </div>

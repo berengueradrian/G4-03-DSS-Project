@@ -75,12 +75,12 @@
                             <button type="submit" onclick="return confirm('Confirm your operation delete')" class="btn btn-danger btn-sm">Delete user</button>
 
                             @else
-                            -- Can not delete admin profile --
+                            -- Can not delete your profile --
                             @endif
                         </form>
                     </td>
                     <td>
-                        <button type="button" onclick="changeTab(`{{ $user->id }}`)" class="btn btn-outline-secondary btn-sm">Edit type</button>
+                        <button type="button" onclick="changeTab(`{{ $user->id }}`)" class="btn btn-outline-secondary btn-sm">Edit User</button>
                     </td>
                 </tr>
                 @endforeach
