@@ -247,8 +247,9 @@
         display: flex;
         background-color: whitesmoke!important;
         color: black ! important;
-        padding: 10px 10px!important;
-
+        padding: 10px 15px!important;
+        border-radius: 20px;
+        width: fit-content;
     }
     /*  */
     * {
