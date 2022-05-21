@@ -237,6 +237,12 @@
         }
         
     }
+
+    .invalid-tooltip {
+        display: block!important;
+        position: relative!important;
+        width: fit-content!important;
+    }
     
     .adriclas {
         display: flex;
