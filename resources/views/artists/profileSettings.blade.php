@@ -62,7 +62,6 @@
             <div class="change-name">
                 <h4> Change name </h4>
 
-                <!-- TODO: no muestra los errores!!! -->
                 <form action="{{ route('artist.updateProfileName') }}" method="POST" class="needs-validation create-user-container">
                     @csrf
                     @method('PUT')

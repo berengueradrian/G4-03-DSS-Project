@@ -49,7 +49,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Volume sold</span>
         </div>
-        <input type="text" class="form-control" name="volume_sold_update" value="{{ old('volume_sold_update') }}" placeholder="New collection name (optional)" aria-label="Name" aria-describedby="basic-addon1" id="volume_sold_update">
+        <input type="text" class="form-control" name="volume_sold_update" value="{{ old('volume_sold_update') }}" placeholder="New volume sold amount (optional)" aria-label="Name" aria-describedby="basic-addon1" id="volume_sold_update">
     </div>
     @if ($errors->has('volume_sold_update'))
         @foreach ($errors->get('volume_sold_update') as $error)
@@ -61,7 +61,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Image</span>
         </div>
-        <input type="text" class="form-control" name="img_url_update" value="{{ old('img_url_update') }}" placeholder="New collection name (optional)" aria-label="Name" aria-describedby="basic-addon1" id="img_url_update">
+        <input type="text" class="form-control" name="img_url_update" value="{{ old('img_url_update') }}" placeholder="New image (optional)" aria-label="Name" aria-describedby="basic-addon1" id="img_url_update">
     </div>
     @if ($errors->has('img_url_update'))
         @foreach ($errors->get('img_url_update') as $error)

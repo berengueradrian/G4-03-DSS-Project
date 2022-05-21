@@ -143,7 +143,8 @@ Route::group(['prefix' => 'api'], function () {
     Route::delete('/users', [UserController::class, 'delete'])->name('user.delete')->middleware('auth');
     Route::put('/users', [UserController::class, 'update'])->name('user.update')->middleware('auth');
     Route::put('/users/addBalance', [UserController::class, 'addBalance'])->name('user.updateBalance')->middleware('auth');
-
+    Route::put('/users/profileName', [UserController::class, 'updateProfileName'])->name('user.updateProfileName')->middleware('auth');
+    Route::put('/users/profilePassword', [UserController::class, 'updateProfilePassword'])->name('user.updateProfilePassword')->middleware('auth');
     //## Collection ##
     Route::get('/collections/{collection}',  [CollectionController::class, 'get'])->name('collection.getOne')->middleware('admin');
     Route::get('/collections', [CollectionController::class, 'getAll'])->name('collection.getAll')->middleware('admin');
