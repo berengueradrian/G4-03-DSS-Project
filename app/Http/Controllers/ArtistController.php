@@ -101,7 +101,7 @@ class ArtistController extends Controller
         ]);
         $newArtist = Artist::find($request->id_update);
         $request->validate([
-            'password_update_profile => required|max:50',
+            'password_update_profile' => 'required|max:50',
             'password_password' => 'required',
             'current_password_password' => 'required|same:password_password',
         ]);
