@@ -31,7 +31,7 @@
         </div>
         
     </div>
-    
+
     @if(Auth::guard('custom')->user()->id == $collection->artist_id )
     <div class="edit-collection" style="margin-bottom: 20px;">
         <a href="/profile/artists/{{$collection->artist_id}}/collections/{{$collection->id}}/edit">
@@ -65,14 +65,13 @@
     </div>
     @endif
     @endif
-    
     <div class="col-nfts">
         <h3>NFTS</h3>
         <div class="nfts">
             @foreach ($collection->nfts as $nft)
-                <div class="nft" style="width: 200px; margin-right:50px;">
+                <div class="nft" style="width: 200px; margin-right:50px;margin-bottom:30px;">
                 <a href="/nfts/buy/{{$nft->id}}">
-                    <img src="../../images/{{ $nft->img_url }}" width="100%" alt="" style="border: 1px black solid">
+                    <img src="../../images/{{ $nft->img_url }}" width="100%" height="135.65px" alt="" style="border: 1px black solid">
                 </a>
                 </div>
             @endforeach
@@ -156,6 +155,7 @@
         justify-content: center;
         margin-top: 30px;
         display: flex;
+        flex-wrap: wrap;
     }
 
     @media (max-width:1300px){
@@ -181,7 +181,8 @@
             display: flex;
             flex-flow: column;
             align-items: center;
-            margin: 0;
+            margin-top: 20px;
+            margin-left: 0;
         }
     }
 </style>

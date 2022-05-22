@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Nft;
 use App\Models\Artist;
+use App\Models\Collection;
 use App\Models\User;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
@@ -313,6 +314,40 @@ class NftController extends Controller
             $nft->update();
             session()->flash('fail', 'The NFT has not bids, so it will be added a month to its limit date.');
         }
+        return back();
+    }
+
+    public function addNft(Request $data, $collection)
+    {
+        $data->validate([
+            'name' => 'required|max:50',
+            'base_price' => 'required|numeric|gte:0|digits_between:1,20',
+            'type_id' => 'required|exists:types,id'
+        ]);
+
+
+        $nft = Nft::create([
+            'name' => $data->name,
+            'base_price' => $data->base_price,
+            'actual_price' => $data->base_price,
+            'available' => false,
+            'collection_id' => $collection,
+            'type_id' => $data->type_id,
+            'user_id' => NULL
+        ]);
+
+        if ($data->filled('img_url')) {
+            $data->validate(['img_url' => 'max:50']);
+            $nft->img_url = $data->img_url;
+        } else {
+            $nft->img_url = 'default.jpg';
+        }
+
+        $nft->save();
+
+        $collec = Collection::find($collection);
+
+
         return back();
     }
 }

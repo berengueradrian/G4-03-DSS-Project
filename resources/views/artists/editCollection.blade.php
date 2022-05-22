@@ -2,47 +2,42 @@
 
 @section('content')
 <h1>EDIT YOUR COLLECTION</h1>
-<div class="add-collection">
+<div class="edit-collection">
     <div class="portada-artist">
-        <div class="portada">
+        <div class="portada" style="display:contents;">
         <div class="foticos">
-            <text> Upload your collection cover!</text>
+            <text> Upload your collection cover if you want to change it!</text>
             <!--THIS IS FOR UPLOADING PHOTO TO PUBLIC FOLDER -->
             <form method="post" action="{{ route('images.store') }}" enctype="multipart/form-data">
                 @csrf
 
-                <input type="file" style="width:400px; margin-bottom:10px" name="img_url" class="custom-file-upload" id="img_url">
+                <input type="file" style=" margin-bottom:10px" name="img_url" class="custom-file-upload" id="img_url">
                 <button type="submit" class="btn btn-success">Upload new photo</button>
             </form>
         </div>
         <br>
-        <div class="foticos">
-            <text> Select your uploaded photo to show it!</text>
-            <!--THIS IS FOR UPDATING EXISTING PHOTO
-            con enctype="multipart/form-data" no detecta como campo rellenado que random!!! -->
-            <form action="{{ route('user.update') }}" method="POST" class="needs-validation create-user-container">
-                @csrf
-                @method('PUT')
-            
-                <input type="hidden" class="form-control" name="id_update" value="{{ Auth::guard('custom')->user()->id }}" placeholder="Identifier of the user" aria-label="id_update" aria-describedby="basic-addon1" id="id_update">
-                <input type="file" style="width:400px; margin-bottom:10px" name="img_url_update" class="custom-file-upload" id="img_url_update">
-                <button type="submit" class="btn btn-secondary">Select uploaded photo</button>
-            </form>
-        </div>
         </div>
         
     </div>
   
-    <form action="{{ route('collection.update') }}" 
-        method="POST" class="needs-validation update-collection-container">
+    <form action="{{ route('collection.edit') }}" 
+        method="POST" class="needs-validation update-collection-container" style="display:contents">
         @csrf
         @method('PUT')
+
+        <div class="choose-file" style="display:flex; flex-flow:column">
+        <text> Select your collection cover!</text>
+            <input type="file" name="img_url" class="custom-file-upload" id="img_url">
+        </div>
+
+        <input style="display:none" type="number" class="form-control" name="id" value="{{ $collection->id}}" placeholder="Identifier of the collection" aria-label="id" aria-describedby="basic-addon1" id="id">
+    
     <div class="name-input">
-        <input type="text" class="form-control" value="{{ old('name_update') }}" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" name="name_update" id="name_update">
+        <input type="text" class="form-control" value="{{ $collection->name }}" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" name="name_update" id="name_update">
     </div>
 
     <div class="description-input">
-        <textarea placeholder="Description" class="form-control" id="exampleFormControlTextarea1" rows="3" name="description_update" id="description_update"></textarea>
+        <textarea placeholder="Description" class="form-control" value="{{ $collection->description }}" id="exampleFormControlTextarea1" name="description_update" id="description_update"></textarea>
     </div>
 
     <div class="create-col-btn">
@@ -52,11 +47,11 @@
         
     </div>
 
-    <div class="added-nfts">
+    <div class="added-nfts" style="display: flex; flex-wrap:wrap;">
         @foreach ($collection->nfts as $nft)
-                <div class="nft" style="width: 300px;">
+                <div class="nft" style="width: 300px; margin:25px;">
                 <a href="/nfts/buy/{{$nft->id}}">
-                    <img src="/images/{{ $nft->img_url }}" width="300px" alt="" style="border: 1px black solid">
+                    <img src="/images/{{ $nft->img_url }}" width="300px" height="203.5px" alt="" style="border: 1px black solid">
                 </a>
                 </div>
         @endforeach
@@ -66,6 +61,9 @@
         <button type="sumbit" class="btn btn-outline-dark btn-lg">&nbsp;Save changes &nbsp;</button>
     </div>
     </form>
+    <a href="/collections/{{$collection->id}}}" >
+            <button  class="btn btn-light btn-sm">&nbsp;Back &nbsp;</button>
+    </a>
 
     
 </div>
@@ -85,14 +83,16 @@
     .col-artist{
         margin-left: 10%;
     }
-    .add-collection{
+    .edit-collection{
         display: flex;
         flex-flow: column;
-        margin-left: 120px;
-        margin-right: 120px;
         align-items: center;
+        justify-content: center;
     }
    
+    .update-collection-controller{
+        display: contents;
+    }
 
    
     .name-input{
