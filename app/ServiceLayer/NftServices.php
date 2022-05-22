@@ -60,6 +60,7 @@ class NftServices {
                 if($user->balance >= $bids[$index]['pivot']['amount']) {
                     $nft->available = false;
                     $nft->user_id = $bids[$index]['pivot']['user_id'];
+                    $nft->actual_price = $bids[$index]['pivot']['amount'];
                     $nft->save();
 
                     $user->balance = $user->balance - $bids[$index]['pivot']['amount'];
@@ -67,7 +68,8 @@ class NftServices {
                     
                     $artist = Artist::whereId($nft->collection->artist_id)->first();
                     $artist->volume_sold += $bids[$index]['pivot']['amount'];
-                    $artist->update();
+                    $artist->balance += $bids[$index]['pivot']['amount'];
+                    $artist->save();
 
                     session()->flash('success', 'Bid closed correctly. NFT sold to the user with the biggest bid and suficient balance');
                     DB::commit();
@@ -76,7 +78,7 @@ class NftServices {
             }
             $nft->limit_date = Carbon::now()->addMonths(1);
             $nft->update();
-            session()->flash('fail', 'The NFT has not bids, so it will be added a month to its limit date.');
+            session()->flash('fail', 'The NFT has not bids from users who can afford it, so it will be added a month to its limit date.');
         }
         else {
             $nft->limit_date = Carbon::now()->addMonths(1);
