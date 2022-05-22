@@ -81,7 +81,7 @@
                     <input type="number" class="form-control" name="bid_amount" placeholder="$ETH" aria-label="Username" aria-describedby="basic-addon3" id="bid_amount">
                 </div>
                 @if ($errors->has('bid_amount'))
-                @foreach ($errors->get('name') as $error)
+                @foreach ($errors->get('bid_amount') as $error)
                 <div class="invalid-tooltip mb-3">{{ $error }}</div>
                 @endforeach
                 @endif
@@ -92,13 +92,25 @@
                     <input type="text" class="form-control" name="bid_wallet" placeholder="0x..." aria-label="Username" aria-describedby="basic-addon3" id="bid_wallet">
                 </div>
                 @if ($errors->has('bid_wallet'))
-                @foreach ($errors->get('name') as $error)
+                @foreach ($errors->get('bid_wallet') as $error)
                 <div class="invalid-tooltip mb-3">{{ $error }}</div>
                 @endforeach
                 @endif
                 <button type="submit" class="btn btn-primary">Place Bid</button>
                 {!! Session::has('msg') ? Session::get("msg") : '' !!}
             </form>
+                @if($nft->bids->count() > 0)
+                <div class="nombre">BIDS</div>
+                <div class="lista">
+                    <ul>
+                        @for($index = $nft->bids->count()-1; $index >= 0; $index--)
+                        <li>User id: {{$nft->bids[$index]['pivot']['user_id']}} placed a {{$nft->bids[$index]['pivot']['amount']}} ETH<img src="/images/eth.svg" width="10px" alt=""> bid.</li>
+                        @endfor
+                    </ul>
+                </div>
+                @else
+                <div class="textG">This NFT has no bids</div>
+                @endif
 
                 @endif
 
@@ -115,7 +127,7 @@
                 </div>
                 @if ($errors->has('purchase_amount'))
                 @foreach ($errors->get('purchase_amount') as $error)
-                <div class="invalid-tooltip mb-3">{{ $error }}</div>
+                    <div class="invalid-tooltip mb-3">{{ $error }}</div>
                 @endforeach
                 @endif
                 <div class="input-group mb-3 bootstrap-input">
@@ -126,7 +138,7 @@
                 </div>
                 @if ($errors->has('purchase_wallet'))
                 @foreach ($errors->get('purchase_wallet') as $error)
-                <div class="invalid-tooltip mb-3">{{ $error }}</div>
+                    <div class="invalid-tooltip mb-3">{{ $error }}</div>
                 @endforeach
                 @endif
                 <button type="submit" class="btn btn-primary">Purchase</button>
@@ -146,6 +158,7 @@
             @endauth
 
             @auth('custom')
+            @if($nft->type_id == 5)
             @if($nft->available)
             @if(Auth::guard('custom')->user()->id == $nft->collection->artist_id)
             @php($limit_date2 = \Carbon\Carbon::parse($nft->limit_date))
@@ -163,37 +176,41 @@
                     This NFT is not on sale.
                 </div>
             @endif
+
+            @else
+                @if(!$nft->available)
+                    <div class="text-one">
+                        This NFT is not on sale.
+                    </div>
+                @endif
+            @endif
             @endauth
 
         </div>
     </div>
-
+    
     <div class="nombre">NFT CHARACTERISTICS</div>
     <div class="listado">
-        <ul class="timeline">
-            <li><span class="badge badge-primary badge-pill font-weight-normal">
-                    Collection: {{$nft->collectionName->name}}
-                </span>
+        <ul>
+            <li>
+                <p class="clase2">Collection: {{$nft->collectionName->name}}</p> 
             </li>
-            <li> <span class="badge badge-primary badge-pill font-weight-normal">
-                    Type: {{$nft->typeName->name}}
-                </span>
+            <li>
+                <p class="clase2">Type: {{$nft->typeName->name}}</p>
             </li>
-            <li><span class="badge badge-primary badge-pill font-weight-normal">
-                    Type description: {{$nft->typeName->description}}
-                </span>
+            <li>
+                <p class="clase2">Type description: {{$nft->typeName->description}}</p>
             </li>
-            <li><span class="badge badge-primary badge-pill font-weight-normal">
-                    Artist: {{$nft->collectionName->artistName->name}}
-                </span>
+            <li>
+                <p class="clase2">Artist: {{$nft->collectionName->artistName->name}}</p>
             </li>
-            <li><span class="badge badge-primary badge-pill font-weight-normal">
-                    Artist description: {{$nft->collectionName->artistName->description}}
-                </span>
+            <li>
+                <p class="clase2">Artist description: {{$nft->collectionName->artistName->description}}</p>
             </li>
         </ul>
 
     </div>
+    
 
 </div>
 @endsection
@@ -229,12 +246,39 @@
     const today = new Date()
     const tomorrow = new Date('{{$nft->limit_date}}')
     timer(tomorrow);
+    $bids = $nft.bids().get().toArray();
 </script>
 
 <style lang="scss">
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
     @import url(https://fonts.googleapis.com/css?family=Montserrat:900|Raleway:400,400i,700,700i);
     
+    @media(max-width: 500px) {
+        .container .content {
+            flex-direction: column;
+        }
+        
+    }
+
+    .invalid-tooltip {
+        display: block!important;
+        position: relative!important;
+        width: fit-content!important;
+    }
+    
+    .adriclas {
+        display: flex;
+        margin: 10px 0;
+    }
+
+    .clase2 {
+        display: flex;
+        background-color: whitesmoke!important;
+        color: black ! important;
+        padding: 10px 15px!important;
+        border-radius: 20px;
+        width: fit-content;
+    }
     /*  */
     * {
         margin: 0;
@@ -261,48 +305,33 @@
         color: #888;
     }
 
+    .timeline {
+        display: flex;
+        flex-direction: column;
+    }
+
     ul.timeline li:before {
         content: "";
-        display: inline-block;
+        /* display: inline-block; */
         height: 3em;
         width: 1px;
+        display: flex;
         background: #aaaa;
         margin: 0;
         padding: 0;
-        position: absolute;
+        /* position: absolute; */
         left: -11px;
         top: -0.4em;
         z-index: -1;
     }
 
-    /* ul.timeline:before {
-        content: "●";
-        display: inline-block;
-        margin: 0;
-        padding: 0;
-        position: relative;
-        left: -1em;
-        top: 0.1em;
-        color: #aaa;
-    } */
-
-    /* ul.timeline:after {
-        content: "●";
-        display: inline-block;
-        margin: 0;
-        padding: 0;
-        position: relative;
-        left: -1em;
-        top: -1em;
-        color: #aaa;
-    } */
-
-    .badge-primary {
-        /* color: #fff; */
+    /* .badge-primary {
+        /* color: #fff; 
         color: black ! important;
         padding: 10px 10px!important;
         background-color: whitesmoke!important;
-    }
+        display: flex;
+    } */
 
     /*  */
 
@@ -312,6 +341,8 @@
 
     .nombre {
         margin: auto;
+        display: flex;
+        justify-content: center;
         border-bottom: 1px solid black;
         margin-bottom: 20px;
         margin-top: 30px;
@@ -320,7 +351,6 @@
         text-align: center;
         font-size: 20px;
         font-weight: bolder;
-
     }
 
     .textB {
@@ -373,6 +403,7 @@
         margin-bottom: 10px;
         align-items: center;
         justify-content: space-between;
+        
     }
 
     .container .content .left-side {

@@ -10,20 +10,18 @@
     <p><strong style="margin-right: 20px">Image:</strong></p>
     <img src="../../images/{{ $collection->img_url }}" alt="" width="200px">
 </div>
-<a href={{ route('collection.getAll') }}>Go back</a></p>
+
 @if($collection->nfts->count() > 0)
     <p><strong>NFTs:</strong></p>
     <div class="centered-nfts">
     <div class="marketplace-nfts">
     @foreach($collection->nfts as $nft)
-    <a class="linkNft" href="/nfts/buy/{{ $nft->id }}"><div class="marketplace-popular-nfts-rest-item">
+    <a class="linkNft" href="/api/nfts/{{ $nft->id }}"><div class="marketplace-popular-nfts-rest-item">
           <img src="/images/{{ $nft->img_url }}" alt="" class="marketplace-popular-nfts-rest-img">
           <div class="marketplace-popular-nfts-rest-data">
             <div class="rest-main-data">
               <p>{{$nft->name}}</p>
-              <p>{{$nft->actual_price}}$</p>
             </div>
-            <i><p class="rest-type">{{$nft->type->name}}</p></i>
           </div>
     </div></a>
     @endforeach
@@ -32,19 +30,21 @@
 @else
     <p><strong>This collection has not got NFTs</strong></p>
 @endif
+
+<a href={{ route('collection.getAll') }}>Go back</a></p>
 @endsection
 
 <style lang="scss">
-    .centered-nfts{
+    /* .centered-nfts{
         width: 100%;
         display: flex;
         justify-content: center;
-    }
+    } */
 
     .marketplace-nfts{
         display: flex;
         flex-flow: row wrap;
-        justify-content: center;
+        /* justify-content: center; */
         gap: 20px;
     }
 
@@ -61,6 +61,7 @@
         display: flex;
         flex-flow: column nowrap;
         margin-right: 50px;
+        text-align:  center;
     }
 
     .rest-main-data p{
@@ -77,21 +78,21 @@
     }
 
     .marketplace-popular-nfts-rest-item{
-        width: 350px;
+        width: 250px;
         cursor: pointer;
         padding: 20px;
         border-radius: 20px;
         transition: .2s ease all;
     }
 
-    .marketplace-popular-nfts-rest-item:hover{
+    /* .marketplace-popular-nfts-rest-item:hover{
         background-color: whitesmoke;
         transition: .2s ease all; 
-    }
+    } */
 
     .marketplace-popular-nfts-rest-item .marketplace-popular-nfts-rest-img{
         width: 100%;
         margin-bottom: 20px;
-        border-radius: 20px;
+        /* border-radius: 20px; */
     }
 </style>

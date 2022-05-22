@@ -39,6 +39,12 @@
 </html>
 
 <style lang="scss">
+    @media(max-width: 1000px) {
+        .nav-item img {
+            display: none;
+        }
+    }
+
     .navbar{
         height: 100px;
         font-size: 20px;

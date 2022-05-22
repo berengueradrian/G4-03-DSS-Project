@@ -84,7 +84,7 @@ class ArtistAuthController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255', 'unique:artists,name'],
-            'password' => ['required', 'string', 'confirmed'], //TODO: , 'min:8' delete for testing easier
+            'password' => ['required', 'string', 'confirmed'],
         ]);
     }
 

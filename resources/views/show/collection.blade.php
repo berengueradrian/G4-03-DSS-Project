@@ -2,6 +2,15 @@
 
 @section('content')
 <div class="collection">
+    @if(Session::has('success'))
+    <div class="alert alert-success" role="alert">
+        {!! Session::has('success') ? Session::get("success") : '' !!}
+    </div>
+    @elseif(Session::has('fail'))
+    <div class="alert alert-danger" role="alert">
+        {!! Session::has('fail') ? Session::get("fail") : '' !!}
+    </div>
+    @endif
     <div class="col-info">
         <div class="col-pic">
             <img src="../../images/{{ $collection->img_url }}" alt="" width="100%" style="border: 1px black solid">
@@ -53,9 +62,9 @@
                     </div>
                     <input type="date" style="width: 20px;" class="form-control" name="limit_date" placeholder="" aria-label="Username" aria-describedby="basic-addon3" id="limit_date">
             </div>
-            @if ($errors->has('limit_date'))
+            @if ($errors->has('limit_date')) 
                 @foreach ($errors->get('limit_date') as $error)
-                <div class="invalid-tooltip mb-3">{{ $error }}</div>
+                <div class="invalid-tooltip mb-3" >{{ $error }}</div>
                 @endforeach
             @endif
             <button type="submit" class="btn btn-primary" style="align-self: center;">Put on sale collection</button>
@@ -82,6 +91,13 @@
 @endsection
 
 <style lang="scss">
+    
+    .invalid-tooltip {
+        display: block!important;
+        position: relative!important;
+        width: fit-content!important;
+    }
+
     .putSale {
         align-items: center;
     }

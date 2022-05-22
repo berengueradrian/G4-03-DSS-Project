@@ -7,7 +7,7 @@ use App\Models\Artist;
 use App\Models\Collection;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Auth;
-use Hash;
+use \Hash;
 
 class ArtistController extends Controller
 {
@@ -73,6 +73,68 @@ class ArtistController extends Controller
         return back()->with('withCollection', false);
     }
 
+    public function updateProfileName(Request $request) {
+        
+        $request->validate([
+            'id_update' => 'required'
+        ]);
+        $newArtist = Artist::find($request->id_update);
+        // ARTIST NAME PROFILE SETTINGS
+        $request->validate([
+            'name_update_profile' => 'required|max:50',
+            'passwordName' => 'required',
+            'current_password_name' => 'required|same:passwordName',
+        ]);
+        
+        if (\Hash::check($request->current_password_name, $newArtist->password)) {
+            $newArtist->name = $request->name_update_profile;
+            session()->flash('msg', 'Name updated correctly!');
+        } else {
+            session()->flash('errorMsg', 'Invalid password!');
+        }
+        return back();
+    }
+
+    public function updateProfilePassword(Request $request) {
+        $request->validate([
+            'id_update' => 'required'
+        ]);
+        $newArtist = Artist::find($request->id_update);
+        $request->validate([
+            'password_update_profile' => 'required|max:50',
+            'password_password' => 'required',
+            'current_password_password' => 'required|same:password_password',
+        ]);
+        if (\Hash::check($request->current_password_password, $newArtist->password)) {
+            $newArtist->password = \Hash::make($request['password_update_profile']);
+            $newArtist->update();
+            session()->flash('msg', 'Password updated correctly!');
+        } else {
+            session()->flash('errorMsg', 'Invalid current password!');
+        }
+        return back();
+    }
+
+    public function updateProfileDescription(Request $request) {
+        $request->validate([
+            'id_update' => 'required'
+        ]);
+        $newArtist = Artist::find($request->id_update);
+        $request->validate([
+            'description_update_profile' => 'required',
+            'password_description' => 'required',
+            'current_password_description' => 'required|same:password_description',
+        ]);
+        if (\Hash::check($request->current_password_description, $newArtist->password)) {
+            $newArtist->description = $request['description_update_profile'];    
+            $newArtist->update();
+            session()->flash('msg', 'Description updated correctly!');
+        } else {
+            session()->flash('errorMsg', 'Invalid password!');
+        }
+        return back();
+    }
+
     public function update(Request $request)
     {
         $request->validate([
@@ -86,43 +148,6 @@ class ArtistController extends Controller
             session()->flash('msg', 'Image updated correctly!');
         }
         // ----------------------------------
-        // ARTIST NAME PROFILE SETTINGS
-        if($request->filled('name_update_profile') && $request->filled('password') && $request->filled('current_password')){
-            $request->validate([
-                'name_update_profile' => 'max:50',
-                'password' => 'required',
-                'current_password' => 'required|same:password',
-            ]);
-            if (\Hash::check($request->current_password, $newArtist->password)) {
-                $newArtist->name = $request->name_update_profile;
-                session()->flash('msg', 'Name updated correctly!');
-            } else {
-                session()->flash('errorMsg', 'Invalid password!');
-            }
-        }
-        // ------------------------------------
-        // PASSWORD PFOFILE SETTINGS
-        if ($request->filled('password_update_profile')  && $request->filled('password') && $request->filled('current_password')) {
-            $request->validate([
-                'password_update_profile => required|max:50',
-                'password' => 'required',
-                'current_password' => 'required|same:password',
-            ]);
-            $newArtist->password = \Hash::make($request['password_update_profile']);
-            session()->flash('msg', 'Password updated correctly!');
-        }
-        // ------------------------------------
-        // DESCRIPTION PFOFILE SETTINGS
-        if ($request->filled('description_update_profile')  && $request->filled('password') && $request->filled('current_password')) {
-            $request->validate([
-                'description_update_profile => required',
-                'password' => 'required',
-                'current_password' => 'required|same:password',
-            ]);
-            $newArtist->description = $request['description_update_profile'];
-            session()->flash('msg', 'Description updated correctly!');
-        }
-        // ------------------------------------
         if ($request->filled('name_update')) {
             $request->validate([
                 'name_update' => 'max:50',

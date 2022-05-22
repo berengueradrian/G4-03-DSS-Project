@@ -21,7 +21,7 @@
         </ul>
         <ul class="navbar-nav justify-content-end" style="margin-left: auto;">
             @auth
-            <li class="nav-item">
+            <li class="nav-item img">
                 <img src="/images/{{Auth::user()->img_url}}" width="40" height="40" alt="" style="border-radius: 50%;">
             </li>
             <li class="nav-item">
@@ -57,6 +57,13 @@
 </html>
 
 <style lang="scss">
+    
+    @media(max-width: 1000px) {
+        .nav-item img {
+            display: none;
+        }
+    }
+
     .navbar {
         height: 90px;
         font-size: 20px;
