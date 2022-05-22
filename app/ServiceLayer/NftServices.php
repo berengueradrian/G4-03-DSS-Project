@@ -11,6 +11,43 @@ use App\Models\User;
 
 class NftServices {
 
+    
+    public function purchaseNFT(Request $request, int $id)
+    {
+        $request->validate([
+            'purchase_wallet' => 'required|max:30'
+        ]);
+
+        DB::beginTransaction();
+
+        $nft = Nft::whereId($id)->first();
+        $buyer = User::whereId(Auth::user()->id)->first();
+        $seller = Artist::whereId($nft->collectionName->artistName->id)->first();
+
+        if (($buyer->balance - $request->purchase_amount) >= 0) { //If balance user allow buying at that amount
+
+            // NFT properties update 
+            $nft->user_id = $buyer->id; //Update property user
+            $nft->available = false; //when buying it's unavailable until new owner wants
+            $nft->save();
+
+            // BUYER USER properties update 
+            $buyer->balance -= $request->purchase_amount;
+            $buyer->save();
+
+            // ARTIST BALANCE properties update
+            $seller->volume_sold += $request->purchase_amount;
+            $seller->save();
+        } else {
+            session()->flash('fail', 'Insuficient balance!');
+            DB::rollBack();
+            return back();
+        }
+        session()->flash('success', 'NFT bought correctly!');
+        DB::commit();
+        return back();
+    }
+
     public static function bidNFT(Request $request, $id)
     {
         $request->validate([

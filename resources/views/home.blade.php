@@ -213,7 +213,7 @@
   margin-left: 50px
 }
 .marketplace-popular-nfts-best .marketplace-popular-nfts-best-img{
-  width: 100%;
+  width: 80%;
   margin-bottom: 20px;
 }
 .marketplace-popular-nfts-best-data{
@@ -245,6 +245,7 @@
 .marketplace-popular-nfts-rest .marketplace-popular-nfts-rest-img{
   width: 100%;
   margin-bottom: 20px;
+  border-radius: 20px;
 }
 .marketplace-popular-nfts-rest-data{
   padding-right: 20px;

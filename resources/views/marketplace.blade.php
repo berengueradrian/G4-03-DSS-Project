@@ -58,6 +58,21 @@
             <input type="hidden" value="market" name="type">
           </div>
         </form>
+        <form method="GET" action="{{url('/nfts/available')}}">
+          @method('GET')
+          @csrf
+          <div class="input-group">
+            <select name="availableFilter" class="custom-select" id="inputGroupSelect04">
+              <option value="0">Filter by availability...</option>
+              <option value="1">Available</option>
+              <option value="2">Not available</option>
+            </select>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="submit">Filter</button>
+            </div>
+            <input type="hidden" value="market" name="type">
+          </div>
+        </form>
       </div>
     </div>
     <div class="centered-nfts">
@@ -68,7 +83,7 @@
           <div class="marketplace-popular-nfts-rest-data">
             <div class="rest-main-data">
               <p>{{$nft->name}}</p>
-              <p>{{$nft->actual_price}}$</p>
+              <p>{{$nft->actual_price}} ETH</p>
             </div>
             <i><p class="rest-type">{{$nft->type->name}}</p></i>
           </div>
@@ -144,6 +159,7 @@
   margin-bottom: 20px;
   border-radius: 20px;
 }
+
 .marketplace-popular-nfts-rest-data{
   padding-right: 20px;
   padding-left: 10px;

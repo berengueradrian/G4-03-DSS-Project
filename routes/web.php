@@ -102,7 +102,7 @@ Route::get('/nfts/buy/{nft}', function ($id) {
 //BID
 Route::post('/nfts/bid/{nft}', [NftServices::class, 'bidNFT'])->name('nft.bid');
 //PURCHASE
-Route::post('/nfts/purchase/{nft}', [NftController::class, 'purchaseNFT'])->name('nft.purchase');
+Route::post('/nfts/purchase/{nft}', [NftServices::class, 'purchaseNFT'])->name('nft.purchase');
 //Put on sale
 Route::put('nfts/sale/{nft}', [NftController::class, 'putOnSaleNFT'])->name('nfts.sale');
 Route::put('nfts/auction/{nft}', [NftController::class, 'auction'])->name('nfts.auction');
@@ -143,7 +143,8 @@ Route::group(['prefix' => 'api'], function () {
     Route::delete('/users', [UserController::class, 'delete'])->name('user.delete')->middleware('auth');
     Route::put('/users', [UserController::class, 'update'])->name('user.update')->middleware('auth');
     Route::put('/users/addBalance', [UserController::class, 'addBalance'])->name('user.updateBalance')->middleware('auth');
-
+    Route::put('/users/profileName', [UserController::class, 'updateProfileName'])->name('user.updateProfileName')->middleware('auth');
+    Route::put('/users/profilePassword', [UserController::class, 'updateProfilePassword'])->name('user.updateProfilePassword')->middleware('auth');
     //## Collection ##
     Route::get('/collections/{collection}',  [CollectionController::class, 'get'])->name('collection.getOne')->middleware('admin');
     Route::get('/collections', [CollectionController::class, 'getAll'])->name('collection.getAll')->middleware('admin');
@@ -168,7 +169,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::put('/artists/profileName', [ArtistController::class, 'updateProfileName'])->name('artist.updateProfileName')->middleware('isauth');
     Route::put('/artists/profilePassword', [ArtistController::class, 'updateProfilePassword'])->name('artist.updateProfilePassword')->middleware('isauth');
     Route::put('/artists/profileDescription', [ArtistController::class, 'updateProfileDescription'])->name('artist.updateProfileDescription')->middleware('isauth');
-    
 });
 
 Auth::routes();

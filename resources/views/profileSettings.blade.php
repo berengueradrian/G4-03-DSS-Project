@@ -63,8 +63,7 @@
             <div class="change name">
                 <h4> Change name </h4>
 
-                <!-- TODO: no muestra los errores!!! -->
-                <form action="{{ route('user.update') }}" method="POST" class="needs-validation create-user-container">
+                <form action="{{ route('user.updateProfileName') }}" method="POST" class="needs-validation create-user-container">
                     @csrf
                     @method('PUT')
 
@@ -82,19 +81,19 @@
                     @endif
 
                     <div class="input-group mb-3 bootstrap-input">
-                        <input type="password" class="form-control" name="password" placeholder="Current Password" value="{{ old('password') }}" aria-label="password" aria-describedby="basic-addon3" id="password">
+                        <input type="password" class="form-control" name="passwordName" placeholder="Current Password" value="{{ old('passwordName') }}" aria-label="passwordName" aria-describedby="basic-addon3" id="passwordName">
                     </div>
-                    @if ($errors->has('password'))
-                    @foreach ($errors->get('password') as $error)
+                    @if ($errors->has('passwordName'))
+                    @foreach ($errors->get('passwordName') as $error)
                     <div class="invalid-tooltip mb-3">{{ $error }}</div>
                     @endforeach
                     @endif
 
                     <div class="input-group mb-3 bootstrap-input">
-                        <input type="password" class="form-control" name="current_password" placeholder="Confirm password" value="{{ old('current_password') }}" aria-label="current_password" aria-describedby="basic-addon3" id="current_password">
+                        <input type="password" class="form-control" name="current_password_name" placeholder="Confirm password" value="{{ old('current_password_name') }}" aria-label="current_password_name" aria-describedby="basic-addon3" id="current_password_name">
                     </div>
-                    @if ($errors->has('current_password'))
-                    @foreach ($errors->get('current_password') as $error)
+                    @if ($errors->has('current_password_name'))
+                    @foreach ($errors->get('current_password_name') as $error)
                     <div class="invalid-tooltip mb-3">{{ $error }}</div>
                     @endforeach
                     @endif
@@ -108,7 +107,7 @@
             <h4> Change password </h4>
             <div class="change pass">
 
-                <form action="{{ route('user.update') }}" method="POST" class="needs-validation create-user-container">
+                <form action="{{ route('user.updateProfilePassword') }}" method="POST" class="needs-validation create-user-container">
                     @csrf
                     @method('PUT')
 
@@ -126,29 +125,25 @@
                     @endif
 
                     <div class="input-group mb-3 bootstrap-input">
-                        <input type="password" class="form-control" name="password" placeholder="Current Password" aria-label="Name" aria-describedby="basic-addon1" id="password">
+                        <input type="password" class="form-control" name="password_password" placeholder="Current Password" aria-label="Name" aria-describedby="basic-addon1" id="password_password">
                     </div>
-                    @if ($errors->has('password'))
-                    @foreach ($errors->get('password') as $error)
+                    @if ($errors->has('password_password'))
+                    @foreach ($errors->get('password_password') as $error)
                     <div class="invalid-tooltip mb-3">{{ $error }}</div>
                     @endforeach
                     @endif
 
                     <div class="input-group mb-3 bootstrap-input">
-                        <input type="password" class="form-control" name="current_password" placeholder="Confirm Password" aria-label="Name" aria-describedby="basic-addon1" id="current_password">
+                        <input type="password" class="form-control" name="current_password_password" placeholder="Confirm Password" aria-label="Name" aria-describedby="basic-addon1" id="current_password_password">
                     </div>
-                    @if ($errors->has('current_password'))
-                    @foreach ($errors->get('current_password') as $error)
+                    @if ($errors->has('current_password_password'))
+                    @foreach ($errors->get('current_password_password') as $error)
                     <div class="invalid-tooltip mb-3">{{ $error }}</div>
                     @endforeach
                     @endif
 
 
                     <button type="submit" class="btn btn-primary">Update password</button>
-
-                    @if ($errors->has('password_update_profile') || $errors->has('password') || $errors->has('current_password'))
-                    <div class="invalid-tooltip mb-3 mt-3">ERROR: No updatea</div>
-                    @endif
 
                 </form>
             </div>
@@ -159,6 +154,11 @@
 
 <style lang="scss">
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+    .invalid-tooltip {
+        display: block !important;
+        position: relative !important;
+    }
 
     * {
         margin: 0;
