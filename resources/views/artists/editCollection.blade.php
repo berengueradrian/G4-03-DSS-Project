@@ -27,17 +27,18 @@
 
         <div class="choose-file" style="display:flex; flex-flow:column">
         <text> Select your collection cover!</text>
-            <input type="file" name="img_url" class="custom-file-upload" id="img_url">
+            <input type="file" name="img_url_update" onkeyup='saveValue(this)' class="custom-file-upload" id="img_url_update">
         </div>
 
         <input style="display:none" type="number" class="form-control" name="id" value="{{ $collection->id}}" placeholder="Identifier of the collection" aria-label="id" aria-describedby="basic-addon1" id="id">
     
     <div class="name-input">
-        <input type="text" class="form-control" value="{{ $collection->name }}" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" name="name_update" id="name_update">
+        <input type="text" class="form-control" onkeyup='saveValue(this)' value="{{ $collection->name }}" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" name="name_update" id="name_update">
     </div>
 
     <div class="description-input">
-        <textarea placeholder="Description" class="form-control" value="{{ $collection->description }}" id="exampleFormControlTextarea1" name="description_update" id="description_update"></textarea>
+        <textarea placeholder="Description" class="form-control" onkeyup='saveValue(this)' value="{{ $collection->description }}" 
+        id="exampleFormControlTextarea1" name="description_update" id="description_update">{{ $collection->description }}</textarea>
     </div>
 
     <div class="create-col-btn">
@@ -66,7 +67,33 @@
     </a>
 
     
+
 </div>
+<script>
+
+    saveValue(document.getElementById("name_update"));
+    saveValue(document.getElementById("description_update"));
+    saveValue(document.getElementById("img_url_update"));
+
+    document.getElementById("name_update").value = getSavedValue("name_update");
+    document.getElementById("description_update").innerHTML = getSavedValue("description_update");
+    document.getElementById("img_url_update").value = getSavedValue("img_url_update");
+
+    function saveValue(e){
+        var id = e.id;
+        var val = e.value;
+        localStorage.setItem(id, val);
+    }
+
+    function getSavedValue(v){
+        if(!localStorage.getItem(v)){
+            return "";
+        }
+        return localStorage.getItem(v);
+
+    }
+
+</script>
 <style lang="scss">
 
 
