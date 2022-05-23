@@ -92,7 +92,7 @@ class NftController extends Controller
         ]);
         $nft = Nft::find($data->iddelete);
         $nft->delete();
-        return back();
+        return back()->with('message','Nft deleted successfully');
     }
 
     public function update(Request $request)
@@ -344,7 +344,7 @@ class NftController extends Controller
         $collec = Collection::find($collection);
 
 
-        return back();
+        return back()->with('message', 'Nft added successfully!');
     }
     //         usort($bids, function($a, $b) {
     //             return ($a['created_at'] > $b['created_at']) ? $a:$b;

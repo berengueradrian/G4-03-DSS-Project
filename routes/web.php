@@ -193,4 +193,5 @@ Route::get('/profile/artists/{artist}/collections/{collection}/edit', [ArtistCon
 Route::put('/collections', [CollectionController::class, 'edit'])->name('collection.edit')->middleware('artist');
 Route::get('/profile/artists/{artist}/collections/{collection}/edit/addNft', [ArtistController::class, 'addNft'])->middleware('artist');
 Route::post('collections/{collection}/addNft', [NftController::class, 'addNft'])->name('nft.add');
+Route::delete('/nfts', [NftController::class, 'delete'])->name('nft.delete-from-artist')->middleware('artist');
 

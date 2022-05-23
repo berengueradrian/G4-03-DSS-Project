@@ -180,7 +180,7 @@ class CollectionController extends Controller
 
         $collection->save();
 
-        return back();
+        return back()->with('message', 'Collection created successfully!');
     }
 
     public function edit(Request $request)
@@ -228,7 +228,7 @@ class CollectionController extends Controller
         }
         $newCollection->update();
 
-        return back();
+        return back()->with('message', 'Collection edited successfully!');
     }
     // public function putOnSaleCollection(int $id, Request $request) {
     //     $newCollection = Collection::whereId($id)->first();
