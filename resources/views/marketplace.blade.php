@@ -187,4 +187,15 @@
   color: black !important;
 }
 
+@media(max-width: 500px) {
+  .modifiers{
+    justify-content: flex-start;
+    padding-left: 20px;
+  }
+  .sorts{
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+}
+
 </style>

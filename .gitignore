@@ -3,6 +3,7 @@
 /public/storage
 /storage/*.key
 /vendor
+.env
 .env.backup
 .phpunit.result.cache
 docker-compose.override.yml
@@ -12,4 +13,3 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-.env

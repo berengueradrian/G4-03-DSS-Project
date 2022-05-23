@@ -47,7 +47,7 @@ class CollectionController extends Controller
         }
         Collection::updateAfterCreate($collection, $data);
 
-        return back();
+        return back()->with('message', 'Collection created successfully!');
     }
 
     public function delete(Request $request)

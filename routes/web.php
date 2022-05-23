@@ -188,10 +188,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //ARTIST ADD COLLECTION AND ADD NFT
 Route::get('/profile/artists/{artist}/addCollection', [ArtistController::class, 'addCollection'])->middleware('artist');
-Route::post('artists/{artist}/addCollection', [CollectionController::class, 'addCollection'])->name('collection.add');
+Route::post('/addCollection', [CollectionController::class, 'store'])->name('collection.add')->middleware('artist');
 Route::get('/profile/artists/{artist}/collections/{collection}/edit', [ArtistController::class, 'editCollection']);
 Route::put('/collections', [CollectionController::class, 'edit'])->name('collection.edit')->middleware('artist');
 Route::get('/profile/artists/{artist}/collections/{collection}/edit/addNft', [ArtistController::class, 'addNft'])->middleware('artist');
 Route::post('collections/{collection}/addNft', [NftController::class, 'addNft'])->name('nft.add');
 Route::delete('/nfts', [NftController::class, 'delete'])->name('nft.delete-from-artist')->middleware('artist');
+Route::delete('/collections', [CollectionController::class, 'delete'])->name('collection.delete-from-artist')->middleware('artist');
 

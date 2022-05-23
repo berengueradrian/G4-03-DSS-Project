@@ -34,7 +34,7 @@
     
     
         
-   <form action="{{ route('collection.add', ['artist' => $artist->id]) }}" 
+   <form action="{{ route('collection.add', ['artist_id' => $artist->id]) }}" 
         method="POST" class="needs-validation create-collection-container" action="/profile/artists">
         @csrf
         @method('POST')
