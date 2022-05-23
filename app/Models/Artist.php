@@ -90,4 +90,40 @@ class Artist extends Authenticatable
             session()->flash('errorMsg', 'Invalid password!');
         }
     }
+
+    public static function updateArtist($newArtist, $updates) {
+        if($updates['img_profile']) {
+            $newArtist->img_url = $updates['img_profile'];
+            session()->flash('msg', 'Image updated correctly!');
+        }
+        if($updates['name']) {
+            $newArtist->name = $updates['name'];
+        }
+        if($updates['description']) {
+            $newArtist->description = $updates['description'];
+        }
+        if($updates['img']) {
+            $newArtist->img_url = $updates['img'];
+        }
+        if($updates['volume']) {
+            $newArtist->volume_sold = $updates['volume'];
+        }
+        if($updates['balance']) {
+            $newArtist->balance = $updates['balance'];
+        }
+        $newArtist->update();
+    }
+
+    public static function sortingBy($field, $order) {
+        if ($order == 0) {
+            return Artist::orderBy($field, 'DESC')->paginate(5);
+        }
+        elseif ($order == 1) {
+            return Artist::orderBy($field, 'ASC')->paginate(5);
+        }
+        else{
+            return Artist::getAll();
+        }
+        
+    }
 }

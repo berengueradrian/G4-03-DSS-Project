@@ -112,6 +112,7 @@ class ArtistController extends Controller
 
     public function update(Request $request)
     {
+        $updates = ['img_profile' => false, 'name' => false, 'description' => false, 'img' => false, 'volume' => false, 'balance' => false];
         $request->validate([
             'id_update' => 'required'
         ]);
@@ -119,77 +120,64 @@ class ArtistController extends Controller
         // ARTIST IMG_URL PROFILE SETTINGS
         if ($request->filled('img_url_update')) {
             $request->validate(['img_url_update' => 'max:50']);
-            $newArtist->img_url = $request->img_url_update;
-            session()->flash('msg', 'Image updated correctly!');
+            //$newArtist->img_url = $request->img_url_update;
+            $updates['img_profile'] = $request->img_url_update;
+            //session()->flash('msg', 'Image updated correctly!');
         }
         // ----------------------------------
         if ($request->filled('name_update')) {
             $request->validate([
                 'name_update' => 'max:50',
             ]);
-            $newArtist->name = $request->name_update;
+            //$newArtist->name = $request->name_update;
+            $updates['name'] = $request->name_update;
         }
         if ($request->filled('description_update')) {
-            $newArtist->description = $request->description_update;
+            $updates['description'] = $request->description_update;
+            //$newArtist->description = $request->description_update;
         }
         if ($request->filled('img_url_update')) {
             $request->validate([
                 'img_url_update' => 'max:50',
             ]);
-            $newArtist->img_url = $request->img_url_update;
+            $updates['img'] = $request->img_url_update;
+            //$newArtist->img_url = $request->img_url_update;
         }
         if ($request->filled('volume_sold_update')) {
             $request->validate([
                 'volume_sold_update' => 'numeric|gte:0'
             ]);
-            $newArtist->volume_sold = $request->volume_sold_update;
+            $updates['volume'] = $request->volume_sold_update;
+            //$newArtist->volume_sold = $request->volume_sold_update;
         }
         if ($request->filled('balance_update')) {
             $request->validate([
                 'balance_update' => 'numeric|gte:0'
             ]);
-            $newArtist->balance = $request->balance_update;
+            $updates['balance'] = $request->balance_update;
+            //$newArtist->balance = $request->balance_update;
         }
-        $newArtist->update();
+        //$newArtist->update();
+        Artist::updateArtist($newArtist, $updates);
+
         return back();
     }
 
     public function sortByName(Request $request)
     {
-        if ($request->sortByName == 0) {
-            $artists = Artist::orderBy('name', 'DESC')->paginate(5);
-        } elseif ($request->sortByName == 1) {
-            $artists = Artist::orderBy('name', 'ASC')->paginate(5);
-        } else {
-            $artists = Artist::paginate(5);
-        }
-
+        $artists = Artist::sortingBy('name', $request->sortByName);
         return view('artists.list')->with('artists', $artists);
     }
 
     public function sortByBalance(Request $request)
     {
-        if ($request->sortByBalance == 0) {
-            $artists = Artist::orderBy('balance', 'DESC')->paginate(5);
-        } elseif ($request->sortByBalance == 1) {
-            $artists = Artist::orderBy('balance', 'ASC')->paginate(5);
-        } else {
-            $artists = Artist::paginate(5);
-        }
-
+        $artists = Artist::sortingBy('balance', $request->sortByBalance);
         return view('artists.list')->with('artists', $artists);
     }
 
     public function sortByVolume(Request $request)
-    {
-        if ($request->sortByVolume == 0) {
-            $artists = Artist::orderBy('volume_sold', 'DESC')->paginate(5);
-        } elseif ($request->sortByVolume == 1) {
-            $artists = Artist::orderBy('volume_sold', 'ASC')->paginate(5);
-        } else {
-            $artists = Artist::paginate(5);
-        }
-
+    {       
+        $artists = Artist::sortingBy('volume_sold', $request->sortByVolume);
         return view('artists.list')->with('artists', $artists);
     }
 
