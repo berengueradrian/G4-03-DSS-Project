@@ -141,7 +141,7 @@ Route::group(['prefix' => 'api'], function () {
     //## User ##
     Route::get('/users/{user}',  [UserController::class, 'get'])->name('user.getOne')->middleware('admin');
     Route::get('/users', [UserController::class, 'getAll'])->name('user.getAll')->middleware('admin');
-    Route::post('/users', [UserController::class, 'create'])->name('user.create')->middleware('admin');
+    Route::post('/users', [UserController::class, 'store'])->name('user.create')->middleware('admin');
     Route::delete('/users', [UserController::class, 'delete'])->name('user.delete')->middleware('auth');
     Route::put('/users', [UserController::class, 'update'])->name('user.update')->middleware('auth');
     Route::put('/users/addBalance', [UserController::class, 'addBalance'])->name('user.updateBalance')->middleware('auth');
@@ -195,4 +195,3 @@ Route::get('/profile/artists/{artist}/collections/{collection}/edit/addNft', [Ar
 Route::post('collections/{collection}/addNft', [NftController::class, 'addNft'])->name('nft.add');
 Route::delete('/nfts', [NftController::class, 'delete'])->name('nft.delete-from-artist')->middleware('artist');
 Route::delete('/collections', [CollectionController::class, 'delete'])->name('collection.delete-from-artist')->middleware('artist');
-

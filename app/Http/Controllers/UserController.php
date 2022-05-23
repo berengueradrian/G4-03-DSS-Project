@@ -19,36 +19,36 @@ class UserController extends Controller
 
     public function getAll()
     {
-        $users = User::paginate(5);
+        $users = User::getAll();
         return view('users.list')->with('users', $users);
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|max:50',
             'email' => 'required|max:50|unique:users,email',
             'password' => 'required|max:50',
-            'balance' => 'required|gte:0|numeric|digits_between:1,20',
+            'balance' => 'required|gte:0|numeric|digits_between:1,20', //mmm
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->input('password')
-        ]);
+        $user = User::createUser($request->name, $request->email, $request->password, $request->balance);
 
         if ($request->balance != null) {
-            $user->balance = $request->balance;
+            $request->validate(['balance' => 'numeric|gte:0|digits_between:1,20']);
         } else {
             $user->balance = 0.0;
         }
         if ($request->img_url != null) {
-            $user->img_url = $request->img_url;
+            $request->validate([
+                'img_url' => 'max:50',
+            ]);
         } else {
             $user->img_url = 'default.jpg';
         }
-        $user->save();
+
+        User::updateAfterCreate($user, $request);
+
         return back();
     }
 
@@ -64,10 +64,10 @@ class UserController extends Controller
         due to this reason; if it's not the admin it musy go to home page!!!
         */
         if (\Auth::user()->is_admin) {
-            $user->delete();
+            User::deleteUser($user);
             return back();
         } else {
-            $user->delete();
+            User::deleteUser($user);
             return redirect('login');
         }
     }
@@ -85,13 +85,8 @@ class UserController extends Controller
             'current_password_name' => 'required|same:passwordName',
         ]);
 
-        if (\Hash::check($request->current_password_name, $newUser->password)) {
-            $newUser->name = $request->name_update_profile;
-            $newUser->update();
-            session()->flash('msg', 'Name updated correctly!');
-        } else {
-            session()->flash('errorMsg', 'Invalid password!');
-        }
+        User::updateName($newUser, $request);
+
         return back();
     }
 
@@ -106,51 +101,47 @@ class UserController extends Controller
             'password_password' => 'required',
             'current_password_password' => 'required|same:password_password',
         ]);
-        if (\Hash::check($request->current_password_password, $newUser->password)) {
-            $newUser->password = \Hash::make($request['password_update_profile']);
-            $newUser->update();
-            session()->flash('msg', 'Password updated correctly!');
-        } else {
-            session()->flash('errorMsg', 'Invalid current password!');
-        }
+
+        User::updatePassword($newUser, $request);
+
         return back();
     }
 
     public function update(Request $request)
     {
+        $updates = ['name_update' => false, 'password_update' => false, 'email_update' => false, 'img_url_update' => false, 'balance_update' => false];
+
         $request->validate([
             'id_update' => 'required'
         ]);
-        $newUser = User::find($request->id_update);
 
+        $newUser = User::find($request->id_update);
 
         if ($request->filled('name_update')) {
             $request->validate([
                 'name_update' => 'max:50',
             ]);
-            $newUser->name = $request->name_update;
+            $updates['name_update'] = $request->name_update;
         }
         if ($request->filled('password_update')) {
             $request->validate(['password_update' => 'max:50']);
-            $newUser->password = \Hash::make($request->password_update);
+            $updates['password_update'] = \Hash::make($request->password_update);
         }
-
         if ($request->filled('email_update')) {
             $request->validate(['email_update' => 'email|unique:users,email|max:50']);
-            $newUser->email = $request->email_update;
+            $updates['email_update'] = $request->email_update;
         }
         if ($request->filled('img_url_update')) {
             $request->validate(['img_url_update' => 'max:50']);
-            $newUser->img_url = $request->img_url_update;
-            session()->flash('msg', 'Image updated correctly!');
+            $updates['img_url_update'] = $request->img_url_update;
         }
         if ($request->filled('balance_update')) {
             $request->validate([
                 'balance_update' => 'numeric|gte:0'
             ]);
-            $newUser->balance = $request->balance_update;
+            $updates['balance_update'] = $request->balance_update;
         }
-        $newUser->save();
+        User::updateUser($newUser, $updates);
         return back();
     }
 
@@ -167,6 +158,7 @@ class UserController extends Controller
                 'addBalance' => 'Maximum balance overloaded. You can own a maximum of 1000M of ETH in your account.'
             ]);
         }
+        //TODO:!
         $user->balance = $newBalance;
         $user->update();
         return back();
@@ -174,27 +166,13 @@ class UserController extends Controller
 
     public function sortByBalance(Request $request)
     {
-        if ($request->sortByBalance == 0) {
-            $users = User::orderBy('balance', 'ASC')->paginate(5);
-        } elseif ($request->sortByBalance == 1) {
-            $users = User::orderBy('balance', 'DESC')->paginate(5);
-        } else {
-            $users = User::paginate(5);
-        }
-
+        $users = User::sortingBy('balance', $request->sortByBalance);
         return view('users.list')->with('users', $users);
     }
 
     public function sortByName(Request $request)
     {
-        if ($request->sortByName == 0) {
-            $users = User::orderBy('name', 'ASC')->paginate(5);
-        } elseif ($request->sortByName == 1) {
-            $users = User::orderBy('name', 'DESC')->paginate(5);
-        } else {
-            $users = User::paginate(5);
-        }
-
+        $users = User::sortingBy('name', $request->sortByName);
         return view('users.list')->with('users', $users);
     }
 }

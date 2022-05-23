@@ -25,8 +25,8 @@
                 <div class="input-group mb-3">
                     <select name="sortByBalance" class="custom-select" id="inputGroupSelect04">
                         <option value="-1">Sort by balance...</option>
-                        <option value="0">Lowest first</option>
-                        <option value="1">Highest first</option>
+                        <option value="0">Highest first</option>
+                        <option value="1">Lowest first</option>
                     </select>
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="submit">Sort</button>
@@ -39,8 +39,8 @@
                 <div class="input-group mb-3">
                     <select name="sortByName" class="custom-select" id="inputGroupSelect04">
                         <option value="-1">Sort by name...</option>
-                        <option value="0">A first</option>
-                        <option value="1">Z first</option>
+                        <option value="1">A first</option>
+                        <option value="0">Z first</option>
                     </select>
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="submit">Sort</button>
@@ -115,9 +115,9 @@
 
 <script>
     function changeTab(value) {
-      $('[href="#update"]').tab('show');
-      element = document.getElementById('id_update');
-      element.value = value;
+        $('[href="#update"]').tab('show');
+        element = document.getElementById('id_update');
+        element.value = value;
     }
 </script>
 

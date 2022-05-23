@@ -1,6 +1,7 @@
 <?php
 
 namespace App\ServiceLayer;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Nft;
@@ -9,9 +10,9 @@ use Carbon\Carbon;
 use App\Models\Artist;
 use App\Models\User;
 
-class NftServices {
+class NftServices
+{
 
-    //TODO: review if static is working
     public static function purchaseNFT(Request $request, int $id)
     {
         $request->validate([
@@ -64,7 +65,7 @@ class NftServices {
                 $newNft->actual_price = $request->bid_amount;
                 $newNft->save();
                 $u1->bids()->attach([$newNft->id => ['wallet' => $request->bid_wallet, 'amount' => $request->bid_amount]]);
-                
+
                 session()->flash('success', 'Bid placed succesfully.');
                 DB::commit();
                 return back();
@@ -73,8 +74,7 @@ class NftServices {
                 DB::rollBack();
                 return back();
             }
-        }
-        else {
+        } else {
             session()->flash('fail', 'The balance is not enough.');
             DB::rollBack();
             return back();
@@ -85,16 +85,16 @@ class NftServices {
     {
         DB::beginTransaction();
         $nft = NFT::whereId($id)->first();
-        if($nft->bids()->count() > 0) {
+        if ($nft->bids()->count() > 0) {
             $bids = $nft->bids()->get()->toArray();
-            
-            usort($bids, function($a, $b) {
-                return ($a['created_at'] > $b['created_at']) ? $a:$b;
+
+            usort($bids, function ($a, $b) {
+                return ($a['created_at'] > $b['created_at']) ? $a : $b;
             });
 
-            for($index = 0; $index < count($bids) ; $index++ ) {
+            for ($index = 0; $index < count($bids); $index++) {
                 $user = User::whereId($bids[$index]['pivot']['user_id'])->first();
-                if($user->balance >= $bids[$index]['pivot']['amount']) {
+                if ($user->balance >= $bids[$index]['pivot']['amount']) {
                     $nft->available = false;
                     $nft->user_id = $bids[$index]['pivot']['user_id'];
                     $nft->actual_price = $bids[$index]['pivot']['amount'];
@@ -102,7 +102,7 @@ class NftServices {
 
                     $user->balance = $user->balance - $bids[$index]['pivot']['amount'];
                     $user->save();
-                    
+
                     $artist = Artist::whereId($nft->collection->artist_id)->first();
                     $artist->volume_sold += $bids[$index]['pivot']['amount'];
                     $artist->balance += $bids[$index]['pivot']['amount'];
@@ -116,8 +116,7 @@ class NftServices {
             $nft->limit_date = Carbon::now()->addMonths(1);
             $nft->update();
             session()->flash('fail', 'The NFT has not bids from users who can afford it, so it will be added a month to its limit date.');
-        }
-        else {
+        } else {
             $nft->limit_date = Carbon::now()->addMonths(1);
             $nft->update();
             session()->flash('fail', 'The NFT has not bids, so it will be added a month to its limit date.');
@@ -125,5 +124,4 @@ class NftServices {
         DB::rollBack();
         return back();
     }
-
 }
