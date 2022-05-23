@@ -110,7 +110,8 @@ class CollectionController extends Controller
             $newCollection->img_url = $request->img_url_update;
         }
         $newCollection->update();
-        return back();
+        return back()->with('message', 'Collection edited successfully!');
+    
     }
 
     public function sortByName(Request $request)

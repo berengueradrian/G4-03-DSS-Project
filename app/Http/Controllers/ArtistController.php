@@ -226,7 +226,7 @@ class ArtistController extends Controller
         if (Auth::guard('custom')->user()->id==$artist->id) {
             return view('artists.addCollection')->with('artist',$artist);
         }else
-            return redirect('home');
+            return response()->json(['JAJA' => 'Casi bro'], 401);
         
     }
 
@@ -234,12 +234,15 @@ class ArtistController extends Controller
         if (Auth::guard('custom')->user()->id==$artist->id && $artist->id==$collection->artist_id) {
             return view('collections.add-nft')->with('collection', $collection);
         }else
-            return redirect('home');
+            return response()->json(['JAJA' => 'Casi bro'], 401);
         
     }
 
     public function editCollection(Artist $artist, Collection $collection) {
-        return view('artists.editCollection')->with('collection', $collection);
+        if (Auth::guard('custom')->user()->id==$artist->id && $artist->id==$collection->artist_id) { 
+            return view('artists.editCollection')->with('collection', $collection);
+        }
+        return response()->json(['JAJA' => 'Casi bro'], 401);
     }
 
     public function getProfileSettings(Request $data) {
