@@ -44,6 +44,17 @@
             <div class="invalid-tooltip mb-3">{{ $error }}</div>
         @endforeach
     @endif
+    <div class="input-group mb-3 bootstrap-input">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Password</span>
+        </div>
+        <input type="password" class="form-control" name="artistPassword" value="{{ old('artistPassword') }}" placeholder="Account password" aria-label="artistPassword" aria-describedby="basic-addon2" id="artistPassword">
+    </div>
+    @if ($errors->has('artistPassword'))
+        @foreach ($errors->get('artistPassword') as $error)
+            <div class="invalid-tooltip mb-3">{{ $error }}</div>
+        @endforeach
+    @endif
     <button class="btn btn-primary">Create</button>
 </form>
 

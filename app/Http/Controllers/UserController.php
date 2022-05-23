@@ -35,7 +35,7 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->input('password'))
+            'password' => Hash::make($request->input('password')
         ]);
 
         if ($request->balance != null) {

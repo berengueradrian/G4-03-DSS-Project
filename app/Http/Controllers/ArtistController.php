@@ -18,7 +18,7 @@ class ArtistController extends Controller
 
     public function getAll()
     {
-        $artists = Artist::paginate(5);
+        $artists = Artist::getAll();
         return view('artists.list')->with('artists', $artists)->with('withCollection', false);
     }
 
@@ -26,35 +26,31 @@ class ArtistController extends Controller
     {
         $data->validate([
             'name' => 'required|max:50',
+            'artistPassword' => 'required'
         ]);
 
-        $artist = Artist::create([
-            'name' => $data->name
-        ]);
+        $artist = Artist::createArtist($data->name, $data->artistPassword);
 
         if ($data->balance != null) {
             $data->validate(['balance' => 'numeric|gte:0|digits_between:1,20']);
-            $artist->balance = $data->balance;
         } else {
-            $artist->balance = 0.0;
+            $data->balance = 0.0;
         }
         if ($data->img_url != null) {
             $data->validate([
                 'img_url' => 'max:50',
             ]);
-            $artist->img_url = $data->img_url;
         } else {
-            $artist->img_url = 'default.jpg';
+            $data->img_url = 'default.jpg';
         }
         if ($data->description != null) {
             $data->validate([
                 'description' => 'max:50',
             ]);
-            $artist->description = $data->description;
         } else {
-            $artist->description = '';
+            $data->description = '';
         }
-        $artist->save();
+        Artist::updateAfterCreate($artist, $data);
         return back();
     }
 
@@ -64,11 +60,8 @@ class ArtistController extends Controller
             'iddelete' => 'required|numeric|exists:artists,id'
         ]);
         $artist = Artist::find($request->iddelete);
-        if ($artist->collections->count() > 0) {
-            $artists = Artist::paginate(5);
+        if ($artists = Artist::deleteArtist($artist)) {
             return view('artists.list')->with('artists', $artists)->with('withCollection', true);
-        } else {
-            $artist->delete();
         }
         return back()->with('withCollection', false);
     }
@@ -85,13 +78,7 @@ class ArtistController extends Controller
             'passwordName' => 'required',
             'current_password_name' => 'required|same:passwordName',
         ]);
-        
-        if (\Hash::check($request->current_password_name, $newArtist->password)) {
-            $newArtist->name = $request->name_update_profile;
-            session()->flash('msg', 'Name updated correctly!');
-        } else {
-            session()->flash('errorMsg', 'Invalid password!');
-        }
+        Artist::updateName($newArtist, $request);
         return back();
     }
 
@@ -105,13 +92,7 @@ class ArtistController extends Controller
             'password_password' => 'required',
             'current_password_password' => 'required|same:password_password',
         ]);
-        if (\Hash::check($request->current_password_password, $newArtist->password)) {
-            $newArtist->password = \Hash::make($request['password_update_profile']);
-            $newArtist->update();
-            session()->flash('msg', 'Password updated correctly!');
-        } else {
-            session()->flash('errorMsg', 'Invalid current password!');
-        }
+        Artist::updatePassword($newArtist, $request);
         return back();
     }
 
@@ -125,13 +106,7 @@ class ArtistController extends Controller
             'password_description' => 'required',
             'current_password_description' => 'required|same:password_description',
         ]);
-        if (\Hash::check($request->current_password_description, $newArtist->password)) {
-            $newArtist->description = $request['description_update_profile'];    
-            $newArtist->update();
-            session()->flash('msg', 'Description updated correctly!');
-        } else {
-            session()->flash('errorMsg', 'Invalid password!');
-        }
+        Artist::updateDescription($newArtist, $request);
         return back();
     }
 

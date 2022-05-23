@@ -109,13 +109,11 @@
         @if ($errors->has('id_update') || $errors->has('balance_update') || $errors->has('volume_sold_update')|| $errors->has('name_update') || $errors->has('img_url_update'))
         <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been updated</div>
         @endif
-        @if ($errors->has('name')||$errors->has('description')||$errors->has('balance')||$errors->has('img_url'))
+        @if ($errors->has('name')||$errors->has('description')||$errors->has('balance')||$errors->has('img_url')||$errors->has('artistPassword'))
         <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been created</div>
         @endif
         @if ($withCollection ?? '')
         <div class="invalid-tooltip mb-3 mt-3">ERROR: The artist has not been deleted. An artist with collections cannot be deleted</div>
-        @endif
-        @if ($withCollection ?? '')
         @endif
     </div>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
