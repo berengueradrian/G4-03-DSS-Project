@@ -76,11 +76,12 @@
 
     <div class="added-nfts" style="display: flex; flex-wrap:wrap;">
         @foreach ($collection->nfts as $nft)
-            <form action="{{ route('nft.delete-from-artist') }}" method="POST" class="needs-validation create-collection-container">
+            <form></form>
+            <form action="{{ route('nft.delete-from-artist') }}" method="POST" class="needs-validation create-collection-container" onsubmit="return confirm('Do you really want to delete the nft?');">
             @csrf
             @method('DELETE')
             <input type="text" class="form-control" style="display:none;" name="iddelete" value="{{$nft->id}}" placeholder="Identifier of the collection" 
-                aria-label="iddelete" aria-describedby="basic-addon10" id="iddelete">
+                aria-label="iddelete" aria-describedby="basic-addon10" id="iddelete" >
                     <div class="nft" style="width: 300px; margin:25px; position: relative;">
                     <a href="/nfts/buy/{{$nft->id}}">
                         <img src="/images/{{ $nft->img_url }}" width="300px" height="203.5px" alt="" style="border: 1px black solid">

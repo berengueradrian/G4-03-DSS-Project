@@ -53,7 +53,7 @@ class CollectionController extends Controller
 
         $collection->save();
 
-        return back();
+        return back()->with('message', 'Collection created successfully!');
     }
 
     public function delete(Request $request)
@@ -157,32 +157,7 @@ class CollectionController extends Controller
         }
     }
 
-    public function addCollection(Request $request, $artist)
-    {
-        $request->validate([
-            'name' => 'required|max:50',
-            'description' => 'required|max:50',
-            'img_url' => 'max:50'
-        ]);
-
-        $collection = Collection::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'artist_id' => $artist,
-        ]);
-
-        if ($request->filled('img_url')) {
-            $request->validate(['img_url' => 'max:50']);
-            $collection->img_url = $request->img_url;
-        } else {
-            $collection->img_url = 'default.jpg';
-        }
-
-        $collection->save();
-
-        return back()->with('message', 'Collection created successfully!');
-    }
-
+   
     public function edit(Request $request)
     {
         if ($request->name_update == '') {

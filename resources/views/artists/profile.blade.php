@@ -64,9 +64,18 @@
     <div class="listado">
 
         @for ($i = 0; $i < Auth::guard('custom')->user()->collections->count(); $i++)
-            <a href='/collections/{{ Auth::guard('custom')->user()->collections[$i]->id }}'>
-                <img src="/images/{{Auth::guard('custom')->user()->collections[$i]->img_url}}" width="150" alt="">
-            </a>
+            <form action="{{ route('collection.delete-from-artist') }}" method="POST" class="needs-validation create-collection-container" onsubmit="return confirm('Do you really want to delete the collection?');">
+            @csrf
+            @method('DELETE')
+            <input type="text" class="form-control" style="display:none;" name="iddelete" value="{{Auth::guard('custom')->user()->collections[$i]->id}}" placeholder="Identifier of the collection" 
+                aria-label="iddelete" aria-describedby="basic-addon10" id="iddelete" >
+                    <div class="col" style="width: 150px;  position: relative;">
+                    <a href='/collections/{{ Auth::guard('custom')->user()->collections[$i]->id }}'>
+                        <img src="/images/{{Auth::guard('custom')->user()->collections[$i]->img_url}}" width="150" alt="">
+                    </a>
+                    <button  type="sumbit" class="remove-image" style="display: flex; align-items:center;">&#215; <text style="font-size: 8px;">&nbsp;Collection</text></button>
+                    </div>
+            </form>
         @endfor
 
     </div>
@@ -230,6 +239,40 @@
         font-size: 14px;
         color: #afafb6;
     }
+    a:hover {
+    color:#FFF; 
+    text-decoration:none; 
+    cursor:pointer;  
+    }
+    .remove-image {
+    display: none;
+    position: absolute;
+    top: -15px;
+    right: -20px;
+    border-radius: 10em;
+    padding: 2px 6px 3px;
+    text-decoration: none;
+    font: 700 21px/20px sans-serif;
+    background: #555;
+    border: 3px solid #fff;
+    color: #FFF;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 2px 4px rgba(0,0,0,0.3);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      -webkit-transition: background 0.5s;
+      transition: background 0.5s;
+    }
+    .remove-image:hover {
+     background: #E54E4E;
+      padding: 3px 7px 5px;
+      top: -16px;
+    right: -21px;
+    }
+    .remove-image:active {
+     background: #E54E4E;
+      top: -15px;
+    right: -21px;
+    }
+
 
     @media (max-width: 950px) {
         .container{
