@@ -180,7 +180,55 @@ class CollectionController extends Controller
 
         $collection->save();
 
-        return back();
+        return back()->with('message', 'Collection created successfully!');
+    }
+
+    public function edit(Request $request)
+    {
+        if ($request->name_update == '') {
+            $request->name_final = $request->name;
+        } else {
+            $request->validate([
+                'name_update' => 'max:50'
+            ]);
+            $request->name_final = $request->name_update;
+        }
+        if ($request->artist_id_update != '') {
+            $request->validate([
+                'id' => 'required|numeric|exists:collections,id',
+                'artist_id_update' => 'exists:artists,id'
+            ]);
+        } else {
+            $request->validate([
+                'id' => 'required|numeric|exists:collections,id'
+            ]);
+        }
+
+
+        $newCollection = Collection::find($request->id);
+
+        if ($request->name_final != null) {
+            $newCollection->name = $request->name_final;
+        }
+
+        if ($request->description_update != null) {
+            $request->validate([
+                'description_update' => 'max:50'
+            ]);
+            $newCollection->description = $request->description_update;
+        }
+        if ($request->artist_id_update != null) {
+            $newCollection->artist_id = $request->artist_id_update;
+        }
+        if ($request->img_url_update != null) {
+            $request->validate([
+                'img_url_update' => 'max:50'
+            ]);
+            $newCollection->img_url = $request->img_url_update;
+        }
+        $newCollection->update();
+
+        return back()->with('message', 'Collection edited successfully!');
     }
     // public function putOnSaleCollection(int $id, Request $request) {
     //     $newCollection = Collection::whereId($id)->first();

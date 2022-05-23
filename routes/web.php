@@ -64,14 +64,16 @@ Route::get('/profileSettings', function () {
 //For storing an image
 Route::post('/store-image', [ImageUploadController::class, 'storeImage'])
     ->name('images.store');
-Route::post('/store-collection-image', [ImageUploadController::class, 'storeCollectionImage'])
+/* Route::post('/store-collection-image', [ImageUploadController::class, 'storeCollectionImage'])
     ->name('imagesCollection.store');
+Route::post('/store-nft-image', [ImageUploadController::class, 'storeNftImage'])
+    ->name('imagesNft.store'); */
 
 //COLLECTIONS
 //Sort by name
 Route::post('/collections/sale/{collection}', [CollectionServices::class, 'putOnSaleCollection'])->name('collection.sale');
 Route::get('/collections/sortByName', [CollectionController::class, 'sortByName']);
-Route::get('/collections/{collection}',  [CollectionController::class, 'show'])->name('collection.getOne');
+Route::get('/collections/{collection}',  [CollectionController::class, 'show'])->middleware('artist');
 
 // USERS
 // Views
@@ -102,7 +104,7 @@ Route::get('/nfts/buy/{nft}', function ($id) {
 //BID
 Route::post('/nfts/bid/{nft}', [NftServices::class, 'bidNFT'])->name('nft.bid');
 //PURCHASE
-Route::post('/nfts/purchase/{nft}', [NftController::class, 'purchaseNFT'])->name('nft.purchase');
+Route::post('/nfts/purchase/{nft}', [NftServices::class, 'purchaseNFT'])->name('nft.purchase');
 //Put on sale
 Route::put('nfts/sale/{nft}', [NftController::class, 'putOnSaleNFT'])->name('nfts.sale');
 Route::put('nfts/auction/{nft}', [NftController::class, 'auction'])->name('nfts.auction');
@@ -143,13 +145,14 @@ Route::group(['prefix' => 'api'], function () {
     Route::delete('/users', [UserController::class, 'delete'])->name('user.delete')->middleware('auth');
     Route::put('/users', [UserController::class, 'update'])->name('user.update')->middleware('auth');
     Route::put('/users/addBalance', [UserController::class, 'addBalance'])->name('user.updateBalance')->middleware('auth');
-
+    Route::put('/users/profileName', [UserController::class, 'updateProfileName'])->name('user.updateProfileName')->middleware('auth');
+    Route::put('/users/profilePassword', [UserController::class, 'updateProfilePassword'])->name('user.updateProfilePassword')->middleware('auth');
     //## Collection ##
     Route::get('/collections/{collection}',  [CollectionController::class, 'get'])->name('collection.getOne')->middleware('admin');
     Route::get('/collections', [CollectionController::class, 'getAll'])->name('collection.getAll')->middleware('admin');
     Route::post('/collections', [CollectionController::class, 'store'])->name('collection.store')->middleware('admin');
     Route::delete('/collections', [CollectionController::class, 'delete'])->name('collection.delete')->middleware('admin');
-    Route::put('/collections', [CollectionController::class, 'update'])->name('collection.update')->middleware('artist');
+    Route::put('/collections', [CollectionController::class, 'update'])->name('collection.update')->middleware('admin');
 
     //## Type ##
     Route::get('/types/{type}',  [TypeController::class, 'get'])->name('type.getOne')->middleware('admin');
@@ -168,7 +171,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::put('/artists/profileName', [ArtistController::class, 'updateProfileName'])->name('artist.updateProfileName')->middleware('isauth');
     Route::put('/artists/profilePassword', [ArtistController::class, 'updateProfilePassword'])->name('artist.updateProfilePassword')->middleware('isauth');
     Route::put('/artists/profileDescription', [ArtistController::class, 'updateProfileDescription'])->name('artist.updateProfileDescription')->middleware('isauth');
-    
 });
 
 Auth::routes();
@@ -188,4 +190,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/profile/artists/{artist}/addCollection', [ArtistController::class, 'addCollection'])->middleware('artist');
 Route::post('artists/{artist}/addCollection', [CollectionController::class, 'addCollection'])->name('collection.add');
 Route::get('/profile/artists/{artist}/collections/{collection}/edit', [ArtistController::class, 'editCollection']);
+Route::put('/collections', [CollectionController::class, 'edit'])->name('collection.edit')->middleware('artist');
 Route::get('/profile/artists/{artist}/collections/{collection}/edit/addNft', [ArtistController::class, 'addNft'])->middleware('artist');
+Route::post('collections/{collection}/addNft', [NftController::class, 'addNft'])->name('nft.add');
+Route::delete('/nfts', [NftController::class, 'delete'])->name('nft.delete-from-artist')->middleware('artist');
+

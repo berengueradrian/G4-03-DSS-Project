@@ -20,10 +20,10 @@ class ImageUploadController extends Controller
             $data['img_url'] = $filename;
             session()->flash('msg', 'Image uploaded correctly!');
         }
-        return back();
+        return back()->with('message','Image uploaded! Select it to set it up');
     }
 
-    //Store image
+   /*  //Store image
     public function storeCollectionImage(Request $request)
     {
         if ($request->file('img_url')) {
@@ -37,4 +37,18 @@ class ImageUploadController extends Controller
         }
         return back();
     }
+
+    public function storeNftImage(Request $request)
+    {
+        if ($request->file('img_url')) {
+            //$filename = date('c') . $file->getClientOriginalName();
+            //Con la linea comentada podemos sacar el timestamp de la hora que se ha subido para evitar que entre ellos se borren fotos, el problema es que por como esta construido el sistema ahora mismo no puede hacer upload y update con el mismo timestamp.
+            $file = $request->file('img_url');
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('../public/images/nfts'), $filename);
+            $data['img_url'] = $filename;
+            session()->flash('msg', 'Image uploaded correctly!');
+        }
+        return back();
+    } */
 }

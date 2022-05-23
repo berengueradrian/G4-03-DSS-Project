@@ -81,7 +81,7 @@
                     <input type="number" class="form-control" name="bid_amount" placeholder="$ETH" aria-label="Username" aria-describedby="basic-addon3" id="bid_amount">
                 </div>
                 @if ($errors->has('bid_amount'))
-                @foreach ($errors->get('name') as $error)
+                @foreach ($errors->get('bid_amount') as $error)
                 <div class="invalid-tooltip mb-3">{{ $error }}</div>
                 @endforeach
                 @endif
@@ -92,13 +92,25 @@
                     <input type="text" class="form-control" name="bid_wallet" placeholder="0x..." aria-label="Username" aria-describedby="basic-addon3" id="bid_wallet">
                 </div>
                 @if ($errors->has('bid_wallet'))
-                @foreach ($errors->get('name') as $error)
+                @foreach ($errors->get('bid_wallet') as $error)
                 <div class="invalid-tooltip mb-3">{{ $error }}</div>
                 @endforeach
                 @endif
                 <button type="submit" class="btn btn-primary">Place Bid</button>
                 {!! Session::has('msg') ? Session::get("msg") : '' !!}
             </form>
+                @if($nft->bids->count() > 0)
+                <div class="nombre">BIDS</div>
+                <div class="lista">
+                    <ul>
+                        @for($index = $nft->bids->count()-1; $index >= 0; $index--)
+                        <li>User id: {{$nft->bids[$index]['pivot']['user_id']}} placed a {{$nft->bids[$index]['pivot']['amount']}} ETH<img src="/images/eth.svg" width="10px" alt=""> bid.</li>
+                        @endfor
+                    </ul>
+                </div>
+                @else
+                <div class="textG">This NFT has no bids</div>
+                @endif
 
                 @endif
 
@@ -115,7 +127,7 @@
                 </div>
                 @if ($errors->has('purchase_amount'))
                 @foreach ($errors->get('purchase_amount') as $error)
-                <div class="invalid-tooltip mb-3">{{ $error }}</div>
+                    <div class="invalid-tooltip mb-3">{{ $error }}</div>
                 @endforeach
                 @endif
                 <div class="input-group mb-3 bootstrap-input">
@@ -126,7 +138,7 @@
                 </div>
                 @if ($errors->has('purchase_wallet'))
                 @foreach ($errors->get('purchase_wallet') as $error)
-                <div class="invalid-tooltip mb-3">{{ $error }}</div>
+                    <div class="invalid-tooltip mb-3">{{ $error }}</div>
                 @endforeach
                 @endif
                 <button type="submit" class="btn btn-primary">Purchase</button>
@@ -146,6 +158,7 @@
             @endauth
 
             @auth('custom')
+            @if($nft->type_id == 5)
             @if($nft->available)
             @if(Auth::guard('custom')->user()->id == $nft->collection->artist_id)
             @php($limit_date2 = \Carbon\Carbon::parse($nft->limit_date))
@@ -162,6 +175,14 @@
                 <div class="text-one">
                     This NFT is not on sale.
                 </div>
+            @endif
+
+            @else
+                @if(!$nft->available)
+                    <div class="text-one">
+                        This NFT is not on sale.
+                    </div>
+                @endif
             @endif
             @endauth
 
@@ -225,6 +246,7 @@
     const today = new Date()
     const tomorrow = new Date('{{$nft->limit_date}}')
     timer(tomorrow);
+    $bids = $nft.bids().get().toArray();
 </script>
 
 <style lang="scss">

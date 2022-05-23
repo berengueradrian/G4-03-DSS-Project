@@ -35,7 +35,7 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->input('password'))
+            'password' => Hash::make($request->input('password')
         ]);
 
         if ($request->balance != null) {
@@ -72,45 +72,65 @@ class UserController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public function updateProfileName(Request $request)
     {
         $request->validate([
             'id_update' => 'required|exists:users,id',
         ]);
         $newUser = User::find($request->id_update);
+        // User NAME PROFILE SETTINGS
+        $request->validate([
+            'name_update_profile' => 'required|max:50',
+            'passwordName' => 'required',
+            'current_password_name' => 'required|same:passwordName',
+        ]);
 
-        //THIS IS FOR PROFILE SETTINGS NAME UPDATE
-        if ($request->filled('name_update_profile') && $request->filled('password') && $request->filled('current_password')) {
-            $request->validate([
-                'name_update_profile' => 'max:50',
-                'password' => 'required',
-                'current_password' => 'required|same:password',
-            ]);
-            if (\Hash::check($request->current_password, $newUser->password)) {
-                $newUser->name = $request->name_update_profile;
-                session()->flash('msg', 'Name updated correctly!');
-            } else {
-                session()->flash('errorMsg', 'Invalid password!');
-            }
-        }  //ADMIN NAME UPDATE
-        elseif ($request->filled('name_update')) {
+        if (\Hash::check($request->current_password_name, $newUser->password)) {
+            $newUser->name = $request->name_update_profile;
+            $newUser->update();
+            session()->flash('msg', 'Name updated correctly!');
+        } else {
+            session()->flash('errorMsg', 'Invalid password!');
+        }
+        return back();
+    }
+
+    public function updateProfilePassword(Request $request)
+    {
+        $request->validate([
+            'id_update' => 'required'
+        ]);
+        $newUser = User::find($request->id_update);
+        $request->validate([
+            'password_update_profile' => 'required|max:50',
+            'password_password' => 'required',
+            'current_password_password' => 'required|same:password_password',
+        ]);
+        if (\Hash::check($request->current_password_password, $newUser->password)) {
+            $newUser->password = \Hash::make($request['password_update_profile']);
+            $newUser->update();
+            session()->flash('msg', 'Password updated correctly!');
+        } else {
+            session()->flash('errorMsg', 'Invalid current password!');
+        }
+        return back();
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'id_update' => 'required'
+        ]);
+        $newUser = User::find($request->id_update);
+
+
+        if ($request->filled('name_update')) {
             $request->validate([
                 'name_update' => 'max:50',
             ]);
             $newUser->name = $request->name_update;
         }
-
-        //THIS IS FOR PROFILE SETTINGS PASS UPDATE
-        if ($request->filled('password_update_profile')  && $request->filled('password') && $request->filled('current_password')) {
-            $request->validate([
-                'password_update_profile => required|max:50',
-                'password' => 'required',
-                'current_password' => 'required|same:password',
-            ]);
-            $newUser->password = \Hash::make($request['password_update_profile']);
-            session()->flash('msg', 'Password updated correctly!');
-        }  //ADMIN PASS UPDATE
-        elseif ($request->filled('password_update')) {
+        if ($request->filled('password_update')) {
             $request->validate(['password_update' => 'max:50']);
             $newUser->password = \Hash::make($request->password_update);
         }
@@ -134,13 +154,14 @@ class UserController extends Controller
         return back();
     }
 
-    public function addBalance(Request $request) {
+    public function addBalance(Request $request)
+    {
         $request->validate([
             'addBalance' => 'required|numeric|gte:0|max:1000000000'
         ]);
         $user = User::find($request->userId);
         $newBalance = $user->balance + $request->addBalance;
-        if($newBalance > self::MAX_BALANCE){
+        if ($newBalance > self::MAX_BALANCE) {
             $newBalance = self::MAX_BALANCE;
             return throw ValidationException::withMessages([
                 'addBalance' => 'Maximum balance overloaded. You can own a maximum of 1000M of ETH in your account.'
