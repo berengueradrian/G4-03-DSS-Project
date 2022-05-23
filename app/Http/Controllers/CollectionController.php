@@ -38,20 +38,14 @@ class CollectionController extends Controller
             'img_url' => 'max:50'
         ]);
 
-        $collection = Collection::create([
-            'name' => $data->name,
-            'description' => $data->description,
-            'artist_id' => $data->artist_id,
-        ]);
+        $collection = Collection::createCollection($data->name, $data->description, $data->artist_id);
 
         if ($data->filled('img_url')) {
             $data->validate(['img_url' => 'max:50']);
-            $collection->img_url = $data->img_url;
         } else {
-            $collection->img_url = 'default.jpg';
+            $data->img_url = 'default.jpg';
         }
-
-        $collection->save();
+        Collection::updateAfterCreate($collection, $data);
 
         return back()->with('message', 'Collection created successfully!');
     }
@@ -62,7 +56,7 @@ class CollectionController extends Controller
             'iddelete' => 'required|exists:collections,id'
         ]);
         $collection = Collection::find($request->iddelete);
-        $collection->delete();
+        Collection::deleteCollection($collection);
         return back();
     }
 
@@ -86,30 +80,20 @@ class CollectionController extends Controller
                 'id' => 'required|numeric|exists:collections,id'
             ]);
         }
-
-
-        $newCollection = Collection::find($request->id);
-
-        if ($request->name_final != null) {
-            $newCollection->name = $request->name_final;
-        }
-
         if ($request->description_update != null) {
             $request->validate([
                 'description_update' => 'max:50'
             ]);
-            $newCollection->description = $request->description_update;
-        }
-        if ($request->artist_id_update != null) {
-            $newCollection->artist_id = $request->artist_id_update;
         }
         if ($request->img_url_update != null) {
             $request->validate([
                 'img_url_update' => 'max:50'
             ]);
-            $newCollection->img_url = $request->img_url_update;
         }
-        $newCollection->update();
+
+        $newCollection = Collection::find($request->id);
+        Collection::updateCollection($newCollection, $request);
+
         return back();
     }
 
@@ -157,7 +141,27 @@ class CollectionController extends Controller
         }
     }
 
-   
+    public function addCollection(Request $request, $artist)
+    {
+        $request->validate([
+            'name' => 'required|max:50',
+            'description' => 'required|max:50',
+            'img_url' => 'max:50'
+        ]);
+
+        $collection = Collection::createCollection($request->name, $request->description, $request->artist_id);
+
+        if ($request->filled('img_url')) {
+            $request->validate(['img_url' => 'max:50']);
+        } else {
+            $request->img_url = 'default.jpg';
+        }
+
+        Collection::updateAfterCreate($collection, $request);
+
+        return back()->with('message', 'Collection created successfully!');
+    }
+
     public function edit(Request $request)
     {
         if ($request->name_update == '') {
@@ -178,30 +182,19 @@ class CollectionController extends Controller
                 'id' => 'required|numeric|exists:collections,id'
             ]);
         }
-
-
-        $newCollection = Collection::find($request->id);
-
-        if ($request->name_final != null) {
-            $newCollection->name = $request->name_final;
-        }
-
         if ($request->description_update != null) {
             $request->validate([
                 'description_update' => 'max:50'
             ]);
-            $newCollection->description = $request->description_update;
-        }
-        if ($request->artist_id_update != null) {
-            $newCollection->artist_id = $request->artist_id_update;
         }
         if ($request->img_url_update != null) {
             $request->validate([
                 'img_url_update' => 'max:50'
             ]);
-            $newCollection->img_url = $request->img_url_update;
         }
-        $newCollection->update();
+
+        $newCollection = Collection::find($request->id);
+        Collection::updateCollection($newCollection, $request);
 
         return back()->with('message', 'Collection edited successfully!');
     }
