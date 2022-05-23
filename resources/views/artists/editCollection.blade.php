@@ -38,7 +38,7 @@
 
         <div class="choose-file" style="display:flex; flex-flow:column">
         <text> Select your collection cover!</text>
-            <input type="file" name="img_url_update" onkeyup='saveValue(this)' class="custom-file-upload" id="img_url_update">
+            <input type="file" name="img_url_update"  class="custom-file-upload" id="img_url_update">
         </div>
         @if ($errors->has('img_url_update'))
         @foreach ($errors->get('img_url_update') as $error)
@@ -49,7 +49,7 @@
         <input style="display:none" type="number" class="form-control" name="id" value="{{ $collection->id}}" placeholder="Identifier of the collection" aria-label="id" aria-describedby="basic-addon1" id="id">
     
     <div class="name-input">
-        <input type="text" class="form-control" onkeyup='saveValue(this)' value="{{ $collection->name }}" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" name="name_update" id="name_update">
+        <input type="text" class="form-control" value="{{ $collection->name }}" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" name="name_update" id="name_update">
     </div>
     @if ($errors->has('name_update'))
         @foreach ($errors->get('name_update') as $error)
@@ -58,7 +58,7 @@
     @endif
 
     <div class="description-input">
-        <textarea placeholder="Description" class="form-control" onkeyup='saveValue(this)' value="{{ $collection->description }}" 
+        <textarea placeholder="Description" class="form-control"  value="{{ $collection->description }}" 
          name="description_update" id="description_update">{{ $collection->description }}</textarea>
     </div>
     @if ($errors->has('description_update'))
@@ -103,31 +103,6 @@
     
 
 </div>
-<script>
-
-    saveValue(document.getElementById("name_update"));
-    saveValue(document.getElementById("description_update"));
-    saveValue(document.getElementById("img_url_update"));
-
-    document.getElementById("name_update").value = getSavedValue("name_update");
-    document.getElementById("description_update").innerHTML = getSavedValue("description_update");
-    document.getElementById("img_url_update").value = getSavedValue("img_url_update");
-
-    function saveValue(e){
-        var id = e.id;
-        var val = e.value;
-        localStorage.setItem(id, val);
-    }
-
-    function getSavedValue(v){
-        if(!localStorage.getItem(v)){
-            return "";
-        }
-        return localStorage.getItem(v);
-
-    }
-
-</script>
 <style lang="scss">
     a:hover {
     color:#FFF; 

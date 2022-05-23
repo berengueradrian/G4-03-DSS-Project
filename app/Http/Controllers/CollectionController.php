@@ -94,7 +94,7 @@ class CollectionController extends Controller
         $newCollection = Collection::find($request->id);
         Collection::updateCollection($newCollection, $request);
 
-        return back();
+        return back()->with('message','Collection updated successfully!');
     }
 
     public function sortByName(Request $request)
