@@ -20,7 +20,7 @@ class ImageUploadController extends Controller
             $data['img_url'] = $filename;
             session()->flash('msg', 'Image uploaded correctly!');
         }
-        return back();
+        return back()->with('message','Image uploaded! Select it to set it up');
     }
 
    /*  //Store image

@@ -126,7 +126,7 @@
         align-self: flex-start;
         height: 100%;
         margin-bottom: 20px;
-    }
+    }   
 
     .collection{
         margin-left: 7%;

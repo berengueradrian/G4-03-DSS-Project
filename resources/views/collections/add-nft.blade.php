@@ -1,6 +1,17 @@
 @extends('layouts')
 
 @section('content')
+<div style="height: 50px;">
+@if (session()->has('message'))
+ <div id="success"  class="alert alert-success"role="alert">
+    {{session()->get('message')}}
+</div> 
+<script>
+    setTimeout(() => {document.getElementById("success").style.display = "none";}, 4000);
+
+</script>
+@endif
+</div>
 <h1>ADD YOUR NFT</h1>
 <div class="add-nft">
     <div class="foticos" style="display: contents ;">
@@ -27,16 +38,31 @@
         <text> Select your NFT image!</text>
             <input type="file"  name="img_url" class="custom-file-upload" id="img_url">
         </div>
+        @if ($errors->has('img_url'))
+        @foreach ($errors->get('img_url') as $error)
+            <div class="invalid-tooltip mb-3">{{ $error }}</div>
+        @endforeach
+        @endif
         
         <div class="name-input">
             <input type="text" class="form-control" placeholder="Name" name="name" id = "name" aria-label="Name" aria-describedby="basic-addon1">
         </div>
+        @if ($errors->has('name'))
+        @foreach ($errors->get('name') as $error)
+            <div class="invalid-tooltip mb-3">{{ $error }}</div>
+        @endforeach
+        @endif
         <div class="input-group mb-3 price">
             <input type="text" class="form-control" placeholder="Base price"  name="base_price" id="base_price" aria-label="Base price" aria-describedby="basic-addon1">
             <select class="custom-select">
                 <option selected>ETH</option>
             </select>
         </div>
+        @if ($errors->has('base_price'))
+        @foreach ($errors->get('base_price') as $error)
+            <div class="invalid-tooltip mb-3">{{ $error }}</div>
+        @endforeach
+        @endif
         <div class="tipo">
             <select class="custom-select" id="tipo" onchange="setType(this)"> 
                     <option selected value="1" id="tipo"> Common</option>
@@ -45,6 +71,11 @@
                     <option value="4" id="tipo">Very Exclusive</option>
                     <option value="5" id="tipo">Legendary</option>
             </select>
+            @if ($errors->has('type_id'))
+            @foreach ($errors->get('type_id') as $error)
+            <div class="invalid-tooltip mb-3">{{ $error }}</div>
+            @endforeach
+            @endif
             <input style="display:none" type="number" class="form-control"  value="1" name="type_id" id="type_id" aria-label="type_id" aria-describedby="basic-addon1">
             <script>
                 function setType(tipo){
@@ -52,6 +83,7 @@
                 }
             </script>
         </div>
+
         
         <div class="btn-add-nft">
             <button style="width:100%; margin-top:30px;" type="sumbit" class="btn btn-outline-dark ">Add NFT</button>
@@ -62,6 +94,20 @@
     </a> 
 </div>
 <style lang="scss">
+    .app-main{
+        margin-top: 90px!important;
+    }
+    
+    .invalid-tooltip{
+        display: block!important;
+        position:relative!important;
+        width: fit-content!important;
+        top:1px;
+        align-self: flex-start;
+        margin-left: 16%;
+    }
+    
+    
     h1{
         text-align: center;
     }

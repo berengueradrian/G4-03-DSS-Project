@@ -1,12 +1,22 @@
-<!DOCTYPE html>
-<html>
-@extends('layouts')
 
+@extends('layouts')
+ 
 @section('content')
-<h1>CREATE YOUR COLLECTION</h1>
+<div style="height: 40px;">
+@if (session()->has('message'))
+ <div id="success"  class="alert alert-success"role="alert">
+    {{session()->get('message')}}
+</div> 
+<script>
+    setTimeout(() => {document.getElementById("success").style.display = "none";}, 4000);
+
+</script>
+@endif
+</div>
+<h1 style="margin-top: 20px ;">CREATE YOUR COLLECTION</h1>
 <div class="add-collection">
     <div class="portada-artist">
-        <div class="foticos" >
+        <div class="foticos" style="text-align: center;">
             <text> Upload your collection cover!</text>
             <!--THIS IS FOR UPLOADING PHOTO TO PUBLIC FOLDER -->
             <form method="post" action="{{ route('images.store') }}" enctype="multipart/form-data">
@@ -29,8 +39,8 @@
         @csrf
         @method('POST')
         
-        <div class="choose-file">
-        <text> Select your collection cover!</text>
+        <div class="choose-file" style="text-align: center;">
+        <text> Select your collection cover!</text><br> 
             <input type="file"  name="img_url" class="custom-file-upload" id="img_url">
         </div>
         @if ($errors->has('img_url'))
@@ -58,9 +68,11 @@
         @endforeach
         @endif
 
+
+       
         <div class="create-col-btn">
-            <button type="sumbit" class="btn btn-outline-dark btn-lg">&nbsp;Create &nbsp;</button>
-             
+            <button type="sumbit" class="btn btn-outline-dark btn-lg" onclick="showSuccess()">&nbsp;Create &nbsp;</button>
+
         </div>
 
     </form>
@@ -72,10 +84,8 @@
     
 </div>
 
+
 <style lang="scss">
-
-
-
 
     h1{
         text-align: center;
@@ -117,6 +127,9 @@
         margin-bottom: 40px;
     }
 
+    .app-main{
+        margin-top: 90px!important;
+    }
     .create-collection-container{
         display: flex;
         flex-flow: column;
@@ -124,9 +137,15 @@
         width: 100%;
     }
 
-    
+    .invalid-tooltip{
+        display: block!important;
+        position:relative!important;
+        width: fit-content!important;
+        top:1px;
+        align-self: flex-start;
+        margin-left: 16%;
+    }
     
 
 </style>
 @endsection
-</html>
