@@ -15,7 +15,7 @@ class TypeController extends Controller
 
     public function getAll()
     {
-        $types = Type::paginate(5);
+        $types = Type::getAll();
         return view('types.list')->with('types', $types);
     }
 
@@ -28,13 +28,7 @@ class TypeController extends Controller
 
 
         ]);
-
-        Type::create([
-            'name' => $data->name,
-            'description' => $data->description,
-            'exclusivity' => $data->exclusivity
-        ]);
-
+        Type::createType($data->name, $data->description, $data->exclusivity);
         return back();
     }
 
@@ -50,6 +44,7 @@ class TypeController extends Controller
 
     public function update(Request $request)
     {
+        $updates = ['name_update' => false, 'description_update' => false, 'exclusivity_update' => false];
         $request->validate([
             'id_update' => 'required|exists:types,id',
         ]);
@@ -58,62 +53,27 @@ class TypeController extends Controller
             $request->validate([
                 'name_update' => 'unique:types,name|max:50',
             ]);
-            $newType->name = $request->name_update;
+            $updates['name_update'] = $request->name_update;
         }
         if ($request->filled('description_update')) {
             $request->validate([
                 'description_update' => 'max:50'
             ]);
-            $newType->description = $request->description_update;
+            $updates['description_update'] = $request->description_update;
         }
         if ($request->filled('exclusivity_update')) {
             $request->validate([
                 'exclusivity_update' => 'numeric|unique:types,exclusivity|gte:0|digits_between:1,8'
             ]);
-            $newType->exclusivity = $request->exclusivity_update;
+            $updates['exclusivity_update'] = $request->exclusivity_update;
         }
-
-        $newType->update();
+        Type::updateType($updates, $newType);
         return back();
     }
 
     public function sortByExclusivity(Request $request)
     {
-        if ($request->sortByExclusivity == 0) {
-            $types = Type::orderBy('exclusivity', 'ASC')->paginate(5);
-        } elseif ($request->sortByExclusivity == 1) {
-            $types = Type::orderBy('exclusivity', 'DESC')->paginate(5);
-        } else {
-            $types = Type::paginate(5);
-        }
-
+        $types = Type::sortingBy('exclusivity', $request->sortByExclusivity);
         return view('types.list')->with('types', $types);
     }
-
-    /*public function sortByCount(Request $request)
-    {
-        IT WORKS BUT CANT PAGINATE BTW
-        $types = Type::all()->toArray();
-        //How to paginate array laravel
-        if ($request->sortByCount == 0) {
-            usort($types, function ($first, $second) {
-                if ($first['count'] < $second['count']) {
-
-                    return 1;
-                }
-                return -1;
-            });
-        } elseif ($request->sortByCount == 1) {
-            usort($types, function ($first, $second) {
-                if ($first['count'] < $second['count']) {
-                    return -1;
-                }
-                return 1;
-            });
-        } else {
-            $types = Type::paginate(5);
-        }
-
-        return view('types.list')->with('types', $types);
-    }*/
 }

@@ -11,8 +11,8 @@ use App\Models\User;
 
 class NftServices {
 
-    
-    public function purchaseNFT(Request $request, int $id)
+    //TODO: review if static is working
+    public static function purchaseNFT(Request $request, int $id)
     {
         $request->validate([
             'purchase_wallet' => 'required|max:30'
