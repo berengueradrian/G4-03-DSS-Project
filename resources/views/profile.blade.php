@@ -162,7 +162,7 @@
         column-gap: 10px;
         padding: 10px 0;
         justify-content: center;
-        width: fit-content !important; 
+        width: fit-content !important;
     }
 
     .center {
@@ -205,17 +205,7 @@
         position: relative;
     }
 
-    .content .left-side::before {
-        content: '';
-        position: absolute;
-        height: 70%;
-        width: 2px;
-        margin-right: 50px;
-        right: -15px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: #afafb6;
-    }
+
 
     .content .left-side .details {
         margin: 14px;

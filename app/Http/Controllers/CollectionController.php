@@ -25,7 +25,7 @@ class CollectionController extends Controller
 
     public function getAll()
     {
-        $collections = Collection::paginate(5);
+        $collections = Collection::getAll();
         return view('collections.list')->with('collections', $collections);
     }
 

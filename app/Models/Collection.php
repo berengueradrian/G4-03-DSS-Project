@@ -19,7 +19,13 @@ class Collection extends Model
         'artistName'
     ];
 
-    public static function createCollection($name, $description, $artist_id) {
+    public static function getAll()
+    {
+        return Collection::paginate(5);
+    }
+
+    public static function createCollection($name, $description, $artist_id)
+    {
         return Collection::create([
             'name' => $name,
             'description' => $description,
@@ -27,19 +33,22 @@ class Collection extends Model
         ]);
     }
 
-    public static function updateAfterCreate($collection, $data) {
+    public static function updateAfterCreate($collection, $data)
+    {
         $collection->img_url = $data->img_url;
         $collection->save();
     }
 
-    public static function deleteCollection($collection) {
+    public static function deleteCollection($collection)
+    {
         $collection->delete();
     }
 
-    public static function updateCollection($newCollection, $request) {
+    public static function updateCollection($newCollection, $request)
+    {
 
         $newCollection->name = $request->name_final;
-        if($request->description_update) {
+        if ($request->description_update) {
             $newCollection->description = $request->description_update;
         }
         if ($request->description_update != null) {
@@ -51,17 +60,19 @@ class Collection extends Model
         $newCollection->update();
     }
 
-    public function getArtistNameAttribute() {
+    public function getArtistNameAttribute()
+    {
         $artist = Artist::whereId($this->artist_id)->first();
         return $artist;
     }
 
-    public function artist() {
+    public function artist()
+    {
         return $this->belongsTo(Artist::class);
     }
 
-    public function nfts() {
+    public function nfts()
+    {
         return $this->hasMany(Nft::class);
     }
-
 }

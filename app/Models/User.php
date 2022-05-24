@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Validation\ValidationException;
 
 class User extends Authenticatable
 {
@@ -53,28 +54,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    const MAX_BALANCE = 1000000000;
+
     public static function getAll()
     {
         return User::paginate(5);
     }
 
-    public static function createUser($name, $email, $password, $balance)
+    public static function createUser($name, $email, $password)
     {
         return User::create([
             'name' => $name,
             'email' => $email,
-            'password' => \Hash::make($password), //TODO: review
-            'balance' => $balance
+            'password' => \Hash::make($password)
         ]);
     }
 
     public static function updateAfterCreate($user, $request)
     {
-        //if($request->balance){
-        //TODO: poner un if porque si no meto valores peta
         $user->balance = $request->balance;
-
-
         $user->img_url = $request->img_url;
         $user->save();
     }
@@ -130,6 +128,19 @@ class User extends Authenticatable
         $newUser->update();
     }
 
+    public static function updateAddBalance($newUser, $request)
+    {
+
+        $newBalance = $newUser->balance + $request->addBalance;
+        if ($newBalance > self::MAX_BALANCE) {
+            $newBalance = self::MAX_BALANCE;
+            return throw ValidationException::withMessages([
+                'addBalance' => 'Maximum balance overloaded. You can own a maximum of 1000M of ETH in your account.'
+            ]);
+        }
+        $newUser->balance = $newBalance;
+        $newUser->update();
+    }
 
     public static function sortingBy($field, $order)
     {

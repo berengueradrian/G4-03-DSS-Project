@@ -4,13 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Validation\ValidationException;
-use Hash;
 
 class UserController extends Controller
 {
-
-    const MAX_BALANCE = 1000000000;
 
     public function get(User $user)
     {
@@ -29,22 +25,21 @@ class UserController extends Controller
             'name' => 'required|max:50',
             'email' => 'required|max:50|unique:users,email',
             'password' => 'required|max:50',
-            'balance' => 'required|gte:0|numeric|digits_between:1,20', //mmm
         ]);
 
-        $user = User::createUser($request->name, $request->email, $request->password, $request->balance);
+        $user = User::createUser($request->name, $request->email, $request->password);
 
         if ($request->balance != null) {
             $request->validate(['balance' => 'numeric|gte:0|digits_between:1,20']);
         } else {
-            $user->balance = 0.0;
+            $request->balance = 0.0;
         }
         if ($request->img_url != null) {
             $request->validate([
                 'img_url' => 'max:50',
             ]);
         } else {
-            $user->img_url = 'default.jpg';
+            $request->img_url = 'default.jpg';
         }
 
         User::updateAfterCreate($user, $request);
@@ -151,16 +146,7 @@ class UserController extends Controller
             'addBalance' => 'required|numeric|gte:0|max:1000000000'
         ]);
         $user = User::find($request->userId);
-        $newBalance = $user->balance + $request->addBalance;
-        if ($newBalance > self::MAX_BALANCE) {
-            $newBalance = self::MAX_BALANCE;
-            return throw ValidationException::withMessages([
-                'addBalance' => 'Maximum balance overloaded. You can own a maximum of 1000M of ETH in your account.'
-            ]);
-        }
-        //TODO:!
-        $user->balance = $newBalance;
-        $user->update();
+        User::updateAddBalance($user, $request);
         return back();
     }
 
