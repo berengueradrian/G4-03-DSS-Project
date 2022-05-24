@@ -186,12 +186,17 @@ Route::get('/profileSettings/artists', [ArtistController::class, 'getProfileSett
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-//ARTIST ADD COLLECTION AND ADD NFT
-Route::get('/profile/artists/{artist}/addCollection', [ArtistController::class, 'addCollection'])->middleware('artist');
-Route::post('/addCollection', [CollectionController::class, 'store'])->name('collection.add')->middleware('artist');
-Route::get('/profile/artists/{artist}/collections/{collection}/edit', [ArtistController::class, 'editCollection']);
-Route::put('/collections', [CollectionController::class, 'edit'])->name('collection.edit')->middleware('artist');
-Route::get('/profile/artists/{artist}/collections/{collection}/edit/addNft', [ArtistController::class, 'addNft'])->middleware('artist');
-Route::post('collections/{collection}/addNft', [NftController::class, 'addNft'])->name('nft.add');
+//Artist collections and nfts control
+//Delete methods for nfts and collections
 Route::delete('/nfts', [NftController::class, 'delete'])->name('nft.delete-from-artist')->middleware('artist');
 Route::delete('/collections', [CollectionController::class, 'delete'])->name('collection.delete-from-artist')->middleware('artist');
+
+//Edit collection
+Route::put('/collections', [CollectionController::class, 'edit'])->name('collection.edit')->middleware('artist');
+Route::get('/profile/artists/{artist}/collections/{collection}/edit', [ArtistController::class, 'editCollection'])->middleware('artist');
+
+//Add collections and nfts
+Route::get('/profile/artists/{artist}/addCollection', [ArtistController::class, 'addCollection'])->middleware('artist');
+Route::get('/profile/artists/{artist}/collections/{collection}/edit/addNft', [ArtistController::class, 'addNft'])->middleware('artist');
+Route::post('/addCollection', [CollectionController::class, 'store'])->name('collection.add')->middleware('artist');
+Route::post('collections/{collection}/addNft', [NftController::class, 'addNft'])->name('nft.add')->middleware('artist');
