@@ -90,6 +90,9 @@
 </div>
 @endsection
 
+<script>
+            localStorage.clear();</script>
+
 <style lang="scss">
     
     .invalid-tooltip {

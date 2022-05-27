@@ -64,18 +64,18 @@
     <div class="listado">
 
         @for ($i = 0; $i < Auth::guard('custom')->user()->collections->count(); $i++)
-            <form action="{{ route('collection.delete-from-artist') }}" method="POST" class="needs-validation create-collection-container" onsubmit="return confirm('Do you really want to delete the collection?');">
+            <!-- <form action="{{ route('collection.delete-from-artist') }}" method="POST" class="needs-validation create-collection-container" onsubmit="return confirm('Do you really want to delete the collection?');">
             @csrf
             @method('DELETE')
             <input type="text" class="form-control" style="display:none;" name="iddelete" value="{{Auth::guard('custom')->user()->collections[$i]->id}}" placeholder="Identifier of the collection" 
-                aria-label="iddelete" aria-describedby="basic-addon10" id="iddelete" >
-                    <div class="col" style="width: 150px;  position: relative;">
+                aria-label="iddelete" aria-describedby="basic-addon10" id="iddelete" > 
+                    <div class="col" style="width: 150px;  position: relative;">-->
                     <a href='/collections/{{ Auth::guard('custom')->user()->collections[$i]->id }}'>
                         <img src="/images/{{Auth::guard('custom')->user()->collections[$i]->img_url}}" width="150" alt="">
                     </a>
-                    <button  type="sumbit" class="remove-image" style="display: flex; align-items:center;">&#215; <text style="font-size: 8px;">&nbsp;Collection</text></button>
+                    <!-- <button  type="sumbit" class="remove-image" style="display: flex; align-items:center;">&#215; <text style="font-size: 8px;">&nbsp;Collection</text></button> 
                     </div>
-            </form>
+            </form> -->
         @endfor
 
     </div>
@@ -83,6 +83,8 @@
 </div>
 @endsection
 <script>
+    localStorage.clear();
+    
     function borrarCuenta(){
         if(confirm('Estas seguro?')){
             document.forms.deleteArtist.submit();

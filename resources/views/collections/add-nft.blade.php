@@ -90,7 +90,7 @@
         </div>
     </form>
     <a href="/profile/artists/{{$collection->artist_id}}/collections/{{$collection->id}}}/edit" >
-            <button  class="btn btn-light btn-sm">&nbsp;Back &nbsp;</button>
+            <button  class="btn btn-light btn-sm" style="margin-top:20px;">&nbsp;Back &nbsp;</button>
     </a> 
 </div>
 <style lang="scss">

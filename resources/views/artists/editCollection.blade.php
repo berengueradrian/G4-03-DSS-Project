@@ -47,9 +47,12 @@
         @endif
 
         <input style="display:none" type="number" class="form-control" name="id" value="{{ $collection->id}}" placeholder="Identifier of the collection" aria-label="id" aria-describedby="basic-addon1" id="id">
+        <input style="display:none" type="number" class="form-control" name="artist_id_update" value="{{ $collection->artist_id}}" placeholder="Identifier of the artist" aria-label="artist_id_update" aria-describedby="basic-addon1" id="artist_id_update">
+        
     
     <div class="name-input">
-        <input type="text" class="form-control" value="{{ $collection->name }}" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" name="name_update" id="name_update">
+        <input onkeyup='saveValue(this);' type="text" class="form-control"
+            placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" name="name_update" id="name_update">
     </div>
     @if ($errors->has('name_update'))
         @foreach ($errors->get('name_update') as $error)
@@ -58,7 +61,7 @@
     @endif
 
     <div class="description-input">
-        <textarea placeholder="Description" class="form-control"  value="{{ $collection->description }}" 
+        <textarea onkeyup='saveValue(this);' placeholder="Description" class="form-control" 
          name="description_update" id="description_update">{{ $collection->description }}</textarea>
     </div>
     @if ($errors->has('description_update'))
@@ -67,42 +70,83 @@
         @endforeach
     @endif
 
-    <div class="create-col-btn">
+
+    <div class="save-changes-btn">
+        <button type="sumbit" class="btn btn-dark btn-lg">&nbsp;Save changes &nbsp;</button>
+    </div>
+    </form>
+
+    <h1>Added NFTS</h1>
+
+    <div class="add-nft-btn" style="margin-top:25px;">
         <a href="/profile/artists/{{$collection->artist_id}}/collections/{{$collection->id}}/edit/addNft">
-        <button type="button" class="btn btn-outline-dark btn-lg">&nbsp;Add NFT &nbsp;</button>
+        <button type="button" class="btn btn-outline-dark btn">&nbsp;Add NFT &nbsp;</button>
         </a>
         
     </div>
 
+    
     <div class="added-nfts" style="display: flex; flex-wrap:wrap;">
         @foreach ($collection->nfts as $nft)
+        <div class="nft" style="width: 300px; margin:25px; position: relative;"> 
+        <!-- Form for delete a collection from the artist profile, disabled for the moment-->
+            @if ($nft->user_id==NULL)
             <form></form>
-            <form action="{{ route('nft.delete-from-artist') }}" method="POST" class="needs-validation create-collection-container" onsubmit="return confirm('Do you really want to delete the nft?');">
+            <form action="{{ route('nft.delete-from-artist') }}" method="POST" style="display: flex; justify-content:center;"
+                class="needs-validation create-collection-container" onsubmit="return confirm('Do you really want to delete the nft?');">
             @csrf
             @method('DELETE')
             <input type="text" class="form-control" style="display:none;" name="iddelete" value="{{$nft->id}}" placeholder="Identifier of the collection" 
                 aria-label="iddelete" aria-describedby="basic-addon10" id="iddelete" >
-                    <div class="nft" style="width: 300px; margin:25px; position: relative;">
+            @endif
+                
+                    <div class="nft">
                     <a href="/nfts/buy/{{$nft->id}}">
                         <img src="/images/{{ $nft->img_url }}" width="300px" height="203.5px" alt="" style="border: 1px black solid">
                     </a>
-                    <button  type="sumbit" class="remove-image" style="display: flex; align-items:center;">&#215; <text style="font-size: 10px;">&nbsp;Delete Nft</text></button>
                     </div>
-            </form>
+                    @if ($nft->user_id==NULL)
+                    <button  type="sumbit" class="remove-image" style="display: flex; align-items:center;">&#215; <text style="font-size: 10px;">&nbsp;Delete Nft</text></button>
+                    @endif    
+               
+            @if ($nft->user_id==NULL)
+            </form> 
+            @endif
+            </div>
         @endforeach
     </div>
 
-    <div class="create-col-btn">
-        <button type="sumbit" class="btn btn-outline-dark btn-lg">&nbsp;Save changes &nbsp;</button>
-    </div>
-    </form>
-    <a href="/collections/{{$collection->id}}}" style="margin-bottom:40px;" >
-            <button  class="btn btn-light btn-sm">&nbsp;Back &nbsp;</button>
+    
+    <a href="/collections/{{$collection->id}}}" style="margin-bottom:10px;" >
+            <button onclick='setDefault()' class="btn btn-light btn-sm">&nbsp;Back &nbsp;</button>
     </a>
 
     
 
 </div>
+<script type="text/javascript">
+        document.getElementById("name_update").value = getSavedValue("name_update");    
+        document.getElementById("description_update").value = getSavedValue("description_update");  
+
+        function saveValue(e){
+            var id = e.id;  // get the sender's id to save it . 
+            var val = e.value; // get the value. 
+            localStorage.setItem(id, val);
+        }
+
+        function getSavedValue  (v){
+            if (!localStorage.getItem(v)) {
+                if(v=="name_update"){
+                    return "{{ $collection->name }}"
+                }else  
+                    return "{{ $collection->description }}"
+            }
+            return localStorage.getItem(v);
+        }
+        function setDefault(){
+            localStorage.clear();
+        }
+</script>
 <style lang="scss">
     a:hover {
     color:#FFF; 
@@ -112,7 +156,7 @@
     .remove-image {
     display: none;
     position: absolute;
-    top: -10px;
+    top: 10px;
     right: -10px;
     border-radius: 10em;
     padding: 2px 6px 3px;
@@ -129,12 +173,12 @@
     .remove-image:hover {
      background: #E54E4E;
       padding: 3px 7px 5px;
-      top: -11px;
+      top: 9px;
     right: -11px;
     }
     .remove-image:active {
      background: #E54E4E;
-      top: -10px;
+      top: 10px;
     right: -11px;
     }
 
@@ -183,7 +227,7 @@
         width: 70%;
     }
 
-    .create-col-btn{
+    .save-changes-btn{
         margin-top: 25px;
         margin-bottom: 40px;
     }
@@ -192,7 +236,10 @@
         display: flex;
     }
 
-    
+    .nft{
+        margin:30px;
+    }
+
     
 
 </style>
