@@ -1,5 +1,14 @@
 # G4-03-DSS-Project
 
+# Work done
+- Mario Alcaraz: 25%
+- Adrián Berenguer: 25%
+- Madani ElMrabet: 25%
+- Javier Rodríguez: 25%
+
+# Moqups Link
+https://app.moqups.com/ldDVUPvzOTAx3YpdGFBOi9ibRZbZbrDO/edit/page/a29cbacbc
+
 ### DSChain Company
 
 An ultra-intuitive implementation of the NFT marketplace to reach people with little experience in NFTs developed by:
